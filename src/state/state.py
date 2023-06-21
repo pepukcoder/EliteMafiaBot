@@ -18,7 +18,7 @@ class State:
         self.games = []
 
     def add_game(self, game: GameState):
-        self.games.add(game)
+        self.games.append(game)
 
     def remove_game(self, chat_id):
         self.games = [item for item in self.games if item.chat_id != chat_id]
