@@ -1,4 +1,4 @@
-from src.state import GameState
+from .game_state import GameState
 
 
 class State:
