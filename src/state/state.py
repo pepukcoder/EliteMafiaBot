@@ -1,9 +1,11 @@
 from .game_state import GameState
+from .registration_state import RegistrationState
 
 
 class State:
     __instance = None
     games: list[GameState]
+    registrations: list[RegistrationState]
 
     def __new__(cls, *args, **kwargs):
         if cls.__instance is None:
@@ -16,6 +18,8 @@ class State:
 
     def __int__(self):
         self.games = []
+        self.registrations = []
+
 
     def add_game(self, game: GameState):
         self.games.append(game)
