@@ -10,16 +10,13 @@ class State:
     def __new__(cls, *args, **kwargs):
         if cls.__instance is None:
             cls.__instance = super().__new__(cls)
+            cls.__instance.registrations = []
+            cls.__instance.games = []
 
         return cls.__instance
 
     def __del__(self):
         State.__instance = None
-
-    def __int__(self):
-        self.games = []
-        self.registrations = []
-
 
     def add_game(self, game: GameState):
         self.games.append(game)
