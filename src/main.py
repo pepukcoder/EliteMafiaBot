@@ -6,6 +6,8 @@ from src.misc import TgKeys
 from src.handlers import register_all_handlers
 
 
+
+
 async def __on_start_up(dp: Dispatcher) -> None:
     register_all_handlers(dp)
 
