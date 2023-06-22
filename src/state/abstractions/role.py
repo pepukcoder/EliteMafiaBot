@@ -9,5 +9,5 @@ class Role(ABC):
         pass
 
     @abstractmethod
-    def send_interactive_messages(self, bot: Bot):
+    async def send_interactive_messages(self, bot: Bot):
         pass

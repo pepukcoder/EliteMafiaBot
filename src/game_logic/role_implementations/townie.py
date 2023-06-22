@@ -7,5 +7,5 @@ class Townie(Role):
     def get_role_name(self):
         raise NotImplementedError()
 
-    def send_interactive_messages(self, bot: Bot):
+    async def send_interactive_messages(self, bot: Bot):
         pass
