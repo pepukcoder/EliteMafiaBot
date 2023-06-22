@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 
-from src.state import UserState, VoteState, InteractionHistoryRecord
+from .user_state import UserState
+from .vote_state import VoteState
+from .interaction_history_record import InteractionHistoryRecord
 
 
 @dataclass

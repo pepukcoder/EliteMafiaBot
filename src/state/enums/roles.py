@@ -2,4 +2,4 @@ import enum
 
 
 class Roles(enum.IntEnum):
-    mafia = 0
+    empty = 0
