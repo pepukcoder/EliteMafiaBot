@@ -6,3 +6,4 @@ class RegistrationState:
     chat_id: int
     user_ids: set[int]
     usernames: set[str]
+    first_names: set[str]
