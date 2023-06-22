@@ -1,9 +1,12 @@
 from dataclasses import dataclass
 
+@dataclass
+class UserInfo:
+    first_name: str
+    username: str
+
 
 @dataclass
 class RegistrationState:
     chat_id: int
-    user_ids: set[int]
-    usernames: set[str]
-    first_names: set[str]
+    users: dict[int, UserInfo] #{user_id: UserInfo()}
