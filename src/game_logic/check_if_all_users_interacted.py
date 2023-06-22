@@ -1,7 +1,6 @@
 import asyncio
 
-from src.game_logic.role_implementations import Don, Detective
-from src.state import State, GameState, UserState, InteractionHistoryRecord
+from src.state import State
 
 users_interacted_event = asyncio.Event()
 timeout_event = asyncio.Event()
