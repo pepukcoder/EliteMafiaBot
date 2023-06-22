@@ -4,4 +4,6 @@ from src.state.enums import Roles
 
 def register_game_handlers(dp: Dispatcher):
 
+
+
     pass

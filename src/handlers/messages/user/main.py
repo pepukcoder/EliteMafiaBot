@@ -44,5 +44,8 @@ def register_user_handlers(dp: Dispatcher):
             except:
                 await message.answer('ДА ТЫ УЖЕ В ИГРЕ, ДОЛБОЁБ!')
         else:
-            await message.answer(f"Yчё")
+            await message.answer(f"Зарегестрируйтесь через чат")
+    
+    
+    
     pass
