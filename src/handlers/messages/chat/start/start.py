@@ -8,10 +8,10 @@ inline = InlineKeyboardMarkup().add(join_button)
 
 
 def register_start_handlers(dp: Dispatcher):
+    state = State()
     @dp.message_handler(commands=['game'])
     async def start_game(message: types.Message):
         chat_id = message.chat.id
-        state = State()
         state.registrations.append(RegistrationState(chat_id, set(), set()))
 
         msg = await message.reply("Набор в игру начат!", reply_markup=inline)
@@ -23,19 +23,27 @@ def register_start_handlers(dp: Dispatcher):
             chat_id = call.message.chat.id
             user_id = call.from_user.id
             username = call.from_user.username
-            state = State()
             registration_state = list(filter(lambda x: x.chat_id == chat_id, state.registrations))[0]
             if not registration_state:
                 await call.answer("Problem")
 
             registration_state.user_ids.add(user_id)
             registration_state.usernames.add(username)
-
+            print(registration_state)
             try:
                 await message.edit_text("Набор в игру начат!\n*Всего игроков: " + str(len(registration_state.user_ids)) + '*\n' + '_' +
                                     ', '.join(registration_state.usernames) + '_', reply_markup=inline, parse_mode='Markdown')
             except:
                 await call.answer("Да ты уже в игре, долбоёб!")
+
+    @dp.message_handler(commands=['start'])
+    async def send_welcome(message: types.Message):
+        registration_state = list(filter(lambda x: x.chat_id == message.chat.id, state.registrations))[0]
+        print(registration_state)
+        if len(registration_state.user_ids) >= 4:
+            await message.reply("*Игра начинается!*")
+        else:
+            await message.reply("*Недостаточно игроков*")
 
 
 
