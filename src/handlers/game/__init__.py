@@ -1,1 +1,1 @@
-from .main import game_logic_handlers
+from .main import register_game_handlers
