@@ -5,7 +5,7 @@ from aiogram import Bot
 
 from src.game_logic.waiting_context import WaitingContext
 from src.game_logic.waiting_strategies import WaitingForInteractionStrategy
-#Вот это как временная хуйня онли, передавай в start_loop бота крч
+#Вот это как временная хуйня онли, передавай в start_loop бота крч. Як Ілля, жорстко плюсую
 from src.misc import TgKeys
 
 bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
@@ -22,7 +22,7 @@ async def start_loop(chat_id):
     await SendRoleNameMessagesStrategy().send(chat_id, bot)
 
     # night_roles_act
-    # wait_until_all_users_interact_or_timeout(chat_id)
+    # wait_until_all_users_interact_or_timeout
     waiting_context = WaitingContext(WaitingForInteractionStrategy())
     await waiting_context.wait(chat_id)
 

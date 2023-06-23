@@ -14,6 +14,8 @@ ADDITIONAL_ROLES = [Whore(), Omega(), Lawyer(), Alfa()]
 GOOD_ROLES = [Detective(), Doctor()]
 
 async def assign(chat_id):
+    state = State()
+
     def insert_townie_position(lst, value):
         townie_indices = [i for i, elem in enumerate(lst) if isinstance(elem, Townie)]
         if townie_indices:
@@ -121,6 +123,9 @@ async def assign(chat_id):
     for idx, x in enumerate(user_dict.users):
         users.append(UserState(username=usernames[idx], user_id=list(user_dict.users.keys())[idx], role=player_roles[idx]))
 
-    
-    
-    return users
+    game = state.get_game_or_none(chat_id)
+    game.users = users
+    state.remove_game(chat_id)
+    state.games.append(game)
+
+
