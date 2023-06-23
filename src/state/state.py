@@ -23,3 +23,11 @@ class State:
 
     def remove_game(self, chat_id):
         self.games = [item for item in self.games if item.chat_id != chat_id]
+
+    def get_game_or_none(self, chat_id):
+        games = list(filter(lambda x: x.chat_id == chat_id, self.games))
+
+        if len(games) < 1:
+            return None
+
+        return games[0]
