@@ -19,7 +19,7 @@ def assign(user_dict):
 
     def assign_roles(player_count):
         match player_count:
-            case 2:
+            case 4:
                 return assign_roles_scenario_4()
             case 5:
                 return assign_roles_scenario_5()
@@ -30,7 +30,8 @@ def assign(user_dict):
             case 8:
                 return assign_roles_scenario_8()
             case other:
-                raise ValueError("Invalid number of players.")
+                return assign_roles_scenario_8plus(player_count)
+                # raise ValueError("Invalid number of players.")
 
     def assign_roles_scenario_4():
         player_roles = [Townie()] * 4
@@ -67,7 +68,7 @@ def assign(user_dict):
 
     def assign_roles_scenario_7():
         player_roles = [Townie()]
-        bad_role = random.choice([role for role in BAD_ROLES if role.get_type() != Roles.MAFIA.value and role.get_type() != Roles.DON.value])
+        bad_role = random.choice([role for role in BAD_ROLES if role.get_type() != Roles.DON.value])
         player_roles.append(Don())
         player_roles.append(bad_role)
 
@@ -82,7 +83,26 @@ def assign(user_dict):
 
     def assign_roles_scenario_8():
         player_roles = [Townie()]*2
-        bad_role = random.choice([role for role in BAD_ROLES if role.get_type() != Roles.MAFIA.value and role.get_type() != Roles.DON.value])
+        bad_role = random.choice([role for role in BAD_ROLES if role.get_type() != Roles.DON.value])
+        player_roles.append(Don())
+        player_roles.append(bad_role)
+
+        player_roles.append(Doctor())
+        player_roles.append(Detective())
+
+        neutral_roles = random.sample(ADDITIONAL_ROLES, 2)
+        print(bad_role)
+        player_roles.extend(neutral_roles)
+        random.shuffle(player_roles)
+        return player_roles
+
+    def assign_roles_scenario_8plus(count):
+        player_roles = [Townie()]*(count-6)
+        bad_role = random.choice([role for role in BAD_ROLES if role.get_type() != Roles.DON.value])
+        if bad_role != Roles.DON.value:
+            print('bad role approved')
+        else:
+            print('don in bad role')
         player_roles.append(Don())
         player_roles.append(bad_role)
 
