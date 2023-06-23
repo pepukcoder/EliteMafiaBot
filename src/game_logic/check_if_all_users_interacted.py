@@ -1,6 +1,7 @@
 import asyncio
 
 from src.state import State
+from src.state.enums import Roles
 
 users_interacted_event = asyncio.Event()
 timeout_event = asyncio.Event()
@@ -17,7 +18,7 @@ async def check_interactions_task(chat_id: int):
         state = State()
         game = list(filter(lambda x: x.chat_id == chat_id, state.games))[0]
 
-        users_with_role = [user for user in game.users if user.role is not None]
+        users_with_role = [user for user in game.users if user.role.get_type() is not Roles.TOWNIE]
         this_day_interactions = [record for record in game.interaction_history if record.day == game.day]
 
         # if one user do one interaction by night then number of interactions == number of users with role
