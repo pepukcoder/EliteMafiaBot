@@ -31,6 +31,6 @@ def register_start_handlers(dp: Dispatcher):
 
         if len(registration_state.users.keys()) >= 2:
             await message.reply("*Игра начинается!*", parse_mode='Markdown')
-            await start_loop(registration_state, chat_id)
+            await start_loop(chat_id)
         else:
             await message.reply("*Недостаточно игроков*", parse_mode='Markdown')

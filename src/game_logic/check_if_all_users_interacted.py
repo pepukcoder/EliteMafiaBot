@@ -47,5 +47,6 @@ async def wait_until_all_users_interact_or_timeout(chat_id: int):
     tasks = []
     x = await loop.create_task(timer_task())
     y = await loop.create_task(check_interactions_task(chat_id))
-    tasks.extend(x,y)
+    tasks.append(x)
+    tasks.append(y)
     await loop.run_until_complete(asyncio.wait(tasks))
