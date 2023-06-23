@@ -8,11 +8,14 @@ from src.misc import TgKeys
 
 bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
 # --------
-send_role = SendRoleNameMessagesStrategy()
 
 async def start_loop(chat_id):
-    await assign(chat_id) # assign_roles
-    await send_role.send(chat_id, bot)
+    #assign_roles
+    await assign(chat_id) 
+
+    #send roles to pm
+    await SendRoleNameMessagesStrategy().send(chat_id, bot)
+
     # night_roles_act
     # wait_until_all_users_interact_or_timeout(chat_id)
     # set_day

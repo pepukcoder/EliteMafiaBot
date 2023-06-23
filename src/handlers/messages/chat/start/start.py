@@ -29,7 +29,7 @@ def register_start_handlers(dp: Dispatcher):
 
         first_names = [item.first_name for item in registration_state.users.values()]
 
-        if len(registration_state.users.keys()) >= 2:
+        if len(registration_state.users.keys()) >= 1:
             await message.reply("*Игра начинается!*", parse_mode='Markdown')
             await start_loop(chat_id)
         else:
