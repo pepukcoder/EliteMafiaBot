@@ -97,7 +97,7 @@ def assign_roles_scenario_8():
     return player_roles
 
 # Передаем обязательно через UserState
-def assign_roles(users):
+def assign_roles_by_list(users):
     player_count = len(users)
     player_roles = assign_roles(player_count)
 
