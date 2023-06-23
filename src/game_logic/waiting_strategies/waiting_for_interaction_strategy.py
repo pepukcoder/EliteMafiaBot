@@ -14,7 +14,10 @@ class WaitingForInteractionStrategy(Strategy):
             timer += timer_step
 
             state = State()
-            game = list(filter(lambda x: x.chat_id == game_chat_id, state.games))[0]
+            game = state.get_game_or_none(game_chat_id)
+
+            if game is None:
+                raise ValueError("Game can't be None")
 
             users_with_role = [user for user in game.users if user.role.get_type() is not Roles.TOWNIE]
             this_day_interactions = [record for record in game.interaction_history if record.day == game.day]

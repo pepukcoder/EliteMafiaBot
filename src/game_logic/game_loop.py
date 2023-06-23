@@ -1,8 +1,9 @@
 from src.game_logic.role_implementations import assign
-from src.game_logic import wait_until_all_users_interact_or_timeout
 from src.game_logic.sending_strategies import SendRoleNameMessagesStrategy
 from aiogram import Bot
 
+from src.game_logic.waiting_context import WaitingContext
+from src.game_logic.waiting_strategies import WaitingForInteractionStrategy
 #Вот это как временная хуйня онли, передавай в start_loop бота крч
 from src.misc import TgKeys
 
@@ -18,6 +19,9 @@ async def start_loop(chat_id):
 
     # night_roles_act
     # wait_until_all_users_interact_or_timeout(chat_id)
+    waiting_context = WaitingContext(WaitingForInteractionStrategy())
+    await waiting_context.wait(chat_id)
+
     # set_day
     # show_interaction_history
     # show_alive
