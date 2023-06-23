@@ -1,3 +1,4 @@
+from src.game_logic.create_game_state import create_game_state
 from src.game_logic.role_implementations import assign
 from src.game_logic.sending_strategies import SendRoleNameMessagesStrategy
 from aiogram import Bot
@@ -11,6 +12,9 @@ bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
 # --------
 
 async def start_loop(chat_id):
+    #create_game_state
+    create_game_state(chat_id)
+
     #assign_roles
     await assign(chat_id) 
 
