@@ -9,8 +9,13 @@ from src.functions import send_to_pm
 class SendRoleNameMessagesStrategy(Strategy):
     async def send(self, game_chat_id: int, bot: Bot):
         state = State()
-        users = state.get_game_or_none(game_chat_id).users
-        for user in users:
-            role_name = str(user.role) if user.role else "👨🏼Мирный житель"
-            #await message.reply(f"Username: {user.username}, id: {user.user_id}, Role: {role_name}")
-            await send_to_pm(user.user_id, f"Твоя роль - {role_name}")
+        try:
+            users = state.games[game_chat_id].users
+
+            for user in users:
+                role_name = str(user.role) if user.role else "👨🏼Мирный житель"
+                # await message.reply(f"Username: {user.username}, id: {user.user_id}, Role: {role_name}")
+                await send_to_pm(user.user_id, f"Твоя роль - {role_name}")
+
+        except KeyError:
+            print(f"Game {game_chat_id} not found")

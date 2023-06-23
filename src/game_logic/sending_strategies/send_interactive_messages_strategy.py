@@ -8,6 +8,10 @@ class SendInteractiveMessagesStrategy(Strategy):
 
     async def send(self, game_chat_id: int, bot: Bot):
         state = State()
-        game = list(filter(lambda x: x.chat_id == game_chat_id, state.games))[0]
-        for user in game.users:
-            user.role.send_interactive_messages(bot)
+        try:
+            game = state.games[game_chat_id]
+
+            for user in game.users:
+                user.role.send_interactive_messages(bot)
+        except KeyError:
+            print(f"Game {game_chat_id} not found")

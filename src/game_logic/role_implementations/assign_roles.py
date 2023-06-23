@@ -123,9 +123,7 @@ async def assign(chat_id):
     for idx, x in enumerate(user_dict.users):
         users.append(UserState(username=usernames[idx], user_id=list(user_dict.users.keys())[idx], role=player_roles[idx]))
 
-    game = state.get_game_or_none(chat_id)
-    game.users = users
-    state.remove_game(chat_id)
-    state.games.append(game)
-
-
+    try:
+        state.games[chat_id].users = users
+    except KeyError:
+        print(f"Game {chat_id} not found")

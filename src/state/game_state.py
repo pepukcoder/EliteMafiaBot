@@ -8,7 +8,6 @@ from .interaction_history_record import InteractionHistoryRecord
 @dataclass
 class GameState:
     day: int
-    chat_id: int
     is_day: bool
     users: list[UserState]
     votes: list[VoteState]
