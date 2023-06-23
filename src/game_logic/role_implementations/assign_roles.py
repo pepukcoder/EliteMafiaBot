@@ -11,12 +11,10 @@ ADDITIONAL_ROLES = [Whore(), Omega(), Lawyer(), Alfa()]
 GOOD_ROLES = [Detective(), Doctor()]
 
 def insert_none_position(lst, value):
-    none_indices = [i for i, elem in enumerate(lst) if isinstance(elem, NoneRole)]
+    none_indices = [i for i, elem in enumerate(lst) if elem is None]
     if none_indices:
         random_index = random.choice(none_indices)
         lst[random_index] = value
-    else:
-        lst.append(value)
 
 
 
