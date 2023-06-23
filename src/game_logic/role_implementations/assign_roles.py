@@ -5,12 +5,13 @@ import enum
 from src.state.enums import Roles
 from src.game_logic.role_implementations import Don, Mafia, Liar, Informant, Doctor, Detective, Whore, Omega, Lawyer, Alfa, Townie
 from src.state import UserState
+from src.handlers.messages.chat.start.functions import send_to_pm
 
 BAD_ROLES = [Don(), Mafia(), Liar(), Informant()]
 ADDITIONAL_ROLES = [Whore(), Omega(), Lawyer(), Alfa()]
 GOOD_ROLES = [Detective(), Doctor()]
 
-def assign(user_dict):
+async def assign(user_dict):
     def insert_townie_position(lst, value):
         townie_indices = [i for i, elem in enumerate(lst) if isinstance(elem, Townie)]
         if townie_indices:
@@ -124,7 +125,8 @@ def assign(user_dict):
         users.append(UserState(username=usernames[idx], user_id=list(user_dict.users.keys())[idx], role=player_roles[idx]))
 
     for user in users:
-        role_name = user.role.__class__.__name__ if user.role else "None"
-        print(f"Username: {user.username}, id: {user.user_id}, Role: {role_name}")
+        role_name = str(user.role) if user.role else "👨🏼Мирный житель"
+        #await message.reply(f"Username: {user.username}, id: {user.user_id}, Role: {role_name}")
+        await send_to_pm(user.user_id, f"Твоя роль - {role_name}")
     
     return users

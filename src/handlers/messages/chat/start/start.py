@@ -2,9 +2,8 @@ from aiogram import Dispatcher, executor, types
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from src.state import State, RegistrationState, UserInfo
 from aiogram.utils.deep_linking import get_start_link
-from src.game_logic.role_implementations import assign
 from src.state import GameState
-from src.handlers.messages.chat.start.functions import send_to_pm
+from src.game_logic import start_loop
 
 state = State()
 
@@ -29,16 +28,9 @@ def register_start_handlers(dp: Dispatcher):
         chat_id = message.chat.id
 
         first_names = [item.first_name for item in registration_state.users.values()]
-        gamestate = GameState(0, chat_id, 0, first_names, [], [])
 
         if len(registration_state.users.keys()) >= 2:
             await message.reply("*Игра начинается!*", parse_mode='Markdown')
-            x = assign(registration_state)
-            state.add_game(gamestate)
-
-            for user in x:
-                role_name = str(user.role) if user.role else "👨🏼Мирный житель"
-                #await message.reply(f"Username: {user.username}, id: {user.user_id}, Role: {role_name}")
-                await send_to_pm(user.user_id, f"Твоя роль - {role_name}")
+            await start_loop(registration_state, chat_id)
         else:
             await message.reply("*Недостаточно игроков*", parse_mode='Markdown')
