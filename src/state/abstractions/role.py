@@ -5,7 +5,7 @@ from aiogram import Bot
 
 class Role(ABC):
     @abstractmethod
-    def get_role_name(self):
+    def get_type(self) -> int: # enum enums/roles.py
         pass
 
     @abstractmethod

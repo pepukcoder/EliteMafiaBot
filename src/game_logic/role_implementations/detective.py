@@ -4,7 +4,7 @@ from src.state import Role
 
 
 class Detective(Role):
-    def get_role_name(self):
+    def get_type(self):
         raise NotImplementedError()
 
     async def send_interactive_messages(self, bot: Bot):
