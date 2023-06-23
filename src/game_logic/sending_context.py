@@ -12,3 +12,6 @@ class SendingContext:
     @strategy.setter
     def strategy(self, strategy: Strategy) -> None:
         self._strategy = strategy
+
+    async def send(self, game_chat_id):
+        await self._strategy.send(game_chat_id)
