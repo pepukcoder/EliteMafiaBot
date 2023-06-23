@@ -1,109 +1,121 @@
 import random
 import enum
-from abc import abstractmethod, ABC
 #from src.state import UserState
 
 from src.state.enums import Roles
 from src.game_logic.role_implementations import Don, Mafia, Liar, Informant, Doctor, Detective, Whore, Omega, Lawyer, Alfa
+from src.state import UserState
 
 BAD_ROLES = [Don(), Mafia(), Liar(), Informant()]
 ADDITIONAL_ROLES = [Whore(), Omega(), Lawyer(), Alfa()]
 GOOD_ROLES = [Detective(), Doctor()]
 
-def insert_none_position(lst, value):
-    none_indices = [i for i, elem in enumerate(lst) if elem is None]
-    if none_indices:
-        random_index = random.choice(none_indices)
-        lst[random_index] = value
+def assign(user_dict):
+    def insert_none_position(lst, value):
+        none_indices = [i for i, elem in enumerate(lst) if elem is None]
+        if none_indices:
+            random_index = random.choice(none_indices)
+            lst[random_index] = value
+
+    def assign_roles(player_count):
+        match player_count:
+            case 2:
+                return assign_roles_scenario_4()
+            case 5:
+                return assign_roles_scenario_5()
+            case 6:
+                return assign_roles_scenario_6()
+            case 7:
+                return assign_roles_scenario_7()
+            case 8:
+                return assign_roles_scenario_8()
+            case other:
+                raise ValueError("Invalid number of players.")
+
+    def assign_roles_scenario_4():
+        player_roles = [None] * 4
+        unique_indices = random.sample(range(4), 2)
+        player_roles[unique_indices[0]] = Don()
+        player_roles[unique_indices[1]] = Doctor()
+        return player_roles
+
+    def assign_roles_scenario_5():
+        player_roles = [None] * 5
+        unique_indices = random.sample(range(5), 3)
+        player_roles[unique_indices[0]] = Don()
+        player_roles[unique_indices[1]] = Doctor()
+        x = random.sample(ADDITIONAL_ROLES, 1)
+        player_roles[unique_indices[2]] = x[0]
+        return player_roles
 
 
+    def assign_roles_scenario_6():
+        if random.random() < 0.5:
+            player_roles = [None] * 1
+            insert_none_position(player_roles, random.sample(ADDITIONAL_ROLES, 1)[0])
+        else:
+            player_roles = [None] * 2
+        unique_indices = random.sample(range(4), 2)
+        player_roles.append(Don())
+        player_roles.append(Doctor())
 
-def assign_roles(player_count):
-    match player_count:
-        case 4:
-            return assign_roles_scenario_4()
-        case 5:
-            return assign_roles_scenario_5()
-        case 6:
-            return assign_roles_scenario_6()
-        case 7:
-            return assign_roles_scenario_7()
-        case 8:
-            return assign_roles_scenario_8()
-        case other:
-            raise ValueError("Invalid number of players.")
+        bad_role = random.choice([role for role in BAD_ROLES if role.get_type() != Roles.MAFIA.value and role.get_type() != Roles.DON.value])
+        player_roles.append(bad_role)
+        player_roles.append(Detective())
+        random.shuffle(player_roles)
+        return player_roles
 
-def assign_roles_scenario_4():
-    player_roles = [None] * 4
-    unique_indices = random.sample(range(4), 2)
-    player_roles[unique_indices[0]] = Don()
-    player_roles[unique_indices[1]] = Doctor()
-    return player_roles
+    def assign_roles_scenario_7():
+        player_roles = [None]
+        bad_role = random.choice([role for role in BAD_ROLES if role.get_type() != Roles.MAFIA.value and role.get_type() != Roles.DON.value])
+        player_roles.append(Don())
+        player_roles.append(bad_role)
 
-def assign_roles_scenario_5():
-    player_roles = [None] * 5
-    unique_indices = random.sample(range(5), 3)
-    player_roles[unique_indices[0]] = Don()
-    player_roles[unique_indices[1]] = Doctor()
-    x = random.sample(ADDITIONAL_ROLES, 1)
-    player_roles[unique_indices[2]] = x[0]
-    return player_roles
+        player_roles.append(Doctor())
+        player_roles.append(Detective())
 
+        neutral_roles = random.sample(ADDITIONAL_ROLES, 2)
+        print(bad_role)
+        player_roles.extend(neutral_roles)
+        random.shuffle(player_roles)
+        return player_roles
 
-def assign_roles_scenario_6():
-    if random.random() < 0.5:
-        player_roles = [None] * 1
-        insert_none_position(player_roles, random.sample(ADDITIONAL_ROLES, 1)[0])
-    else:
-        player_roles = [None] * 2
-    unique_indices = random.sample(range(4), 2)
-    player_roles.append(Don())
-    player_roles.append(Doctor())
+    def assign_roles_scenario_8():
+        player_roles = [None]*2
+        bad_role = random.choice([role for role in BAD_ROLES if role.get_type() != Roles.MAFIA.value and role.get_type() != Roles.DON.value])
+        player_roles.append(Don())
+        player_roles.append(bad_role)
 
-    bad_role = random.choice([role for role in BAD_ROLES if role.get_type() != Roles.MAFIA.value and role.get_type() != Roles.DON.value])
-    player_roles.append(bad_role)
-    player_roles.append(Detective())
-    random.shuffle(player_roles)
-    return player_roles
+        player_roles.append(Doctor())
+        player_roles.append(Detective())
 
-def assign_roles_scenario_7():
-    player_roles = [None]
-    bad_role = random.choice([role for role in BAD_ROLES if role.get_type() != Roles.MAFIA.value and role.get_type() != Roles.DON.value])
-    player_roles.append(Don())
-    player_roles.append(bad_role)
+        neutral_roles = random.sample(ADDITIONAL_ROLES, 2)
+        print(bad_role)
+        player_roles.extend(neutral_roles)
+        random.shuffle(player_roles)
+        return player_roles
 
-    player_roles.append(Doctor())
-    player_roles.append(Detective())
-
-    neutral_roles = random.sample(ADDITIONAL_ROLES, 2)
-    print(bad_role)
-    player_roles.extend(neutral_roles)
-    random.shuffle(player_roles)
-    return player_roles
-
-def assign_roles_scenario_8():
-    player_roles = [None]*2
-    bad_role = random.choice([role for role in BAD_ROLES if role.get_type() != Roles.MAFIA.value and role.get_type() != Roles.DON.value])
-    player_roles.append(Don())
-    player_roles.append(bad_role)
-
-    player_roles.append(Doctor())
-    player_roles.append(Detective())
-
-    neutral_roles = random.sample(ADDITIONAL_ROLES, 2)
-    print(bad_role)
-    player_roles.extend(neutral_roles)
-    random.shuffle(player_roles)
-    return player_roles
-
-# Передаем обязательно через UserState
-def assign_roles_by_list(users):
-    player_count = len(users)
+    # Передаем обязательно через UserState
+    player_count = len(user_dict.users)
     player_roles = assign_roles(player_count)
+    
+    #first_names = [item.first_name for item in user_dict.users.values()]
+    usernames = [item.username for item in user_dict.users.values()]
+
+    # user_ids = []
+
+    # for key in registration_state.users.keys():
+    #     user_ids.append(key)
+
+    users = []
+    for idx, x in enumerate(user_dict.users):
+        users.append(UserState(username=usernames[idx], user_id=list(user_dict.users.keys())[idx], role=player_roles[idx]))
 
     for user in users:
         role_name = user.role.__class__.__name__ if user.role else "None"
-        print(f"Username: {user.username}, Role: {role_name}")
+        print(f"Username: {user.username}, id: {user.user_id}, Role: {role_name}")
+    
+    return users
 
 # Example usage
 

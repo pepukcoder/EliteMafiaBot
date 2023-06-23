@@ -4,9 +4,12 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
 from src.state import State, RegistrationState, UserInfo
 from aiogram.utils.deep_linking import get_start_link
 
+from src.state import UserState
+
 def register_user_handlers(dp: Dispatcher):
     bot = Bot(token="6170395643:AAHiJFyprovmr6AgyUo4wdSIWQQQlrvMpJY", parse_mode='HTML')
     state = State()
+    usrState = UserState()
 
     @dp.message_handler(commands=["start"])
     async def handler(message: Message):
