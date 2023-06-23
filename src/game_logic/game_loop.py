@@ -6,7 +6,7 @@ async def start_loop(registration_state, chat_id):
     await assign(registration_state)
     # assign_roles
     # night_roles_act
-    #wait_until_all_users_interact_or_timeout(chat_id)
+    await wait_until_all_users_interact_or_timeout(chat_id)
     # set_day
     # show_int_history
     # show_alive
