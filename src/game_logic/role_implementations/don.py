@@ -13,5 +13,8 @@ class Don(Role):
     def get_type(self) -> int:
         return Roles.WHORE.value
 
+    def explanation(self) -> str:
+        return "- по ночам убивает одного человека. Знает всех мафиози. Ваша цель - убивать и скрывать свою роль."
+
     async def send_interactive_messages(self, bot: Bot):
         raise NotImplementedError()

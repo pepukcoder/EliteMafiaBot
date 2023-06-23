@@ -13,5 +13,8 @@ class Detective(Role):
     def get_type(self) -> int:
         return Roles.DETECTIVE.value
 
+    def explanation(self) -> str:
+        return "- ночью проверяет или убивает одного человека. Ваша цель - разоблачить мафию и спасти город."
+
     async def send_interactive_messages(self, bot: Bot):
         raise NotImplementedError()

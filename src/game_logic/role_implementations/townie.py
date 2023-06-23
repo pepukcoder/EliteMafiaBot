@@ -13,5 +13,9 @@ class Townie(Role):
     def get_type(self) -> int:
         return Roles.TOWNIE.value
 
+    def explanation(self) -> str:
+        return ". Ваша цель - Найти дона и убить его."
+
+
     async def send_interactive_messages(self, bot: Bot):
         raise NotImplementedError()

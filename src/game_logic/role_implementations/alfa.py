@@ -14,5 +14,8 @@ class Alfa(Role):
     def get_type(self) -> int:
         return Roles.ALFA.value
 
+    def explanation(self) -> str:
+        return "- Альфы нет блять"
+
     async def send_interactive_messages(self, bot: Bot):
         raise NotImplementedError()

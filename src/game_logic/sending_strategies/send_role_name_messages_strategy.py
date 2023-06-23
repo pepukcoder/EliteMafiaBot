@@ -10,6 +10,8 @@ class SendRoleNameMessagesStrategy(Strategy):
     async def send(self, game_chat_id: int, bot: Bot):
         users=await assign(game_chat_id)
         for user in users:
-            role_name = str(user.role) if user.role else "👨🏼Мирный житель"
+            role_name = str(user.role) if user.role else "NoneType ЧЁ ЗА ХУЙНЯ это как бля"
+            #role_number = user.role.get_type()
+            role_number = user.role.explanation()
             #await message.reply(f"Username: {user.username}, id: {user.user_id}, Role: {role_name}")
-            await send_to_pm(user.user_id, f"Твоя роль - {role_name}")
+            await send_to_pm(user.user_id, f"Вы {role_name} {role_number}")
