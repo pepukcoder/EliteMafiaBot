@@ -3,7 +3,7 @@ import enum
 #from src.state import UserState
 
 from src.state.enums import Roles
-from src.game_logic.role_implementations import Don, Mafia, Liar, Informant, Doctor, Detective, Whore, Omega, Lawyer, Alfa
+from src.game_logic.role_implementations import Don, Mafia, Liar, Informant, Doctor, Detective, Whore, Omega, Lawyer, Alfa, Townie
 from src.state import UserState
 
 BAD_ROLES = [Don(), Mafia(), Liar(), Informant()]
@@ -11,10 +11,10 @@ ADDITIONAL_ROLES = [Whore(), Omega(), Lawyer(), Alfa()]
 GOOD_ROLES = [Detective(), Doctor()]
 
 def assign(user_dict):
-    def insert_none_position(lst, value):
-        none_indices = [i for i, elem in enumerate(lst) if elem is None]
-        if none_indices:
-            random_index = random.choice(none_indices)
+    def insert_townie_position(lst, value):
+        townie_indices = [i for i, elem in enumerate(lst) if isinstance(elem, Townie)]
+        if townie_indices:
+            random_index = random.choice(townie_indices)
             lst[random_index] = value
 
     def assign_roles(player_count):
@@ -33,14 +33,14 @@ def assign(user_dict):
                 raise ValueError("Invalid number of players.")
 
     def assign_roles_scenario_4():
-        player_roles = [None] * 4
+        player_roles = [Townie()] * 4
         unique_indices = random.sample(range(4), 2)
         player_roles[unique_indices[0]] = Don()
         player_roles[unique_indices[1]] = Doctor()
         return player_roles
 
     def assign_roles_scenario_5():
-        player_roles = [None] * 5
+        player_roles = [Townie()] * 5
         unique_indices = random.sample(range(5), 3)
         player_roles[unique_indices[0]] = Don()
         player_roles[unique_indices[1]] = Doctor()
@@ -51,10 +51,10 @@ def assign(user_dict):
 
     def assign_roles_scenario_6():
         if random.random() < 0.5:
-            player_roles = [None] * 1
+            player_roles = [Townie()] * 1
             insert_none_position(player_roles, random.sample(ADDITIONAL_ROLES, 1)[0])
         else:
-            player_roles = [None] * 2
+            player_roles = [Townie()] * 2
         unique_indices = random.sample(range(4), 2)
         player_roles.append(Don())
         player_roles.append(Doctor())
@@ -66,7 +66,7 @@ def assign(user_dict):
         return player_roles
 
     def assign_roles_scenario_7():
-        player_roles = [None]
+        player_roles = [Townie()]
         bad_role = random.choice([role for role in BAD_ROLES if role.get_type() != Roles.MAFIA.value and role.get_type() != Roles.DON.value])
         player_roles.append(Don())
         player_roles.append(bad_role)
@@ -81,7 +81,7 @@ def assign(user_dict):
         return player_roles
 
     def assign_roles_scenario_8():
-        player_roles = [None]*2
+        player_roles = [Townie()]*2
         bad_role = random.choice([role for role in BAD_ROLES if role.get_type() != Roles.MAFIA.value and role.get_type() != Roles.DON.value])
         player_roles.append(Don())
         player_roles.append(bad_role)
@@ -95,18 +95,10 @@ def assign(user_dict):
         random.shuffle(player_roles)
         return player_roles
 
-    # Передаем обязательно через UserState
     player_count = len(user_dict.users)
     player_roles = assign_roles(player_count)
     
-    #first_names = [item.first_name for item in user_dict.users.values()]
     usernames = [item.username for item in user_dict.users.values()]
-
-    # user_ids = []
-
-    # for key in registration_state.users.keys():
-    #     user_ids.append(key)
-
     users = []
     for idx, x in enumerate(user_dict.users):
         users.append(UserState(username=usernames[idx], user_id=list(user_dict.users.keys())[idx], role=player_roles[idx]))
@@ -116,21 +108,3 @@ def assign(user_dict):
         print(f"Username: {user.username}, id: {user.user_id}, Role: {role_name}")
     
     return users
-
-# Example usage
-
-# player_count = 6
-# player_roles = assign_roles(player_count)
-
-# users = [
-#     UserState(username="Пух", user_id=1, role=player_roles[0]),
-#     UserState(username="Пепук", user_id=2, role=player_roles[1]),
-#     UserState(username="Паша", user_id=3, role=player_roles[2]),
-#     UserState(username="Артём", user_id=4, role=player_roles[3]),
-#     UserState(username="Илья", user_id=5, role=player_roles[4]),
-#     UserState(username="Хтось", user_id=6, role=player_roles[5]),
-# ]
-
-# for user in users:
-#     role_name = user.role.__class__.__name__ if user.role else "None"
-#     print(f"Username: {user.username}, Role: {role_name}")
