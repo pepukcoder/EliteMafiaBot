@@ -7,6 +7,9 @@ class Lawyer(Role):
     async def send_role_name(self, bot: Bot):
         pass
 
+    def __str__(self) -> str:
+        return "👨‍⚖️Адвокат"
+
     def get_type(self) -> int:
         return Roles.LAWYER.value
 

@@ -7,6 +7,9 @@ class Omega(Role):
     async def send_role_name(self, bot: Bot):
         pass
 
+    def __str__(self) -> str:
+        return "👦Омежка"
+
     def get_type(self) -> int:
         return Roles.OMEGA.value
 

@@ -7,6 +7,9 @@ class Mafia(Role):
     async def send_role_name(self, bot: Bot):
         pass
 
+    def __str__(self) -> str:
+        return "🤵🏻Мафия"
+
     def get_type(self) -> int:
         return Roles.MAFIA.value
 

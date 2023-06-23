@@ -37,7 +37,7 @@ def register_start_handlers(dp: Dispatcher):
             state.add_game(gamestate)
 
             for user in x:
-                role_name = user.role.__class__.__name__ if user.role else "Мирный житель"
+                role_name = str(user.role) if user.role else "👨🏼Мирный житель"
                 #await message.reply(f"Username: {user.username}, id: {user.user_id}, Role: {role_name}")
                 await send_to_pm(user.user_id, f"Твоя роль - {role_name}")
         else:

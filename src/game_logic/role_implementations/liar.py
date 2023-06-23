@@ -7,6 +7,9 @@ class Liar(Role):
     async def send_role_name(self, bot: Bot):
         pass
 
+    def __str__(self) -> str:
+        return "🧕🏿Пиздабол"
+
     def get_type(self) -> int:
         return Roles.LIAR.value
 
