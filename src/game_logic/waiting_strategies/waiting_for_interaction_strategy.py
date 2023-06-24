@@ -14,17 +14,18 @@ class WaitingForInteractionStrategy(Strategy):
             timer += timer_step
 
             state = State()
-            game = state.get_game_or_none(game_chat_id)
+            try:
+                game = state.games[game_chat_id]
 
-            if game is None:
-                raise ValueError("Game can't be None")
+                users_with_role = [user for user in game.users if user.role.get_type() is not Roles.TOWNIE]
+                this_day_interactions = [record for record in game.interaction_history if record.day == game.day]
 
-            users_with_role = [user for user in game.users if user.role.get_type() is not Roles.TOWNIE]
-            this_day_interactions = [record for record in game.interaction_history if record.day == game.day]
+                # if one user do one interaction by night then number of interactions == number of users with role
+                if len(users_with_role) == len(this_day_interactions):
+                    return
 
-            # if one user do one interaction by night then number of interactions == number of users with role
-            if len(users_with_role) == len(this_day_interactions):
-                return
-
-            if timer >= 60:
-                return
+                if timer >= 10:
+                    print("hui")
+                    return
+            except KeyError:
+                print(f"Game {game_chat_id} not found")
