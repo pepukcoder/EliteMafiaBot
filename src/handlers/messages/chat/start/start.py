@@ -1,9 +1,14 @@
-from aiogram import Dispatcher, executor, types
+from aiogram import Dispatcher, executor, types, Bot
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from src.state import State, RegistrationState, UserInfo
 from aiogram.utils.deep_linking import get_start_link
 from src.state import GameState
 from src.game_logic import start_loop
+from src.game_logic.sending_strategies import EmptyArrayAndDeleteRegistrationMessage
+
+from src.misc import TgKeys
+
+bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
 
 state = State()
 
@@ -33,3 +38,4 @@ def register_start_handlers(dp: Dispatcher):
             await start_loop(chat_id)
         else:
             await message.reply("*Недостаточно игроков*", parse_mode='Markdown')
+            await EmptyArrayAndDeleteRegistrationMessage().delete(chat_id, bot)
