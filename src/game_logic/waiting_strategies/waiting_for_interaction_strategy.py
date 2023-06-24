@@ -24,7 +24,8 @@ class WaitingForInteractionStrategy(Strategy):
                 if len(users_with_role) == len(this_day_interactions):
                     return
 
-                if timer >= 60:
+                if timer >= 10:
+                    print("hui")
                     return
             except KeyError:
                 print(f"Game {game_chat_id} not found")

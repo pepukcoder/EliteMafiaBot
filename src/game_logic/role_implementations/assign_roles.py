@@ -113,17 +113,21 @@ async def assign(chat_id):
         random.shuffle(player_roles)
         return player_roles
 
-    user_dict = list(filter(lambda x: x.chat_id == chat_id, state.registrations))[0]
-
-    player_count = len(user_dict.users)
-    player_roles = assign_roles(player_count)
-    
-    usernames = [item.username for item in user_dict.users.values()]
-    users = []
-    for idx, x in enumerate(user_dict.users):
-        users.append(UserState(username=usernames[idx], user_id=list(user_dict.users.keys())[idx], role=player_roles[idx]))
-
     try:
-        state.games[chat_id].users = users
+        user_dict = state.registrations[chat_id]
+
+        player_count = len(user_dict.users)
+        player_roles = assign_roles(player_count)
+
+        usernames = [item.username for item in user_dict.users.values()]
+        users = []
+        for idx, x in enumerate(user_dict.users):
+            users.append(UserState(username=usernames[idx], user_id=list(user_dict.users.keys())[idx], role=player_roles[idx]))
+
+        try:
+            state.games[chat_id].users = users
+        except KeyError:
+            print(f"Game {chat_id} not found")
+
     except KeyError:
-        print(f"Game {chat_id} not found")
+        print(f"Registration {chat_id} not found")
