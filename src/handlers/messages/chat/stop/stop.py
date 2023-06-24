@@ -16,4 +16,3 @@ def register_stop_handlers(dp: Dispatcher):
             await message.reply("*Игра отменена*", parse_mode='Markdown')
         except:
             await message.reply("*Игры не существует*", parse_mode='Markdown')
-

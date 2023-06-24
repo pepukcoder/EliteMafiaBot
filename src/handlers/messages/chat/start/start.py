@@ -1,9 +1,11 @@
+
 from aiogram import Dispatcher, executor, types, Bot
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from src.state import State, RegistrationState, UserInfo
 from aiogram.utils.deep_linking import get_start_link
 from src.state import GameState
 from src.game_logic import start_loop
+
 from src.game_logic.sending_strategies import EmptyArrayAndDeleteRegistrationMessage
 
 from src.misc import TgKeys
@@ -13,15 +15,17 @@ bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
 def register_start_handlers(dp: Dispatcher):
     @dp.message_handler(commands=['game'])
     async def start_game(message: types.Message):
+        state = State()
         chat_id = message.chat.id
-        state.registrations.append(RegistrationState(chat_id, {}))
+
 
         msg = await message.reply("Набор в игру начат!")
-        chat_id = message.chat.id
-        state.registrations.append(RegistrationState(chat_id, msg['message_id'], {}))
         link = await get_start_link(str(chat_id) + ", " + str(msg['message_id']), encode=True)
+        state.registrations[chat_id] = RegistrationState(msg['message_id'], {})
         join_button = InlineKeyboardButton(text='Присоединиться', url=link)
         inline = InlineKeyboardMarkup().add(join_button)
+
+        print(state.registrations)
 
         await msg.edit_text("Набор в игру начат!", reply_markup=inline)
 
@@ -35,8 +39,11 @@ def register_start_handlers(dp: Dispatcher):
 
             first_names = [item.first_name for item in registration_state.users.values()]
 
-        if len(registration_state.users.keys()) >= 1:
-            await message.reply("*Игра начинается!*", parse_mode='Markdown')
-            await start_loop(chat_id)
-        else:
-            await message.reply("*Недостаточно игроков*", parse_mode='Markdown')
+            if len(registration_state.users.keys()) >= 1:
+                await message.reply("*Игра начинается!*", parse_mode='Markdown')
+                await start_loop(chat_id)
+            else:
+                await message.reply("*Недостаточно игроков*", parse_mode='Markdown')
+                await EmptyArrayAndDeleteRegistrationMessage().delete(chat_id, bot)
+        except KeyError:
+            print(f"Registration {chat_id} not found")

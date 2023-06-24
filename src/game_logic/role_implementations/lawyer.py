@@ -13,9 +13,5 @@ class Lawyer(Role):
     def get_type(self) -> int:
         return Roles.LAWYER.value
 
-    def explanation(self) -> str:
-        return "- выбирает игрока, которого днем не могут повесить. Ваша цель - защитить выбранного игрока и помочь городу."
-
-
     async def send_interactive_messages(self, bot: Bot):
         raise NotImplementedError()

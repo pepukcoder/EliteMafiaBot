@@ -13,9 +13,5 @@ class Liar(Role):
     def get_type(self) -> int:
         return Roles.LIAR.value
 
-    def explanation(self) -> str:
-        return "- выбирает человека и показывает комиссару плохую роль. Ваша цель - ввести комиссара в заблуждение."
-
-
     async def send_interactive_messages(self, bot: Bot):
         raise NotImplementedError()

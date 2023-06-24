@@ -8,8 +8,9 @@ class State:
     registrations: dict[int, RegistrationState]  # {chat_id: RegistrationState}
 
     #empty only chat_id registrations
-    def empty_registrations(self, chat_id):
-        self.registrations = [item for item in self.registrations if item.chat_id != chat_id]
+    def empty_registrations(self, chat_id: int):
+        if chat_id in self.registrations:
+            del self.registrations[chat_id]
 
 
     def __new__(cls, *args, **kwargs):

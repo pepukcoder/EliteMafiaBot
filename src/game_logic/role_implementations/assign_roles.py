@@ -7,6 +7,8 @@ from src.game_logic.role_implementations import Don, Mafia, Liar, Informant, Doc
 from src.state import UserState
 from src.state import State
 
+state = State()
+
 BAD_ROLES = [Don(), Mafia(), Liar(), Informant()]
 ADDITIONAL_ROLES = [Whore(), Omega(), Lawyer(), Alfa()]
 GOOD_ROLES = [Detective(), Doctor()]
@@ -127,4 +129,5 @@ async def assign(chat_id):
         except KeyError:
             print(f"Game {chat_id} not found")
 
-
+    except KeyError:
+        print(f"Registration {chat_id} not found")

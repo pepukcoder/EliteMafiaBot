@@ -8,5 +8,5 @@ class UserInfo:
 
 @dataclass
 class RegistrationState:
-    chat_id: int
-    users: dict[int, UserInfo] #{user_id: UserInfo()}
+    message_id: int
+    users: dict[int, UserInfo] # {user_id: UserInfo()}

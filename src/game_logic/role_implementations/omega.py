@@ -13,9 +13,5 @@ class Omega(Role):
     def get_type(self) -> int:
         return Roles.OMEGA.value
 
-    def explanation(self) -> str:
-        return "- выбирает игрока и получает его роль 1 раз за игру. Игрок становится мирным жителем. Ваша цель - получить информацию и помочь городу."
-
-
     async def send_interactive_messages(self, bot: Bot):
         raise NotImplementedError()
