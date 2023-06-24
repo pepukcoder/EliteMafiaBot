@@ -13,5 +13,9 @@ class Mafia(Role):
     def get_type(self) -> int:
         return Roles.MAFIA.value
 
+    def explanation(self) -> str:
+        return "- помощник дона, голосует вместе с ним. Знает, кто дон. Ваша цель - поддерживать дона и выиграть для мафии."
+
+
     async def send_interactive_messages(self, bot: Bot):
         raise NotImplementedError()

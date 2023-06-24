@@ -13,5 +13,8 @@ class Doctor(Role):
     def get_type(self) -> int:
         return Roles.DOCTOR.value
 
+    def explanation(self) -> str:
+        return "- ночью вылечивает одного человека или себя. Ваша цель - спасать жизни и выиграть для города."
+
     async def send_interactive_messages(self, bot: Bot):
         raise NotImplementedError()
