@@ -17,7 +17,7 @@ class InteractiveMessageSender:
         for user_state in game.users:
             if user_state.role.get_type() == role.get_type():
                 pass
-            elif user_state.role.get_type() == 10:
+            elif user_state.role.get_type() == 4:
                 inline_markup.add(types.InlineKeyboardButton(text=user_state.first_name, callback_data=f"{role.get_type()}_{user_state.user_id}_{chat_id}"))
             else:
                 inline_markup.add(types.InlineKeyboardButton(text=user_state.first_name, callback_data=f"{role.get_type()}_{user_state.user_id}_{chat_id}"))
