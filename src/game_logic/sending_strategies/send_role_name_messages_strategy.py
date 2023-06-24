@@ -13,6 +13,8 @@ class SendRoleNameMessagesStrategy(Strategy):
         for user in users:
             role_name = str(user.role) if user.role else "NoneType ЧЁ ЗА ХУЙНЯ это как бля"
             #role_number = user.role.get_type()
-            role_number = user.role.explanation()
+            role_explanation = user.role.explanation()
             #await message.reply(f"Username: {user.username}, id: {user.user_id}, Role: {role_name}")
-            await send_to_pm(user.user_id, f"Вы {role_name} {role_number}")
+            await send_to_pm(user.user_id, f"Вы *{role_name}*\nВаша роль {role_explanation}")
+    async def delete(self, game_chat_id: int, bot: Bot):
+        pass

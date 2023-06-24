@@ -5,6 +5,8 @@ from aiogram import Bot
 
 from src.game_logic.waiting_context import WaitingContext
 from src.game_logic.waiting_strategies import WaitingForInteractionStrategy
+from src.game_logic.sending_strategies import EmptyArrayAndDeleteRegistrationMessage
+
 #Вот это как временная хуйня онли, передавай в start_loop бота крч. Як Ілля, жорстко плюсую
 from src.misc import TgKeys
 
@@ -17,6 +19,9 @@ async def start_loop(chat_id):
 
     #assign_roles
     await assign(chat_id) 
+
+    #empty registration_state and delete message
+    await EmptyArrayAndDeleteRegistrationMessage().delete(chat_id, bot)
 
     #send roles to pm
     await SendRoleNameMessagesStrategy().send(chat_id, bot)

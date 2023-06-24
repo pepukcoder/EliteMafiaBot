@@ -7,6 +7,11 @@ class State:
     games: list[GameState]
     registrations: list[RegistrationState]
 
+    #empty only chat_id registrations
+    def empty_registrations(self, chat_id):
+        self.registrations = [item for item in self.registrations if item.chat_id != chat_id]
+
+
     def __new__(cls, *args, **kwargs):
         if cls.__instance is None:
             cls.__instance = super().__new__(cls)

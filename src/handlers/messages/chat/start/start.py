@@ -11,10 +11,9 @@ def register_start_handlers(dp: Dispatcher):
 
     @dp.message_handler(commands=['game'])
     async def start_game(message: types.Message):
-        chat_id = message.chat.id
-        state.registrations.append(RegistrationState(chat_id, {}))
-
         msg = await message.reply("Набор в игру начат!")
+        chat_id = message.chat.id
+        state.registrations.append(RegistrationState(chat_id, msg['message_id'], {}))
         link = await get_start_link(str(chat_id) + ", " + str(msg['message_id']), encode=True)
         join_button = InlineKeyboardButton(text='Присоединиться', url=link)
         inline = InlineKeyboardMarkup().add(join_button)

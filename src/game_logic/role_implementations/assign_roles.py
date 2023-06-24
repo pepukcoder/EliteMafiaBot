@@ -7,8 +7,6 @@ from src.game_logic.role_implementations import Don, Mafia, Liar, Informant, Doc
 from src.state import UserState
 from src.state import State
 
-state = State()
-
 BAD_ROLES = [Don(), Mafia(), Liar(), Informant()]
 ADDITIONAL_ROLES = [Whore(), Omega(), Lawyer(), Alfa()]
 GOOD_ROLES = [Detective(), Doctor()]
@@ -127,5 +125,3 @@ async def assign(chat_id):
     game.users = users
     state.remove_game(chat_id)
     state.games.append(game)
-
-
