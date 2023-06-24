@@ -24,7 +24,7 @@ async def start_loop(chat_id):
     #send roles to pm
     await SendRoleNameMessagesStrategy().send(chat_id, bot)
     #show alive users
-    show_alive(chat_id, bot)
+    await show_alive(chat_id, bot)
     #empty array and delete reg message
     await EmptyArrayAndDeleteRegistrationMessage().delete(chat_id, bot)
     #send interaction keyboard. Note: This must be called INSIDE the game loop

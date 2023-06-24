@@ -86,17 +86,18 @@ async def assign(chat_id):
         return player_roles
 
     def assign_roles_scenario_8():
-        player_roles = [Townie()]*2
-        bad_role = random.choice([role for role in BAD_ROLES if role.get_type() != Roles.DON.value])
         player_roles.append(Don())
-        player_roles.append(bad_role)
+        #player_roles = [Townie()]*2
+        #bad_role = random.choice([role for role in BAD_ROLES if role.get_type() != Roles.DON.value])
+        #player_roles.append(Don())
+        #player_roles.append(bad_role)
 
-        player_roles.append(Doctor())
-        player_roles.append(Detective())
+        #player_roles.append(Doctor())
+        #player_roles.append(Detective())
 
-        neutral_roles = random.sample(ADDITIONAL_ROLES, 2)
-        player_roles.extend(neutral_roles)
-        random.shuffle(player_roles)
+        #neutral_roles = random.sample(ADDITIONAL_ROLES, 2)
+        #player_roles.extend(neutral_roles)
+        #random.shuffle(player_roles)
         return player_roles
 
     def assign_roles_scenario_8plus(count):

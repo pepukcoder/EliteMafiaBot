@@ -14,6 +14,3 @@ class EmptyArrayAndDeleteRegistrationMessage(Strategy):
         print(state.registrations)
     async def send(self, game_chat_id: int, bot: Bot):
         pass
-
-    async def send(self, game_chat_id: int, bot: Bot):
-        pass
