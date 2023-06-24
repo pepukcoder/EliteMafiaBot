@@ -5,6 +5,6 @@ from src.state.abstractions import Role
 
 @dataclass
 class UserState:
-    username: str
+    first_name: str
     user_id: int
     role: Role

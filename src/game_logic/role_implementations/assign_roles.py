@@ -119,10 +119,10 @@ async def assign(chat_id):
         player_count = len(user_dict.users)
         player_roles = assign_roles(player_count)
 
-        usernames = [item.username for item in user_dict.users.values()]
+        first_names = [item.first_name for item in user_dict.users.values()]
         users = []
         for idx, x in enumerate(user_dict.users):
-            users.append(UserState(username=usernames[idx], user_id=list(user_dict.users.keys())[idx], role=player_roles[idx]))
+            users.append(UserState(first_name=first_names[idx], user_id=list(user_dict.users.keys())[idx], role=player_roles[idx]))
 
         try:
             state.games[chat_id].users = users

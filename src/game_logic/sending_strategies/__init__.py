@@ -1,3 +1,4 @@
 from .strategy_base import Strategy
 from .send_role_name_messages_strategy import SendRoleNameMessagesStrategy
 from .empty_array_delete_registration import EmptyArrayAndDeleteRegistrationMessage
+from .send_interactive_messages_strategy import SendInteractiveMessagesStrategy

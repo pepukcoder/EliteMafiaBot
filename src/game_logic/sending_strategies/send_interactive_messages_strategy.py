@@ -10,8 +10,11 @@ class SendInteractiveMessagesStrategy(Strategy):
         state = State()
         try:
             game = state.games[game_chat_id]
-
+            print(game.users)
             for user in game.users:
-                user.role.send_interactive_messages(bot)
+                await user.role.send_interactive_messages(game_chat_id, bot)
         except KeyError:
             print(f"Game {game_chat_id} not found")
+
+    async def delete(self, game_chat_id: int, bot: Bot):
+        pass

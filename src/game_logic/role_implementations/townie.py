@@ -13,5 +13,5 @@ class Townie(Role):
     def get_type(self) -> int:
         return Roles.TOWNIE.value
 
-    async def send_interactive_messages(self, bot: Bot):
-        raise NotImplementedError()
+    async def send_interactive_messages(self, user_id:int, bot: Bot):
+        await bot.send_message(chat_id=user_id, text="👨🏼Мирный")
