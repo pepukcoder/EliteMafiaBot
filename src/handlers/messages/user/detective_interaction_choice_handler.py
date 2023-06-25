@@ -12,11 +12,9 @@ def register_detective_interaction_choice_handler(dp: Dispatcher):
         chat_id = call.data.split("_")[1]
 
         try:
-            await call.message.edit_reply_markup(DetectiveLogic.get_check_kb(chat_id))
+            await call.message.edit_text(text=DetectiveLogic.get_check_message(), reply_markup=DetectiveLogic.get_check_kb(int(chat_id)))
         except MessageNotModified:
             await call.message.edit_text("Ты уже проверил всех игроков!")
-        else:
-            await call.message.edit_text(DetectiveLogic.get_check_message())
 
 
 
@@ -25,8 +23,6 @@ def register_detective_interaction_choice_handler(dp: Dispatcher):
         chat_id = call.data.split("_")[1]
 
         try:
-            await call.message.edit_reply_markup(DetectiveLogic.get_kill_kb(chat_id))
+            await call.message.edit_text(text=DetectiveLogic.get_kill_message(), reply_markup=DetectiveLogic.get_kill_kb(int(chat_id)))
         except MessageNotModified:
             await call.message.edit_text("Ты уже убил всех игроков. Странно, что ты видишь это сообщение")
-        else:
-            await call.message.edit_text(DetectiveLogic.get_kill_message())
