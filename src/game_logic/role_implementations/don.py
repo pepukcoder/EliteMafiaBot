@@ -1,6 +1,6 @@
 from aiogram import Bot, types
 
-from src.game_logic.role_implementations.roles_unifier import get_all_users_kb
+from src.game_logic.role_implementations.roles_unifier import get_all_users_kb, get_all_users_voting_kb
 from src.state import Role
 from src.state.enums import Roles, InteractionTypes
 from aiogram.types import InlineKeyboardMarkup
@@ -18,3 +18,9 @@ class Don(Role):
 
     def __int__(self) -> int:
         return Roles.DON.value
+
+    def get_voting_kb(self, chat_id: int) -> InlineKeyboardMarkup:
+        return get_all_users_voting_kb(chat_id)
+
+    def interaction_message(self) -> str:
+        return "выбрал жертву..."

@@ -5,7 +5,7 @@ from src.state.enums import Roles
 from src.state import State
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from src.state.enums import InteractionTypes
-from src.game_logic.role_implementations.roles_unifier import InteractiveMessageSender, get_all_users_kb
+from src.game_logic.role_implementations.roles_unifier import InteractiveMessageSender, get_all_users_kb, get_all_users_voting_kb
 
 
 class Mafia(Role):
@@ -21,3 +21,9 @@ class Mafia(Role):
 
     def __int__(self) -> int:
         return Roles.MAFIA.value
+
+    def get_voting_kb(self, chat_id: int) -> InlineKeyboardMarkup:
+        return get_all_users_voting_kb(chat_id)
+
+    def interaction_message(self) -> str:
+        return "выбрала жертву..."

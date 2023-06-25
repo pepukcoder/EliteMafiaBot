@@ -2,7 +2,7 @@ from src.state import Role, State
 from src.state.enums import Roles
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from src.state.enums import InteractionTypes
-from src.game_logic.role_implementations.roles_unifier import InteractiveMessageSender, get_all_users_kb
+from src.game_logic.role_implementations.roles_unifier import InteractiveMessageSender, get_all_users_kb, get_all_users_voting_kb
 
 
 class Detective(Role):
@@ -22,6 +22,12 @@ class Detective(Role):
 
     def __int__(self) -> int:
         return Roles.DETECTIVE.value
+
+    def get_voting_kb(self, chat_id: int) -> InlineKeyboardMarkup:
+        return get_all_users_voting_kb(chat_id)
+
+    def interaction_message(self) -> str:
+        return "ушёл искать преступников..."
 
 
 class DetectiveLogic:
@@ -49,6 +55,9 @@ class DetectiveLogic:
     @staticmethod
     def get_kill_kb(chat_id):
         return get_all_users_kb(chat_id, InteractionTypes.kill, except_of_roles=[Roles.DETECTIVE])
+
+    def get_voting_kb(self, chat_id: int) -> InlineKeyboardMarkup:
+        return get_all_users_voting_kb(chat_id)
 
     @staticmethod
     def get_kill_message() -> str:

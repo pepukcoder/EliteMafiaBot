@@ -3,7 +3,7 @@ from aiogram import Bot, types
 from src.state import Role, State
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from src.state.enums import Roles, InteractionTypes
-from src.game_logic.role_implementations.roles_unifier import get_all_users_kb, InteractiveMessageSender
+from src.game_logic.role_implementations.roles_unifier import get_all_users_kb, InteractiveMessageSender, get_all_users_voting_kb
 
 
 
@@ -18,3 +18,9 @@ class Informant(Role):
 
     def __int__(self) -> int:
         return Roles.INFORMANT.value
+
+    def get_voting_kb(self, chat_id: int) -> InlineKeyboardMarkup:
+        return get_all_users_voting_kb(chat_id)
+
+    def interaction_message(self) -> str:
+        return "готов подсасываться..."

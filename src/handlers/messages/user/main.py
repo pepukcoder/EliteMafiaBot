@@ -8,11 +8,13 @@ from src.handlers.messages.user.interaction_handler import register_interaction_
 from src.state import State, UserInfo
 from aiogram.utils.deep_linking import get_start_link
 from src.misc import TgKeys
+from src.handlers.messages.user.vote_handler import register_vote_handler
 
 def register_user_handlers(dp: Dispatcher):
     handlers = (
         register_interaction_handler,
-        register_detective_interaction_choice_handler
+        register_detective_interaction_choice_handler,
+        register_vote_handler
     )
 
     for handler in handlers:

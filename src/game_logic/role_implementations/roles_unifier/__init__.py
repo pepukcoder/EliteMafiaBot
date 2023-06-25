@@ -1,2 +1,2 @@
 from .interactive_message_sender import InteractiveMessageSender
-from .main import get_all_users_kb
+from .main import get_all_users_kb, get_all_users_voting_kb

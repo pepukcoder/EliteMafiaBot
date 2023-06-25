@@ -18,6 +18,14 @@ class Role(ABC):
         pass
 
     @abstractmethod
+    def get_voting_kb(self, chat_id: int) -> InlineKeyboardMarkup:
+        pass
+
+    @abstractmethod
+    def interaction_message(self) -> str:
+        pass
+
+    @abstractmethod
     def get_interactive_kb(self, chat_id: int) -> InlineKeyboardMarkup:
         pass
 

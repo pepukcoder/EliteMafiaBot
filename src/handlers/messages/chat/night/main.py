@@ -12,10 +12,12 @@ def register_night_handlers(dp: Dispatcher):
     @dp.message_handler(IsGroup())
     async def silence(message: types.Message):
         #if night in game state
-        chat_id = message.chat.id
-        game = state.games[chat_id]
-        print(chat_id)
-        if game.is_day:
-            pass
-        else:
-            await bot.delete_message(message.chat.id, message.message_id)
+        try:
+            chat_id = message.chat.id
+            game = state.games[chat_id]
+            if game.is_day:
+                pass
+            else:
+                await bot.delete_message(message.chat.id, message.message_id)
+        except:
+            print('user written')

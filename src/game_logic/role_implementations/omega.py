@@ -5,7 +5,7 @@ from src.state.enums import Roles
 from src.state import State
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from src.state.enums import InteractionTypes
-from src.game_logic.role_implementations.roles_unifier import get_all_users_kb, InteractiveMessageSender
+from src.game_logic.role_implementations.roles_unifier import get_all_users_kb, InteractiveMessageSender, get_all_users_voting_kb
 
 
 class Omega(Role):
@@ -20,3 +20,9 @@ class Omega(Role):
 
     def __int__(self) -> int:
         return Roles.OMEGA.value
+
+    def get_voting_kb(self, chat_id: int) -> InlineKeyboardMarkup:
+        return get_all_users_voting_kb(chat_id)
+
+    def interaction_message(self) -> str:
+        return "вышел растягивать ширинку папика..."
