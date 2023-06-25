@@ -1,6 +1,5 @@
 from aiogram import Dispatcher, types, Bot
-
-from src.game_logic.sending_strategies import EmptyArrayAndDeleteRegistrationMessage
+from src.functions import delete_reg
 
 from src.misc import TgKeys
 
@@ -12,7 +11,7 @@ def register_stop_handlers(dp: Dispatcher):
         chat_id = message.chat.id
 
         try:
-            await EmptyArrayAndDeleteRegistrationMessage().delete(chat_id, bot)
+            await delete_reg(chat_id, bot)
             await message.reply("*Игра отменена*", parse_mode='Markdown')
         except:
             await message.reply("*Игры не существует*", parse_mode='Markdown')

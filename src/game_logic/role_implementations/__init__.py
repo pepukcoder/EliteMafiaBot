@@ -1,6 +1,5 @@
 from .don import Don
-#from .townie import Townie
-from .detective import Detective
+from .detective import Detective, DetectiveLogic
 from .doctor import Doctor
 from .alfa import Alfa
 from .informant import Informant

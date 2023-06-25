@@ -1,6 +1,7 @@
 from abc import abstractmethod, ABC
 
 from aiogram import Bot
+from aiogram.types import InlineKeyboardMarkup
 
 
 class Role(ABC):
@@ -9,13 +10,15 @@ class Role(ABC):
         pass
 
     @abstractmethod
-    def get_type(self) -> int: # enum enums/roles.py
+    def __int__(self) -> int:  # enum enums/roles.py
         pass
 
     @abstractmethod
-    async def send_interactive_messages(self, chat_id: int, bot: Bot):
+    def get_interactive_message(self) -> str:
         pass
 
     @abstractmethod
-    async def send_role_name(self, bot: Bot):
+    def get_interactive_kb(self, chat_id: int) -> InlineKeyboardMarkup:
         pass
+
+

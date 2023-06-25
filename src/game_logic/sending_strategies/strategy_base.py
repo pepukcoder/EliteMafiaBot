@@ -2,12 +2,14 @@ from abc import ABC, abstractmethod
 
 from aiogram import Bot
 
+from src.state import Role
+
 
 class Strategy(ABC):
     @abstractmethod
-    async def send(self, game_chat_id: int, bot: Bot):
+    def get_text(self, role: Role):
         pass
 
     @abstractmethod
-    async def delete(self, game_chat_id: int, bot: Bot):
+    def get_markup(self, role: Role, chat_id: int):
         pass

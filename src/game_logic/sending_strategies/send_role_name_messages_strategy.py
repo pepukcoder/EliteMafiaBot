@@ -1,24 +1,15 @@
 from aiogram import Bot
+from aiogram.types import InlineKeyboardMarkup
 
 from src.game_logic.sending_strategies import Strategy
-from src.state import UserState, State
+from src.state import UserState, State, Role
 from src.game_logic.role_implementations.assign_roles import assign
 from src.functions import send_to_pm
 
 
 class SendRoleNameMessagesStrategy(Strategy):
-    async def send(self, game_chat_id: int, bot: Bot):
-        state = State()
-        try:
-            users = state.games[game_chat_id].users
+    def get_text(self, role: Role):
+        return f"Ваша роль - {str(role)}"
 
-            for user in users:
-                role_name = str(user.role) if user.role else "👨🏼Мирный житель"
-                # await message.reply(f"Username: {user.username}, id: {user.user_id}, Role: {role_name}")
-                await send_to_pm(user.user_id, f"Твоя роль - {role_name}")
-
-        except KeyError:
-            print(f"Game {game_chat_id} not found")
-
-    async def delete(self, game_chat_id: int, bot: Bot):
-        pass
+    def get_markup(self, role: Role, chat_id: int):
+        return InlineKeyboardMarkup()

@@ -17,15 +17,14 @@ class WaitingForInteractionStrategy(Strategy):
             try:
                 game = state.games[game_chat_id]
 
-                users_with_role = [user for user in game.users if user.role.get_type() is not Roles.TOWNIE]
+                users_with_role = [user for user in game.users if int(user.role) is not Roles.TOWNIE]
                 this_day_interactions = [record for record in game.interaction_history if record.day == game.day]
 
                 # if one user do one interaction by night then number of interactions == number of users with role
                 if len(users_with_role) == len(this_day_interactions):
                     return
 
-                if timer >= 10:
-                    print("hui")
+                if timer >= 60:
                     return
             except KeyError:
                 print(f"Game {game_chat_id} not found")

@@ -3,7 +3,7 @@ from dataclasses import dataclass
 @dataclass
 class UserInfo:
     first_name: str
-    username: str
+    link: str
 
 
 @dataclass

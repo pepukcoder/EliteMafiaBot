@@ -10,6 +10,7 @@ class InteractionTypes(enum.IntEnum):
     podsos = 5
     justify = 6
     lie = 7
-    vote_kill = 8
-    switch = 9
-    fuck = 10
+    mafia_vote_kill = 8
+    don_vote_kill = 9
+    switch = 10
+    fuck = 11

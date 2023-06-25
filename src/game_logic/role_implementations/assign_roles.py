@@ -1,6 +1,5 @@
 import random
 import enum
-#from src.state import UserState
 
 from src.state.enums import Roles
 from src.game_logic.role_implementations import Don, Mafia, Liar, Informant, Doctor, Detective, Whore, Omega, Lawyer, Alfa, Townie
@@ -65,7 +64,7 @@ async def assign(chat_id):
         player_roles.append(Don())
         player_roles.append(Doctor())
 
-        bad_role = random.choice([role for role in BAD_ROLES if role.get_type() != Roles.MAFIA.value and role.get_type() != Roles.DON.value])
+        bad_role = random.choice([role for role in BAD_ROLES if int(role) != Roles.MAFIA.value and int(role) != Roles.DON.value])
         player_roles.append(bad_role)
         player_roles.append(Detective())
         random.shuffle(player_roles)
@@ -73,7 +72,7 @@ async def assign(chat_id):
 
     def assign_roles_scenario_7():
         player_roles = [Townie()]
-        bad_role = random.choice([role for role in BAD_ROLES if role.get_type() != Roles.DON.value])
+        bad_role = random.choice([role for role in BAD_ROLES if int(role) != Roles.DON.value])
         player_roles.append(Don())
         player_roles.append(bad_role)
 
@@ -88,7 +87,7 @@ async def assign(chat_id):
     def assign_roles_scenario_8():
         player_roles.append(Don())
         #player_roles = [Townie()]*2
-        #bad_role = random.choice([role for role in BAD_ROLES if role.get_type() != Roles.DON.value])
+        #bad_role = random.choice([role for role in BAD_ROLES if int(role) != Roles.DON.value])
         #player_roles.append(Don())
         #player_roles.append(bad_role)
 
@@ -102,7 +101,7 @@ async def assign(chat_id):
 
     def assign_roles_scenario_8plus(count):
         player_roles = [Townie()]*(count-6)
-        bad_role = random.choice([role for role in BAD_ROLES if role.get_type() != Roles.DON.value])
+        bad_role = random.choice([role for role in BAD_ROLES if int(role) != Roles.DON.value])
         player_roles.append(Don())
         player_roles.append(bad_role)
 
@@ -121,9 +120,13 @@ async def assign(chat_id):
         player_roles = assign_roles(player_count)
 
         first_names = [item.first_name for item in user_dict.users.values()]
+        links = [item.link for item in user_dict.users.values()]
         users = []
         for idx, x in enumerate(user_dict.users):
-            users.append(UserState(first_name=first_names[idx], user_id=list(user_dict.users.keys())[idx], role=player_roles[idx]))
+            users.append(UserState(first_name=first_names[idx],
+                                   user_id=list(user_dict.users.keys())[idx],
+                                   role=player_roles[idx],
+                                   link=links[idx]))
 
         try:
             state.games[chat_id].users = users
