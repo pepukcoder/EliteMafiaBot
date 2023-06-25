@@ -5,7 +5,7 @@ from src.state import State, InteractionHistoryRecord
 
 def register_interaction_handler(dp: Dispatcher):
 
-    @dp.callback_query_handler(regexp="\d*_\d*_\d*")
+    @dp.callback_query_handler(regexp="^(-?\d+)_(\d+)_(\-?\d+)$")
     async def interaction_handler(call: types.CallbackQuery):
         state = State()
 
