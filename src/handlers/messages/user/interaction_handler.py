@@ -23,7 +23,7 @@ def register_interaction_handler(dp: Dispatcher):
             await call.message.answer("Вы выбрали цель")
             await call.message.delete()
         except KeyError:
-            print(f"Game {chat_id} not found")
+            print(f"Game {chat_id} not found. Interactin_handler.py")
 
 
 

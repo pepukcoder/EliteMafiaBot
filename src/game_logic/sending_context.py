@@ -22,7 +22,8 @@ class SendingContext:
             game = state.games[game_chat_id]
             print(game.users)
             for user in game.users:
-                await bot.send_message(user.user_id,
+                if self._strategy.get_text(user.role):
+                    await bot.send_message(user.user_id,
                                        text=self._strategy.get_text(user.role),
                                        reply_markup=self._strategy.get_markup(user.role, game_chat_id))
         except KeyError:

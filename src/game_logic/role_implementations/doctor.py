@@ -27,7 +27,7 @@ class Doctor(Role):
             return get_all_users_kb(chat_id, InteractionTypes.heal, except_of_users=except_of)
 
         except KeyError:
-            print(f"Game {chat_id} not found")
+            print(f"Game {chat_id} not found. doctor.py")
 
     def __str__(self) -> str:
         return "👨🏼‍⚕️Доктор"
