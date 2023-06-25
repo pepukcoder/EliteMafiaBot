@@ -34,4 +34,4 @@ def get_all_users_kb(chat_id: int, interaction_type: int,
 
         return inline_markup
     except KeyError:
-        print(f"Game {chat_id} not found")
+        print(f"Game {chat_id} not found. roles_unifier/Main.py")
