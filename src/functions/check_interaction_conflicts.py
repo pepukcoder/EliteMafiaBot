@@ -1,9 +1,9 @@
+from src.functions import get_user_firstname_by_id
 from src.state import State
 from aiogram import Bot
 from src.state.enums import InteractionTypes
 
 from src.misc import TgKeys
-from src.functions.get_user_firstname_by_id import GetFirstName
 
 bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
 
@@ -39,7 +39,7 @@ async def check_interaction_conflicts(chat_id):
         else:
             Delete.delete_element_by_id(chat_id=chat_id, user_id=kill_rec.interaction_object)
             await bot.send_message(chat_id=chat_id,
-                                   text=f"Сегодня был жёстко убит {GetFirstName.get_user_firstname_by_id(chat_id=chat_id, user_id=kill_rec.interaction_object)}...\n#донгандон")
+                                   text=f"Сегодня был жёстко убит {get_user_firstname_by_id(chat_id=chat_id, user_id=kill_rec.interaction_object)}...\n#донгандон")
 
 
     for whore_rec, all_rec in zip(whore_int, today_int):
