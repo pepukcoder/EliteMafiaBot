@@ -8,3 +8,4 @@ from .delete_element_by_id import Delete
 from .send_voting import send_voting
 from .end_voting import end_voting
 from .get_user_firstname_by_id import GetFirstName
+from .increase_day import increment_day
