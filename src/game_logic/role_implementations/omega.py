@@ -24,5 +24,5 @@ class Omega(Role):
     def get_voting_kb(self, chat_id: int) -> InlineKeyboardMarkup:
         return get_all_users_voting_kb(chat_id)
 
-    def interaction_message(self) -> str:
+    def get_interaction_message(self) -> str:
         return "ушёл ложиться под папика..."

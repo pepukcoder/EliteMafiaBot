@@ -22,7 +22,7 @@ class Role(ABC):
         pass
 
     @abstractmethod
-    def interaction_message(self) -> str:
+    def get_interaction_message(self) -> str:
         pass
 
     @abstractmethod
