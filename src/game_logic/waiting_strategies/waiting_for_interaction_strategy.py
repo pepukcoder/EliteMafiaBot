@@ -21,6 +21,7 @@ class WaitingForInteractionStrategy(Strategy):
                 this_day_interactions = [record for record in game.interaction_history if record.day == game.day]
 
                 # if one user do one interaction by night then number of interactions == number of users with role
+                print(users_with_role, this_day_interactions)
                 if len(users_with_role) == len(this_day_interactions):
                     return
 

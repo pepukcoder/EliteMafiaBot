@@ -14,7 +14,7 @@ class Whore(Role):
         return "Выбери, к кому ты сегодня пойдешь на вызов"
 
     def get_interactive_kb(self, chat_id: int) -> InlineKeyboardMarkup:
-        return get_all_users_kb(chat_id, InteractionTypes.don_vote_kill, except_of_roles=[Roles.WHORE])
+        return get_all_users_kb(chat_id, InteractionTypes.fuck_whore, except_of_roles=[Roles.WHORE])
 
     def __str__(self) -> str:
         return "💃🏼Шлюха"

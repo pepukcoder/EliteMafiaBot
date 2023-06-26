@@ -13,7 +13,7 @@ class Alfa(Role):
         return "Выберите, кого вы будете ебать этой ночью"
 
     def get_interactive_kb(self, chat_id: int) -> InlineKeyboardMarkup:
-        return get_all_users_kb(chat_id, InteractionTypes.fuck, except_of_roles=[Roles.ALFA])
+        return get_all_users_kb(chat_id, InteractionTypes.fuck_alfa, except_of_roles=[Roles.ALFA])
 
     def __str__(self) -> str:
         return "🧔🏻‍♂️Альфач"

@@ -3,7 +3,6 @@ from aiogram import Bot
 from src.game_logic.sending_strategies import Strategy
 from src.state import State, VoteState
 from src.functions import send_voting
-from src.functions import count_dublicates, get_user_firstname_by_id
 
 def find_duplicates(array):
     count = {}

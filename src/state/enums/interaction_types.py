@@ -13,4 +13,5 @@ class InteractionTypes(enum.IntEnum):
     mafia_vote_kill = 8
     don_vote_kill = 9
     switch = 10
-    fuck = 11
+    fuck_alfa = 11
+    fuck_whore = 12

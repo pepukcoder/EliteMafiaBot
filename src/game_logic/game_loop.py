@@ -6,9 +6,9 @@ from aiogram import Bot
 from src.misc import set_night, set_day
 from src.game_logic.waiting_context import WaitingContext
 from src.game_logic.waiting_strategies import WaitingForInteractionStrategy, WaitingForVoteStrategy
+from src.functions import check_interaction_conflicts
 # Вот это как временная хуйня онли, передавай в start_loop бота крч. Як Ілля, жорстко плюсую
 from src.misc import TgKeys
-from src.functions import end_voting
 
 
 bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
@@ -49,6 +49,8 @@ async def start_loop(chat_id):
         # set day
         day+=1
         await set_day(chat_id, bot, day)
+        #check for ineraction conflicts
+        await check_interaction_conflicts(chat_id)
         # show_alive
         await show_alive(chat_id, bot)
         # show_interaction_history
@@ -61,9 +63,6 @@ async def start_loop(chat_id):
         waiting_context = WaitingContext(WaitingForVoteStrategy())
         await waiting_context.wait(chat_id)
 
-
-
-        await end_voting(chat_id)
         # check_votes
         # vote_kill
         # set_night

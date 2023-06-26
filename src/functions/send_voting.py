@@ -1,7 +1,6 @@
 from aiogram import Dispatcher, types, Bot
 
 from src.state import State, ChatVoteState
-from src.functions import count_dublicates
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from src.misc import TgKeys
 bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
