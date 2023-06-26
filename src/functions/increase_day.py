@@ -1,8 +1,8 @@
 from src.state import State
 
 
-async def increment_day(chat_id, day_count):
+async def increment_day(chat_id):
     state = State()
     game = state.games[chat_id]
 
-    game.day = day_count+1
+    game.day += 1

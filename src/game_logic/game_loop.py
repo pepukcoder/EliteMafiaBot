@@ -29,11 +29,6 @@ async def start_loop(chat_id):
     # send roles to pm
     await sending_context.send(chat_id, bot)
 
-    state = State()
-    game = state.games[chat_id]
-
-    game.day = 0
-
     while True:
         #set night
         await set_night(chat_id, bot)
@@ -51,8 +46,8 @@ async def start_loop(chat_id):
 
         # set day
         await check_interaction_conflicts(chat_id)
-        await increment_day(chat_id, game.day)
-        await set_day(chat_id, bot, game.day)
+        await increment_day(chat_id)
+        await set_day(chat_id, bot)
         #check for ineraction conflicts
         # show_alive
         await show_alive(chat_id, bot)
@@ -70,4 +65,3 @@ async def start_loop(chat_id):
         # vote_kill
         # set_night
         # increment_day
-    pass
