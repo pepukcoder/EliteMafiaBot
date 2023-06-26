@@ -19,7 +19,7 @@ def register_interaction_handler(dp: Dispatcher):
         state.games[int(chat_id)].interaction_history.append(InteractionHistoryRecord(int(interaction_type),
                                                                                      int(object_id),
                                                                                      int(user_id),
-                                                                                     day))
+                                                                                     int(day)))
         print(state.games)
 
         await call.message.answer("Вы выбрали цель")

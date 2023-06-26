@@ -46,7 +46,7 @@ class DetectiveLogic:
         except KeyError:
             print(f"Game {chat_id} not found")
 
-        return get_all_users_kb(chat_id, InteractionTypes.kill, except_of_roles=[Roles.DETECTIVE])
+        return get_all_users_kb(chat_id, InteractionTypes.check, except_of_roles=[Roles.DETECTIVE])
 
     @staticmethod
     def get_check_message() -> str:

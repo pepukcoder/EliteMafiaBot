@@ -13,23 +13,39 @@ from src.functions.delete_element_by_id import Delete
 async def check_interaction_conflicts(chat_id):
     state = State()
     game = state.games[chat_id]
-    this_day_interactions = [record for record in game.interaction_history if record.day == game.day]
-    print(game.users)
+    today_int = [rec for rec in game.interaction_history if rec.day == game.day]
+    print('TODAY')
+    print(today_int)
 
     # maf_int = [a for a in today if get_role_by_user_id(chat_id, a.interaction_object) == Roles.MAFIA]
-    print(this_day_interactions)
-    kill_int = [record for record in this_day_interactions if record.interaction_type == InteractionTypes.don_vote_kill]
-    heal_int = [record for record in this_day_interactions if record.interaction_type == InteractionTypes.heal]
-    # det_int = [a for a in today if get_role_by_user_id(chat_id, a.interaction_object) == Roles.DETECTIVE]
+    kill_int = [rec for rec in today_int if rec.interaction_type == InteractionTypes.don_vote_kill]
+    # kill_int.extend([rec for rec in today_int if rec.interaction_type == InteractionTypes.kill])
+    heal_int = [rec for rec in today_int if rec.interaction_type == InteractionTypes.heal]
+    whore_int = [rec for rec in today_int if rec.interaction_type == InteractionTypes.fuck_whore]
+    liar_int = [rec for rec in today_int if rec.interaction_type == InteractionTypes.lie]
+    det_int = [rec for rec in today_int if rec.interaction_type == InteractionTypes.check]
     # liar_int = [a for a in today if get_role_by_user_id(chat_id, a.interaction_object) == Roles.LIAR]
     # inf_int = [a for a in today if get_role_by_user_id(chat_id, a.interaction_object) == Roles.INFORMANT]
-    print(kill_int, heal_int)
-    for kill_record, heal_record in zip(kill_int, heal_int):
-        if kill_record.interaction_object == heal_record.interaction_object:
+    print('DON')
+    print(whore_int)
+    print('WHORE')
+    print(whore_int)
+    print('LIAR')
+    print(liar_int)
+    for kill_rec, heal_rec in zip(kill_int, heal_int):
+        if kill_rec.interaction_object == heal_rec.interaction_object:
             await bot.send_message(chat_id=chat_id,
                                    text="🤷‍Удивительно, но этой ночью все выжили\n#доккрос\n#донгандон")
         else:
-            Delete.delete_element_by_id(chat_id=chat_id, user_id=kill_record.interaction_object)
+            Delete.delete_element_by_id(chat_id=chat_id, user_id=kill_rec.interaction_object)
             await bot.send_message(chat_id=chat_id,
-                                   text=f"Сегодня был жёстко убит {GetFirstName.get_user_firstname_by_id(chat_id=chat_id, user_id=kill_record.interaction_object)}...\n#донгандон")
+                                   text=f"Сегодня был жёстко убит {GetFirstName.get_user_firstname_by_id(chat_id=chat_id, user_id=kill_rec.interaction_object)}...\n#донгандон")
 
+
+    for whore_rec, all_rec in zip(whore_int, today_int):
+        if whore_rec.interaction_object == all_rec.interaction_subject:
+            print('whore blocked')
+
+    for liar_rec, det_rec in zip(liar_int, det_int):
+        if liar_rec.interaction_object == det_rec.interaction_object:
+            print('liar faked role')
