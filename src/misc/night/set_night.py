@@ -5,7 +5,10 @@ from src.state import GameState
 
 
 async def set_night(chat_id, bot):
-    night_caption = '*Наступает ночь*'
+    night_caption = '*Наступает ночь*\n' \
+                    'В спящем городе скрытые силы разыгрывают свои игры, ' \
+                    'а улицы становятся ареной для безжалостных предателей и ' \
+                    'теневых авантюристов.'
     path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'night.mp4')
 
     state = State()

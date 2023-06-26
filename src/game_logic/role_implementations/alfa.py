@@ -25,4 +25,4 @@ class Alfa(Role):
         return get_all_users_voting_kb(chat_id)
 
     def interaction_message(self) -> str:
-        return "уже готов растягивать писечки(и не только)..."
+        return "расчехляет стероидную залупу..."

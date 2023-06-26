@@ -23,4 +23,4 @@ class Don(Role):
         return get_all_users_voting_kb(chat_id)
 
     def interaction_message(self) -> str:
-        return "выбрал жертву..."
+        return "отправил своих головорезов..."

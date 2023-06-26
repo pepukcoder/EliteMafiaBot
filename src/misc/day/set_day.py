@@ -5,7 +5,9 @@ from src.state import GameState
 
 
 async def set_day(chat_id, bot, day_count):
-    night_caption = f'*День {day_count}*'
+    day_caption = f'*День {day_count}*\n' \
+                    'Город пробуждается. Утренний свет проникает сквозь запыленные окна, ' \
+                    'раскрывая свидетельства недавних подвигов тьмы.'
     path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'day.mp4')
 
     state = State()
@@ -14,4 +16,4 @@ async def set_day(chat_id, bot, day_count):
     game.is_day=True
     game.day = day_count
     with open(path, 'rb') as video_file:
-        await bot.send_animation(chat_id=chat_id, animation=video_file, caption=night_caption, parse_mode='Markdown')
+        await bot.send_animation(chat_id=chat_id, animation=video_file, caption=day_caption, parse_mode='Markdown')

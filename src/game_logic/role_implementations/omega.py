@@ -13,7 +13,7 @@ class Omega(Role):
         return "Выбери, кому будешь сегодня расстегивать ширинку"
 
     def get_interactive_kb(self, chat_id: int) -> InlineKeyboardMarkup:
-        return get_all_users_kb(chat_id, InteractionTypes.don_vote_kill, except_of_roles=[Roles.OMEGA])
+        return get_all_users_kb(chat_id, InteractionTypes.switch, except_of_roles=[Roles.OMEGA])
 
     def __str__(self) -> str:
         return "👦Омежка"
@@ -25,4 +25,4 @@ class Omega(Role):
         return get_all_users_voting_kb(chat_id)
 
     def interaction_message(self) -> str:
-        return "вышел растягивать ширинку папика..."
+        return "ушёл ложиться под папика..."

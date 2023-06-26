@@ -11,7 +11,7 @@ class Informant(Role):
     def get_interactive_message(self) -> str:
         return "Выбери, кого ты будешь проверять"
     def get_interactive_kb(self, chat_id: int) -> InlineKeyboardMarkup:
-        return get_all_users_kb(chat_id, InteractionTypes.don_vote_kill, except_of_roles=[Roles.INFORMANT])
+        return get_all_users_kb(chat_id, InteractionTypes.podsos, except_of_roles=[Roles.INFORMANT])
 
     def __str__(self) -> str:
         return "🦸🏻Подсосыш"
@@ -23,4 +23,4 @@ class Informant(Role):
         return get_all_users_voting_kb(chat_id)
 
     def interaction_message(self) -> str:
-        return "готов подсасываться..."
+        return "ушёл копать инфу на коммисара..."

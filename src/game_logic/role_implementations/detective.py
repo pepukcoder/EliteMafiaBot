@@ -18,7 +18,7 @@ class Detective(Role):
         return inline_markup
 
     def __str__(self) -> str:
-        return "🕵️Коммисар"
+        return "🕵️Коммисарио Припиздуччи"
 
     def __int__(self) -> int:
         return Roles.DETECTIVE.value

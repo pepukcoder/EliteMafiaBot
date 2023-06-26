@@ -14,7 +14,7 @@ class Mafia(Role):
         return "Предложите дону, кого убить"
 
     def get_interactive_kb(self, chat_id: int) -> InlineKeyboardMarkup:
-        return get_all_users_kb(chat_id, InteractionTypes.don_vote_kill, except_of_roles=[Roles.DON, Roles.MAFIA])
+        return get_all_users_kb(chat_id, InteractionTypes.mafia_vote_kill, except_of_roles=[Roles.DON, Roles.MAFIA])
 
     def __str__(self) -> str:
         return "🤵🏻Мафия"

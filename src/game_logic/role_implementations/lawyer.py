@@ -14,7 +14,7 @@ class Lawyer(Role):
         return "Выбери, кого ты будешь защищать на дневном голосовании"
 
     def get_interactive_kb(self, chat_id: int) -> InlineKeyboardMarkup:
-        return get_all_users_kb(chat_id, InteractionTypes.don_vote_kill, except_of_roles=[Roles.LAWYER])
+        return get_all_users_kb(chat_id, InteractionTypes.justify, except_of_roles=[Roles.LAWYER])
 
     def __str__(self) -> str:
         return "👨‍⚖️Адвокат"

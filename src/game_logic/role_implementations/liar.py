@@ -14,7 +14,7 @@ class Liar(Role):
         return "Выбери, на кого ты будешь пиздеть"
 
     def get_interactive_kb(self, chat_id: int) -> InlineKeyboardMarkup:
-        return get_all_users_kb(chat_id, InteractionTypes.don_vote_kill, except_of_roles=[Roles.LIAR])
+        return get_all_users_kb(chat_id, InteractionTypes.lie, except_of_roles=[Roles.LIAR])
 
     def __str__(self) -> str:
         return "🧕🏿Пиздабол"
@@ -26,4 +26,4 @@ class Liar(Role):
         return get_all_users_voting_kb(chat_id)
 
     def interaction_message(self) -> str:
-        return "пиздит как дышит..."
+        return "вышел писать донос..."
