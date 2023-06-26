@@ -7,16 +7,14 @@ bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
 
 async def send_voting(chat_id: int, user_id: int, user_firstname: str):
     state = State()
+    chat_votes = ChatVoteState(voting=[])
     game = state.games[chat_id]
-
-    print(game.chat_votes)
-    game.chat_votes = ChatVoteState(vote_for=0, vote_against=0)
-
-    print(game.chat_votes)
+    game.chat_votes = chat_votes
+    true_count, false_count = game.count_votes()
 
     inline_markup = InlineKeyboardMarkup(row_width=1)
-    inline_markup.add(InlineKeyboardButton(text=f"👍🏻{game.chat_votes.vote_for}",
-                                               callback_data=f"votefor_{user_id}"))
-    inline_markup.add(InlineKeyboardButton(text=f"👎🏿{game.chat_votes.vote_against}",
-                                               callback_data=f"voteagainst_{user_id}"))
+    inline_markup.add(InlineKeyboardButton(text=f"👍🏻{true_count}",
+                                               callback_data=f"votefor_{user_id}_{chat_id}"))
+    inline_markup.add(InlineKeyboardButton(text=f"👎🏿{false_count}",
+                                               callback_data=f"voteagainst_{user_id}_{chat_id}"))
     await bot.send_message(chat_id=chat_id, text=f"Ебашим {user_firstname}?", reply_markup=inline_markup)

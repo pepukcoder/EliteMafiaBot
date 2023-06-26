@@ -1,11 +1,12 @@
 from dataclasses import dataclass
+from typing import List, Tuple
 
 @dataclass
 class VoteState:
     vote_subject: int
     vote_object: int
 
+
 @dataclass
 class ChatVoteState:
-    vote_for: int
-    vote_against: int
+    voting: List[Tuple[int, bool]]  # vote subject, for/against

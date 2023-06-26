@@ -12,6 +12,5 @@ async def set_day(chat_id, bot, day_count):
     game = state.games[chat_id]
 
     game.is_day=True
-    game.day = day_count
     with open(path, 'rb') as video_file:
         await bot.send_animation(chat_id=chat_id, animation=video_file, caption=night_caption, parse_mode='Markdown')

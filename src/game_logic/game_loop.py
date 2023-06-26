@@ -9,12 +9,12 @@ from src.game_logic.waiting_strategies import WaitingForInteractionStrategy, Wai
 from src.functions import check_interaction_conflicts
 # Вот это как временная хуйня онли, передавай в start_loop бота крч. Як Ілля, жорстко плюсую
 from src.misc import TgKeys
-
+from src.state import State
 
 bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
 # --------
 
-from src.functions import show_alive, delete_reg
+from src.functions import show_alive, delete_reg, increment_day
 
 
 async def start_loop(chat_id):
@@ -29,7 +29,10 @@ async def start_loop(chat_id):
     # send roles to pm
     await sending_context.send(chat_id, bot)
 
-    day=0
+    state = State()
+    game = state.games[chat_id]
+
+    game.day = 0
 
     while True:
         #set night
@@ -47,10 +50,10 @@ async def start_loop(chat_id):
         await waiting_context.wait(chat_id)
 
         # set day
-        day+=1
-        await set_day(chat_id, bot, day)
-        #check for ineraction conflicts
         await check_interaction_conflicts(chat_id)
+        await increment_day(chat_id, game.day)
+        await set_day(chat_id, bot, game.day)
+        #check for ineraction conflicts
         # show_alive
         await show_alive(chat_id, bot)
         # show_interaction_history
