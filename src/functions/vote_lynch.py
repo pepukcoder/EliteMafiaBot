@@ -2,10 +2,9 @@ from aiogram import Dispatcher, types, Bot
 from src.state import State, ChatVoteState
 from src.functions import Delete
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from src.misc import TgKeys
-bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
 
-async def vote_lynch(chat_id):
+
+async def vote_lynch(chat_id, bot: Bot):
     state = State()
     game = state.games[chat_id]
     true_count, false_count = game.count_votes()

@@ -6,10 +6,11 @@ from aiogram import Bot
 from src.misc import set_night, set_day
 from src.game_logic.waiting_context import WaitingContext
 from src.game_logic.waiting_strategies import WaitingForInteractionStrategy, WaitingForVoteStrategy
-from src.functions import show_alive, delete_reg, increment_day, check_interaction_conflicts, vote_lynch
+from src.functions import show_alive, delete_reg, increment_day, check_interaction_conflicts, vote_lynch, win_check
 from src.state import State
 
 # Вот это как временная хуйня онли, передавай в start_loop бота крч. Як Ілля, жорстко плюсую
+# Как пепуку, мне похуй, я просто делаю таски, плюсую на всякий
 from src.misc import TgKeys
 
 bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
@@ -27,8 +28,9 @@ async def start_loop(chat_id):
     sending_context = SendingContext(SendRoleNameMessagesStrategy())
     # send roles to pm
     await sending_context.send(chat_id, bot)
+    playing = True
 
-    while True:
+    while playing:
         #set night
         await set_night(chat_id, bot)
         # show alive users
@@ -47,12 +49,11 @@ async def start_loop(chat_id):
         await check_interaction_conflicts(chat_id)
         await increment_day(chat_id)
         await set_day(chat_id, bot)
-        #check for ineraction conflicts
-        # show_alive
         await show_alive(chat_id, bot)
-        # show_interaction_history
-        # win_check
-        
+
+        # win check
+        playing = await win_check(chat_id, bot)
+
         # vote
         sending_context = SendingContext(SendVotingMessages())
         await sending_context.send_voting(chat_id, bot)
@@ -61,7 +62,7 @@ async def start_loop(chat_id):
         await waiting_context.wait(chat_id)
 
         # check voting and kill
-        await vote_lynch(chat_id)
+        await vote_lynch(chat_id, bot)
 
-        # set_night
-        # increment_day
+        # win check 2
+        playing = await win_check(chat_id, bot)
