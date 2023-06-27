@@ -27,7 +27,7 @@ class Detective(Role):
         return get_all_users_voting_kb(chat_id)
 
     def get_interaction_message(self) -> str:
-        return "ушёл искать преступников..."
+        return "ага хуй"
 
 
 class DetectiveLogic:
@@ -55,6 +55,8 @@ class DetectiveLogic:
     @staticmethod
     def get_kill_kb(chat_id):
         return get_all_users_kb(chat_id, InteractionTypes.kill, except_of_roles=[Roles.DETECTIVE])
+
+
 
     def get_voting_kb(self, chat_id: int) -> InlineKeyboardMarkup:
         return get_all_users_voting_kb(chat_id)

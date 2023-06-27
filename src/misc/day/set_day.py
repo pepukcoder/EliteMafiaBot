@@ -10,7 +10,7 @@ async def set_day(chat_id, bot):
     state = State()
     game = state.games[chat_id]
 
-    day_caption = f'*День {game.day}*\n' \
+    day_caption = f'*День {game.day +1}*\n' \
                   'Город пробуждается. Утренний свет проникает сквозь запыленные окна, ' \
                   'раскрывая свидетельства недавних подвигов тьмы.'
 

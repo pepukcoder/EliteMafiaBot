@@ -1,7 +1,5 @@
-from aiogram import Bot
 
-from src.game_logic.sending_strategies import Strategy
-from src.state import State, VoteState
+from src.state import State
 from src.functions import send_voting
 
 def find_duplicates(array):

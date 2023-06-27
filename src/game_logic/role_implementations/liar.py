@@ -17,7 +17,7 @@ class Liar(Role):
         return get_all_users_kb(chat_id, InteractionTypes.lie, except_of_roles=[Roles.LIAR])
 
     def __str__(self) -> str:
-        return "🧕🏿Пиздабол"
+        return "👨🏾‍🦱Пиздабол"
 
     def __int__(self) -> int:
         return Roles.LIAR.value
