@@ -19,6 +19,15 @@ def register_chat_vote_handler(dp: Dispatcher):
         # remove oposite vote
         game.decrease_false_count(user_id)
 
+        # check if user is alive
+        users = state.games[int(chat_id)].users
+        for user in users:
+            if user_id == user.user_id:
+                break
+        else:
+            await call.answer("Ты не в игре 🤡", show_alert=True)
+            return
+
         # Check if the user has already voted
         if game.chat_votes.voting and any(user_id == vote[0] for vote in game.chat_votes.voting):
             # Check if the user has already voted
@@ -55,6 +64,15 @@ def register_chat_vote_handler(dp: Dispatcher):
         game.chat_votes.message_id = call.message.message_id
         # remove oposite vote
         game.decrease_true_count(user_id)
+
+        #check if user is alive
+        users = state.games[int(chat_id)].users
+        for user in users:
+            if user_id == user.user_id:
+                break
+        else:
+            await call.answer("Ты не в игре 🤡", show_alert=True)
+            return
 
         # Check if the user has already voted
         if game.chat_votes.voting and any(user_id == vote[0] for vote in game.chat_votes.voting):
