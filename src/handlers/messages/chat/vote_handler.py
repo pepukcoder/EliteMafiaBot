@@ -14,9 +14,10 @@ def register_chat_vote_handler(dp: Dispatcher):
         text_vote, object_id, chat_id = call.data.split("_")
         game = state.games[int(chat_id)]
         user_id = int(call.from_user.id)
-
+        game.chat_votes.vote_for = int(object_id)
+        game.chat_votes.message_id = call.message.message_id
         # remove oposite vote
-        game.remove_opposite_vote(user_id)
+        game.decrease_false_count(user_id)
 
         # Check if the user has already voted
         if game.chat_votes.voting and any(user_id == vote[0] for vote in game.chat_votes.voting):
@@ -50,9 +51,10 @@ def register_chat_vote_handler(dp: Dispatcher):
         text_vote, object_id, chat_id = call.data.split("_")
         game = state.games[int(chat_id)]
         user_id = int(call.from_user.id)
-
+        game.chat_votes.vote_for = int(object_id)
+        game.chat_votes.message_id = call.message.message_id
         # remove oposite vote
-        game.remove_opposite_vote(user_id)
+        game.decrease_true_count(user_id)
 
         # Check if the user has already voted
         if game.chat_votes.voting and any(user_id == vote[0] for vote in game.chat_votes.voting):

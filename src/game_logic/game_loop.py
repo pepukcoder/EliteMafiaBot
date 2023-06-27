@@ -6,15 +6,14 @@ from aiogram import Bot
 from src.misc import set_night, set_day
 from src.game_logic.waiting_context import WaitingContext
 from src.game_logic.waiting_strategies import WaitingForInteractionStrategy, WaitingForVoteStrategy
-from src.functions import check_interaction_conflicts
+from src.functions import show_alive, delete_reg, increment_day, check_interaction_conflicts, vote_lynch
+from src.state import State
+
 # Вот это как временная хуйня онли, передавай в start_loop бота крч. Як Ілля, жорстко плюсую
 from src.misc import TgKeys
-from src.state import State
 
 bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
 # --------
-
-from src.functions import show_alive, delete_reg, increment_day
 
 
 async def start_loop(chat_id):
@@ -61,7 +60,8 @@ async def start_loop(chat_id):
         waiting_context = WaitingContext(WaitingForVoteStrategy())
         await waiting_context.wait(chat_id)
 
-        # check_votes
-        # vote_kill
+        # check voting and kill
+        await vote_lynch(chat_id)
+
         # set_night
         # increment_day

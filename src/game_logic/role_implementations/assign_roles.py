@@ -24,7 +24,7 @@ async def assign(chat_id):
     def assign_roles(player_count):
         match player_count:
             case 2:
-                return assign_roles_scenario_4()
+                return assign_roles_scenario_8()
             case 5:
                 return assign_roles_scenario_5()
             case 6:
@@ -87,7 +87,7 @@ async def assign(chat_id):
         return player_roles
 
     def assign_roles_scenario_8():
-        player_roles.append(Doctor())
+        player_roles = [Doctor()]
         player_roles.append(Don())
         #player_roles = [Townie()]*2
         #bad_role = random.choice([role for role in BAD_ROLES if int(role) != Roles.DON.value])

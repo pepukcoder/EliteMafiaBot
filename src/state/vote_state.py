@@ -10,3 +10,5 @@ class VoteState:
 @dataclass
 class ChatVoteState:
     voting: List[Tuple[int, bool]]  # vote subject, for/against
+    vote_for: int
+    message_id: int

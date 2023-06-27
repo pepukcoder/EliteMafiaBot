@@ -5,9 +5,10 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from src.misc import TgKeys
 bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
 
+
 async def send_voting(chat_id: int, user_id: int, user_firstname: str):
     state = State()
-    chat_votes = ChatVoteState(voting=[])
+    chat_votes = ChatVoteState(voting=[], vote_for=0, message_id=0)
     game = state.games[chat_id]
     game.chat_votes = chat_votes
     true_count, false_count = game.count_votes()

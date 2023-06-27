@@ -37,13 +37,12 @@ class GameState:
         if self.chat_votes is not None:
             self.chat_votes.voting.append((chat_id, False))
 
-    def remove_opposite_vote(self, user_id: int):
-        if self.chat_votes is None or not self.chat_votes.voting:
-            return
+    def decrease_true_count(self, chat_id: int):
+        vote = (chat_id, True)
+        if self.chat_votes is not None and vote in self.chat_votes.voting:
+            self.chat_votes.voting.remove(vote)
 
-        opposite_vote = not any(vote[1] for vote in self.chat_votes.voting if vote[0] == user_id)
-
-        # Check if the user has already voted
-        if any(vote[0] == user_id for vote in self.chat_votes.voting):
-            self.chat_votes.voting = [(vote[0], vote[1]) for vote in self.chat_votes.voting if vote[0] != user_id]
-            self.chat_votes.voting.append((user_id, opposite_vote))
+    def decrease_false_count(self, chat_id: int):
+        vote = (chat_id, False)
+        if self.chat_votes is not None and vote in self.chat_votes.voting:
+            self.chat_votes.voting.remove(vote)

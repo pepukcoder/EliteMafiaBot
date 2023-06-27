@@ -9,3 +9,4 @@ from .send_voting import send_voting
 from .end_voting import end_voting
 from .get_user_firstname_by_id import get_user_firstname_by_id
 from .increase_day import increment_day
+from .vote_lynch import vote_lynch
