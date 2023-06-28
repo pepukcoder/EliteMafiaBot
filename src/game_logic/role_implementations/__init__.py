@@ -11,3 +11,4 @@ from .whore import Whore
 from .townie import Townie
 
 from .assign_roles import assign
+from .activate_interactions import activate_interactions

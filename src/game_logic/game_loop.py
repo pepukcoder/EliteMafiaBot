@@ -1,7 +1,7 @@
 import asyncio
 
 from src.game_logic.create_game_state import create_game_state
-from src.game_logic.role_implementations import assign
+from src.game_logic.role_implementations import assign, activate_interactions
 from src.game_logic.sending_context import SendingContext
 from src.game_logic.sending_strategies import SendRoleNameMessagesStrategy, SendInteractiveMessagesStrategy, \
     SendVotingMessages
@@ -9,7 +9,6 @@ from aiogram import Bot
 from src.misc import set_night, set_day
 from src.game_logic.waiting_context import WaitingContext
 from src.game_logic.waiting_strategies import WaitingForInteractionStrategy, WaitingForVoteStrategy
-from src.functions import activate_interactions
 
 # Вот это как временная хуйня онли, передавай в start_loop бота крч. Як Ілля, жорстко плюсую
 from src.misc import TgKeys

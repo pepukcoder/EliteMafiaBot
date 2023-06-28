@@ -1,5 +1,6 @@
 from aiogram import Bot
 
+from src.game_logic.role_implementations import Townie
 from src.misc import TgKeys
 from src.state.enums import Roles
 from src.functions import get_user_id_by_role, get_role_by_user_id, change_user_role
@@ -108,6 +109,7 @@ async def activate_interactions(chat_id: int) -> None:
         omega = get_user_id_by_role(chat_id, Roles.OMEGA)
         temp_role = get_role_by_user_id(chat_id, omega_target_id)
         change_user_role(chat_id, omega, temp_role)
+        change_user_role(chat_id, omega_target_id, Townie())
         await bot.send_message(chat_id=omega_target_id, text=f"Омега спиздил твою роль, теперь ты сосёшь хуйца")
         await bot.send_message(chat_id=omega_target_id, text=f"У тебя спиздили роль на следующую ночь, поэтому ты не сможешь ничего делать")
         await bot.send_message(chat_id=omega, text=f"Ты успешно спиздил роль. Теперь ты - {str(get_role_by_user_id(chat_id, omega))}")
