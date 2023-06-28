@@ -8,16 +8,29 @@ def get_all_users_voting_kb(chat_id: int) -> InlineKeyboardMarkup:
     state = State()
     try:
         game = state.games[chat_id]
-
+        prev = game.day - 1
+        prev_day_interactions = [record for record in game.interaction_history if record.day == prev]
         inline_markup = InlineKeyboardMarkup(row_width=1)
-
-        for user_state in game.users:
-            inline_markup.add(InlineKeyboardButton(text=user_state.first_name,
+        print(prev_day_interactions, game.users)
+        try:
+            laywer_target_id = [record.interaction_object for record in prev_day_interactions if
+                                record.interaction_type == InteractionTypes.justify][0]
+            print(laywer_target_id)
+            for user_state in game.users:
+                if laywer_target_id == user_state.user_id:
+                    pass
+                else:
+                    inline_markup.add(InlineKeyboardButton(text=user_state.first_name,
+                                                           callback_data=f"voting_{user_state.user_id}_{chat_id}"))
+        except:
+            for user_state in game.users:
+                inline_markup.add(InlineKeyboardButton(text=user_state.first_name,
                                                        callback_data=f"voting_{user_state.user_id}_{chat_id}"))
-        print(f"voting_{user_state.user_id}_{chat_id}")
 
-        inline_markup.add(InlineKeyboardButton(text=f"🚷Сидеть дома",
-                                               callback_data=f"skipvote_{chat_id}"))
+            inline_markup.add(InlineKeyboardButton(text=f"🚷Сидеть дома",
+                                                   callback_data=f"skipvote_{chat_id}"))
+            print(f"voting_{user_state.user_id}_{chat_id}")
+
         return inline_markup
     except KeyError:
         print(f"Game {chat_id} not found. roles_unifier/Main.py/get_all_users_voting_kb")

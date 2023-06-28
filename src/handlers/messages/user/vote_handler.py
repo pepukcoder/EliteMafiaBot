@@ -15,7 +15,7 @@ def register_vote_handler(dp: Dispatcher):
         state = State()
         obj, object_id, chat_id = call.data.split("_")
         vote_subjects = [vote.vote_subject for vote in state.games[int(chat_id)].votes]
-        print(vote_subjects)  # output []
+          # output []
 
         user_id = call.from_user.id
 

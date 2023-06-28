@@ -32,6 +32,14 @@ async def check_switch_back(chat_id: int):
         else:
             return
 
+def get_name_by_user_id(chat_id: int, user_id: int):
+    state = State()
+    game = state.games[chat_id]
+
+    for user in game.users:
+        if user.user_id == user_id:
+            return user.first_name
+
 async def activate_interactions(chat_id: int) -> None:
     state = State()
     game = state.games[chat_id]
@@ -102,12 +110,13 @@ async def activate_interactions(chat_id: int) -> None:
             # send fake bad role
             detective = get_user_id_by_role(chat_id, Roles.DETECTIVE)
             print(detective)
-            await bot.send_message(chat_id=detective, text=f"{detective_check_user_id} - 👨🏼Мирный житель")
+            await bot.send_message(chat_id=detective, text=f"{get_name_by_user_id(chat_id, detective_check_user_id)} - 👨🏼Мирный житель")
+            await bot.send_message(chat_id=detective_check_user_id, text=f"Тебя чекал коммисар")
         else:
             # send detective real role
             detective = get_user_id_by_role(chat_id, Roles.DETECTIVE)
             print(detective)
-            await bot.send_message(chat_id=detective, text=f"{detective_check_user_id} - {str(get_role_by_user_id(chat_id=chat_id, user_id=detective_check_user_id))}")
+            await bot.send_message(chat_id=detective, text=f"{get_name_by_user_id(chat_id, detective_check_user_id)} - {str(get_role_by_user_id(chat_id=chat_id, user_id=detective_check_user_id))}")
             pass
     except:
         detective_check_record = []
@@ -131,12 +140,31 @@ async def activate_interactions(chat_id: int) -> None:
         change_user_role(chat_id, omega_target_id, Townie())
         await bot.send_message(chat_id=omega_target_id, text=f"Омега спиздил твою роль, теперь ты сосёшь хуйца")
         await bot.send_message(chat_id=omega_target_id, text=f"У тебя спиздили роль на следующую ночь, поэтому ты не сможешь ничего делать")
-        await bot.send_message(chat_id=omega, text=f"Ты успешно спиздил роль. Теперь ты - {str(get_role_by_user_id(chat_id, omega))}")
+        await bot.send_message(chat_id=omega, text=f"Ты успешно спиздил роль. Теперь ты - {get_role_by_user_id(chat_id, omega)}")
 
         await check_switch_back(chat_id)
     except:
         omega_target_id = []
         await check_switch_back(chat_id)
+
+    try:
+        informant_target_id = [record.interaction_object for record in today_int if
+                            record.interaction_type == InteractionTypes.podsos][0]
+
+        try:
+            if informant_target_id == get_user_id_by_role(chat_id, Roles.DETECTIVE):
+                await bot.send_message(chat_id=get_user_id_by_role(chat_id, Roles.DON),
+                                       text=f"{get_name_by_user_id(chat_id, informant_target_id)} - {get_role_by_user_id(chat_id, informant_target_id)}")
+                await bot.send_message(chat_id=get_user_id_by_role(chat_id, Roles.INFORMANT),
+                                       text=f"{get_name_by_user_id(chat_id, informant_target_id)} - {get_role_by_user_id(chat_id, informant_target_id)}")
+            else:
+                await bot.send_message(chat_id=get_user_id_by_role(chat_id, Roles.DON),
+                                       text=f"{get_name_by_user_id(chat_id, informant_target_id)} - {get_role_by_user_id(chat_id, informant_target_id)}")
+        except:
+            pass
+    except IndexError:
+        informant_target_id = []
+
 
     try:
         users_to_kill.remove(doctor_target_id)
@@ -149,7 +177,7 @@ async def activate_interactions(chat_id: int) -> None:
     for usr in users_to_kill:
         print(usr)
         await bot.send_message(chat_id=chat_id,
-                               text=f"Сегодня был ёбнут *{usr}*\n#донгандон", parse_mode="Markdown")
+                               text=f"Сегодня был ёбнут *{get_name_by_user_id(chat_id, usr)}*\n#донгандон", parse_mode="Markdown")
     Delete.delete_all_elements_by_id(chat_id=chat_id, user_ids=users_to_kill)
 
 

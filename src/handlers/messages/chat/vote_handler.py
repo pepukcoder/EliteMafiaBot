@@ -6,6 +6,13 @@ from src.misc import TgKeys
 
 bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
 
+def get_name_by_user_id(chat_id: int, user_id: int):
+    state = State()
+    game = state.games[chat_id]
+
+    for user in game.users:
+        if user.user_id == user_id:
+            return user.first_name
 
 def register_chat_vote_handler(dp: Dispatcher):
     @dp.callback_query_handler(regexp="votefor_(\d+)_(\-?\d+)")
@@ -52,7 +59,7 @@ def register_chat_vote_handler(dp: Dispatcher):
 
         print(game.chat_votes)
         await call.answer("Вы проголосовали 👍")
-        await call.message.edit_text(text=f"Ебашим {object_id}?", reply_markup=inline_markup)
+        await call.message.edit_text(text=f"Ебашим {get_name_by_user_id(chat_id, int(object_id))}?", reply_markup=inline_markup)
 
     @dp.callback_query_handler(regexp="voteagainst_(\d+)_(\-?\d+)")
     async def vote_handler(call: types.CallbackQuery):
@@ -98,4 +105,4 @@ def register_chat_vote_handler(dp: Dispatcher):
 
         print(game.chat_votes)
         await call.answer("Вы проголосовали 👎")
-        await call.message.edit_text(text=f"Ебашим {object_id}?", reply_markup=inline_markup)
+        await call.message.edit_text(text=f"Ебашим {get_name_by_user_id(chat_id, int(object_id))}?", reply_markup=inline_markup)

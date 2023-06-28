@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import List, Tuple
+from typing import List, Tuple, Optional
 
 
 @dataclass
@@ -11,5 +11,5 @@ class VoteState:
 @dataclass
 class ChatVoteState:
     voting: List[Tuple[int, bool]]  # vote subject, for/against
-    vote_for: int
-    message_id: int
+    vote_for: Optional[int] = None
+    message_id: Optional[int] = None

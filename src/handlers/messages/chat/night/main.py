@@ -15,9 +15,13 @@ def register_night_handlers(dp: Dispatcher):
         try:
             chat_id = message.chat.id
             game = state.games[chat_id]
+            user_ids = [user.user_id for user in game.users]
             if game.is_day:
                 pass
             else:
                 await bot.delete_message(message.chat.id, message.message_id)
+
+            if message.from_user.id not in user_ids:
+                await bot.delete_message(message.chat.id, message.message_id)
         except:
-            print('user written')
+            print('User written')
