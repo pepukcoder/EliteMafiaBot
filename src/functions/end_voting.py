@@ -20,7 +20,7 @@ def find_duplicates(array):
 
 async def end_voting(chat_id):
     state = State()
-    vote_objects = [vote.vote_object for vote in state.games[chat_id].votes]
+    vote_objects = [vote.vote_object for vote in state.games[chat_id].votes if vote.vote_object != 0]
     
     print(vote_objects) # output [1311292414, 1311292414]
     #object_count, most_common_id = count_dublicates(vote_objects)

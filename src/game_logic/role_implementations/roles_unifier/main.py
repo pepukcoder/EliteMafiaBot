@@ -16,6 +16,8 @@ def get_all_users_voting_kb(chat_id: int) -> InlineKeyboardMarkup:
                                                        callback_data=f"voting_{user_state.user_id}_{chat_id}"))
         print(f"voting_{user_state.user_id}_{chat_id}")
 
+        inline_markup.add(InlineKeyboardButton(text=f"🚷Сидеть дома",
+                                               callback_data=f"skipvote_{chat_id}"))
         return inline_markup
     except KeyError:
         print(f"Game {chat_id} not found. roles_unifier/Main.py/get_all_users_voting_kb")
