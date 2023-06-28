@@ -23,8 +23,10 @@ class SendingContext:
             for user in game.users:
                 if self._strategy.get_text(user.role):
                     await bot.send_message(user.user_id,
-                                       text=self._strategy.get_text(user.role),
-                                       reply_markup=self._strategy.get_markup(user.role, game_chat_id))
+                                           text=self._strategy.get_text(user.role),
+                                           parse_mode='HTML',
+                                           disable_web_page_preview=True,
+                                           reply_markup=self._strategy.get_markup(user.role, game_chat_id))
         except KeyError:
             print(f"Game {game_chat_id} not found")
     
