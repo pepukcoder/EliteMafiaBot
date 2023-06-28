@@ -1,3 +1,5 @@
+import asyncio
+
 from src.game_logic.create_game_state import create_game_state
 from src.game_logic.role_implementations import assign
 from src.game_logic.sending_context import SendingContext
@@ -55,6 +57,7 @@ async def start_loop(chat_id):
         playing = await win_check(chat_id, bot)
 
         # vote
+        await asyncio.sleep(30)
         sending_context = SendingContext(SendVotingMessages())
         await sending_context.send_voting(chat_id, bot)
 
