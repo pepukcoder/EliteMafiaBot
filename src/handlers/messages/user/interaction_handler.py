@@ -10,8 +10,8 @@ from src.state.enums import Roles
 
 bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
 
-def register_interaction_handler(dp: Dispatcher):
 
+def register_interaction_handler(dp: Dispatcher):
     @dp.callback_query_handler(regexp="^(-?\d+)_(\d+)_(\-?\d+)$")
     async def interaction_handler(call: types.CallbackQuery):
         await call.message.delete()
@@ -23,9 +23,9 @@ def register_interaction_handler(dp: Dispatcher):
 
         day = state.games[int(chat_id)].day
         state.games[int(chat_id)].interaction_history.append(InteractionHistoryRecord(int(interaction_type),
-                                                                                     int(object_id),
-                                                                                     int(user_id),
-                                                                                     day))
+                                                                                      int(object_id),
+                                                                                      int(user_id),
+                                                                                      day))
         print(state.games)
 
         await call.message.answer("Вы выбрали цель")
@@ -38,11 +38,10 @@ def register_interaction_handler(dp: Dispatcher):
             await bot.send_message(chat_id=int(chat_id),
                                    text=f"{str(get_role_by_user_id(chat_id=int(chat_id), user_id=int(user_id)))} {get_role_by_user_id(chat_id=int(chat_id), user_id=int(user_id)).get_interaction_message()}")
 
-
-        await bot.send_message(chat_id=int(chat_id),
-                               text=f"{str(get_role_by_user_id(chat_id=int(chat_id),user_id=int(user_id)))} "
-                                    f"{get_role_by_user_id(chat_id=int(chat_id), user_id=int(user_id)).get_interaction_message()}")
-        await call.message.delete()
+        # await bot.send_message(chat_id=int(chat_id),
+        #                        text=f"{str(get_role_by_user_id(chat_id=int(chat_id), user_id=int(user_id)))} "
+        #                             f"{get_role_by_user_id(chat_id=int(chat_id), user_id=int(user_id)).get_interaction_message()}")
+        #await call.message.delete()
 
     @dp.callback_query_handler(regexp="skip_(\-?\d+)")
     async def skip_handler(call: types.CallbackQuery):
@@ -56,8 +55,5 @@ def register_interaction_handler(dp: Dispatcher):
                                                                                       day))
         await call.message.answer("Вы пропустили ход")
         await bot.send_message(chat_id=int(chat_id),
-                               text=f"{str(get_role_by_user_id(chat_id=int(chat_id),user_id=user_id))} решил скуколдиться и забил хуй")
+                               text=f"{str(get_role_by_user_id(chat_id=int(chat_id), user_id=user_id))} решил скуколдиться и забил хуй")
         await call.message.delete()
-
-
-

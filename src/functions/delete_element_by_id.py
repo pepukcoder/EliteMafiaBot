@@ -1,7 +1,9 @@
 from src.state import State
 from src.state import InteractionHistoryRecord
 
+
 class Delete:
+    @staticmethod
     def delete_all_elements_by_id(chat_id: int, user_ids: list[int]):
         state = State()
         users = state.games[chat_id].users
@@ -13,6 +15,7 @@ class Delete:
             if user.user_id in user_ids:
                 users.remove(user)
 
+    @staticmethod
     def clear_interaction_history(self: int, target_day: int):
         state = State()
         game = state.games[self]

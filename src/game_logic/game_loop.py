@@ -9,7 +9,7 @@ from src.misc import set_night, set_day
 from src.game_logic.waiting_context import WaitingContext
 from src.game_logic.waiting_strategies import WaitingForInteractionStrategy, WaitingForVoteStrategy
 
-from src.functions import show_alive, delete_reg, increment_day, check_interaction_conflicts, vote_lynch, win_check, announce_vote
+from src.functions import show_alive, delete_reg, increment_day, vote_lynch, win_check, announce_vote
 from src.state import State
 
 # Вот это как временная хуйня онли, передавай в start_loop бота крч. Як Ілля, жорстко плюсую

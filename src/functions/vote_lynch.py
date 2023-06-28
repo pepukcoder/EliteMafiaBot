@@ -13,6 +13,6 @@ async def vote_lynch(chat_id, bot: Bot):
     if true_count > false_count:
         await bot.delete_message(chat_id, msg_id)
         await bot.send_message(chat_id, f"*Заебашен {user}!*\n👍{true_count} | 👎🏿{false_count}", parse_mode='Markdown')
-        Delete.delete_element_by_id(chat_id, user)
+        Delete.delete_all_elements_by_id(chat_id, [user])
     else:
         await bot.send_message(chat_id, f"Из-за того, что жители только и делали, что пиздели, они не смогли договориться, кого линчевать.", parse_mode='Markdown')
