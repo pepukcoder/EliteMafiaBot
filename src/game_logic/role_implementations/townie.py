@@ -1,7 +1,7 @@
 from aiogram import Bot
 from aiogram.types import InlineKeyboardMarkup
 
-from src.state import Role
+from src.state import Role, InteractionHistoryRecord, State
 from src.state.enums import Roles
 from src.game_logic.role_implementations.roles_unifier import get_all_users_voting_kb
 
@@ -10,9 +10,14 @@ class Townie(Role):
     def get_interactive_message(self) -> str:
         pass
 
-    def get_interactive_kb(self, chat_id: int) -> InlineKeyboardMarkup:
-        pass
-
+    def get_interactive_kb(self, chat_id: int) -> None:
+        state = State()
+        game = state.games[int(chat_id)]
+        state.games[int(chat_id)].interaction_history.append(InteractionHistoryRecord(0,
+                                                                                      0,
+                                                                                      0,
+                                                                                      game.day))
+        return
     def __str__(self) -> str:
         return "👨🏼Мирный житель"
 

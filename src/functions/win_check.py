@@ -12,13 +12,14 @@ async def win_check(chat_id, bot: Bot) -> bool:
     good = [user for user in users if int(user.role) != Roles.DON.value and int(user.role) != Roles.MAFIA.value]
     print(bad, good)
 
-    if len(bad) >= len(good):
-        msg = f'Криминальный мир одержал победу'
-    elif len(bad) == 0:
-        msg = f'В городе восстановился порядок'
-    else:
-        print('win check: continue')
-        return True
-    print('win check: game ended')
-    await bot.send_message(chat_id, text=f"*Игра окончена!*\n{msg}", parse_mode='Markdown')
-    return False
+    # if len(bad) >= len(good):
+    #     msg = f'Криминальный мир одержал победу'
+    # elif len(bad) == 0:
+    #     msg = f'В городе восстановился порядок'
+    # else:
+    #     print('win check: continue')
+    #     return True
+    # print('win check: game ended')
+    # await bot.send_message(chat_id, text=f"*Игра окончена!*\n{msg}", parse_mode='Markdown')
+    # ыreturn False
+    return True

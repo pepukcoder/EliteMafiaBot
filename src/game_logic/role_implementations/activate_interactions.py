@@ -12,6 +12,25 @@ from src.state import State
 from src.state.enums import InteractionTypes
 from collections import Counter
 
+async def check_switch_back(chat_id: int):
+    state = State()
+    game = state.games[chat_id]
+    previous_day = game.day - 1
+    prev_day_interactions = [record for record in game.interaction_history if record.day == previous_day]
+
+    for interaction in prev_day_interactions:
+        if interaction.interaction_type == 10:
+            snatched_role = get_role_by_user_id(chat_id, interaction.interaction_subject)
+            townie = get_role_by_user_id(chat_id, interaction.interaction_object)
+            change_user_role(chat_id, interaction.interaction_subject, townie)
+            await bot.send_message(chat_id=interaction.interaction_subject,
+                                   text=f"Тебя раскрыли и отпиздили, теперь ты ты - {str(get_role_by_user_id(chat_id, interaction.interaction_subject))}")
+            change_user_role(chat_id, interaction.interaction_object, snatched_role)
+            await bot.send_message(chat_id=interaction.interaction_object,
+                                   text=f"Омега был успешно опущен, теперь ты снова {str(get_role_by_user_id(chat_id, interaction.interaction_object))}")
+
+        else:
+            return
 
 async def activate_interactions(chat_id: int) -> None:
     state = State()
@@ -114,8 +133,11 @@ async def activate_interactions(chat_id: int) -> None:
         await bot.send_message(chat_id=omega_target_id, text=f"У тебя спиздили роль на следующую ночь, поэтому ты не сможешь ничего делать")
         await bot.send_message(chat_id=omega, text=f"Ты успешно спиздил роль. Теперь ты - {str(get_role_by_user_id(chat_id, omega))}")
 
+        await check_switch_back(chat_id)
     except:
         omega_target_id = []
+        await check_switch_back(chat_id)
+
     try:
         users_to_kill.remove(doctor_target_id)
     except ValueError:

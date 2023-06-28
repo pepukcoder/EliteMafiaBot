@@ -27,6 +27,10 @@ class SendingContext:
                                            parse_mode='HTML',
                                            disable_web_page_preview=True,
                                            reply_markup=self._strategy.get_markup(user.role, game_chat_id))
+                else:
+                    await bot.send_message(user.user_id,
+                                           text="Ваша роль не активна, вы пропускаете ход.",
+                                           reply_markup=self._strategy.get_markup(user.role, game_chat_id))
         except KeyError:
             print(f"Game {game_chat_id} not found")
     
