@@ -24,6 +24,7 @@ async def interact(chat_id):
     whore_int = [rec for rec in today_int if rec.interaction_type == InteractionTypes.fuck_whore]
     liar_int = [rec for rec in today_int if rec.interaction_type == InteractionTypes.lie]
     det_int = [rec for rec in today_int if rec.interaction_type == InteractionTypes.check]
+    heal_int = [rec for rec in today_int if rec.interaction_type == InteractionTypes.heal]
     # liar_int = [a for a in today if get_role_by_user_id(chat_id, a.interaction_object) == Roles.LIAR]
     # inf_int = [a for a in today if get_role_by_user_id(chat_id, a.interaction_object) == Roles.INFORMANT]
     print('DON')
