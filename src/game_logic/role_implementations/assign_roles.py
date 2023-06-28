@@ -23,7 +23,7 @@ async def assign(chat_id):
 
     def assign_roles(player_count):
         match player_count:
-            case 1:
+            case 2:
                 return assign_roles_scenario_4()
             case 5:
                 return assign_roles_scenario_5()
@@ -43,7 +43,7 @@ async def assign(chat_id):
         # player_roles[unique_indices[0]] = Don()
         # player_roles[unique_indices[1]] = Doctor()
         player_roles = [Detective()]
-        player_roles.append(Detective())
+        player_roles.append(Omega())
         return player_roles
 
     def assign_roles_scenario_5():
@@ -59,7 +59,7 @@ async def assign(chat_id):
     def assign_roles_scenario_6():
         if random.random() < 0.5:
             player_roles = [Townie()] * 1
-            insert_none_position(player_roles, random.sample(ADDITIONAL_ROLES, 1)[0])
+            player_roles.append(random.choice(ADDITIONAL_ROLES))
         else:
             player_roles = [Townie()] * 2
         unique_indices = random.sample(range(4), 2)
