@@ -42,8 +42,8 @@ async def assign(chat_id):
         # unique_indices = random.sample(range(4), 2)
         # player_roles[unique_indices[0]] = Don()
         # player_roles[unique_indices[1]] = Doctor()
-        player_roles = [Whore()]
-        player_roles.append(Don())
+        player_roles = [Omega()]
+        player_roles.append(Detective())
         return player_roles
 
     def assign_roles_scenario_5():

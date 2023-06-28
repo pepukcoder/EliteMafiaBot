@@ -10,7 +10,7 @@ bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
 from src.functions.delete_element_by_id import Delete
 
 
-async def check_interaction_conflicts(chat_id):
+async def interact(chat_id):
     state = State()
     game = state.games[chat_id]
     today_int = [rec for rec in game.interaction_history if rec.day == game.day]
@@ -20,7 +20,7 @@ async def check_interaction_conflicts(chat_id):
     # maf_int = [a for a in today if get_role_by_user_id(chat_id, a.interaction_object) == Roles.MAFIA]
     kill_int = [rec for rec in today_int if rec.interaction_type == InteractionTypes.don_vote_kill]
     # kill_int.extend([rec for rec in today_int if rec.interaction_type == InteractionTypes.kill])
-    heal_int = [rec for rec in today_int if rec.interaction_type == InteractionTypes.heal]
+
     whore_int = [rec for rec in today_int if rec.interaction_type == InteractionTypes.fuck_whore]
     liar_int = [rec for rec in today_int if rec.interaction_type == InteractionTypes.lie]
     det_int = [rec for rec in today_int if rec.interaction_type == InteractionTypes.check]

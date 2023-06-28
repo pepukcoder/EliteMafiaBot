@@ -2,7 +2,6 @@ from src.state import Role, State
 from src.state.enums import InteractionTypes
 from aiogram import Bot, types
 class InteractiveMessageSender:
-
     async def send_interactive_messages(self, chat_id: int, bot: Bot, role: Role):
         state = State()
         game = state.games[chat_id]

@@ -25,7 +25,6 @@ class WaitingForVoteStrategy(Strategy):
                 # if one user do one interaction by night then number of interactions == number of users with role
                 if len(game.users) == len(vote_objects):
                     await end_voting(game_chat_id)
-                    #Тут должен быть эвеит на линч, но Паша его ЕЩЕ ПОКА не добавил :(
                     await asyncio.sleep(15)
                     return
 

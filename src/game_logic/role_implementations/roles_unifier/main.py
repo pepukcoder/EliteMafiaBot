@@ -4,13 +4,6 @@ from src.state import State
 
 
 def get_all_users_voting_kb(chat_id: int) -> InlineKeyboardMarkup:
-    """
-    :param chat_id: Game chat id
-    :param interaction_type: Int value from src/state/enums/interaction_types
-    :param except_of_users: Except of user_id[]
-    :param except_of_roles: Except of role src/state/enums/roles
-    :return: InlineKeyboardMarkup with needed buttons
-    """
     state = State()
     try:
         game = state.games[chat_id]
