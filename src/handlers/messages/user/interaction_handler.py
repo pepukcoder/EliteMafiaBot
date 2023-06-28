@@ -10,7 +10,6 @@ from src.state.enums import Roles
 
 bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
 
-
 def register_interaction_handler(dp: Dispatcher):
     @dp.callback_query_handler(regexp="^(-?\d+)_(\d+)_(\-?\d+)$")
     async def interaction_handler(call: types.CallbackQuery):

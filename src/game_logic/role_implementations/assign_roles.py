@@ -23,7 +23,7 @@ async def assign(chat_id):
 
     def assign_roles(player_count):
         match player_count:
-            case 2:
+            case 1:
                 return assign_roles_scenario_4()
             case 5:
                 return assign_roles_scenario_5()
@@ -42,7 +42,7 @@ async def assign(chat_id):
         # unique_indices = random.sample(range(4), 2)
         # player_roles[unique_indices[0]] = Don()
         # player_roles[unique_indices[1]] = Doctor()
-        player_roles = [Omega()]
+        player_roles = [Detective()]
         player_roles.append(Detective())
         return player_roles
 

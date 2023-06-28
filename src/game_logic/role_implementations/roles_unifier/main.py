@@ -1,6 +1,7 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 from src.state import State
+from src.state.enums import InteractionTypes
 
 
 def get_all_users_voting_kb(chat_id: int) -> InlineKeyboardMarkup:
@@ -48,8 +49,12 @@ def get_all_users_kb(chat_id: int, interaction_type: int,
                     and int(user_state.role) not in except_of_roles):
                 inline_markup.add(InlineKeyboardButton(text=user_state.first_name,
                                                        callback_data=f"{interaction_type}_{user_state.user_id}_{chat_id}"))
-        inline_markup.add(InlineKeyboardButton(text=f"🚷Скуколдиться",
-                                               callback_data=f"skip_{chat_id}"))
+        print(interaction_type)
+        if int(interaction_type) == InteractionTypes.kill or int(interaction_type) == InteractionTypes.check:
+            pass
+        else:
+            inline_markup.add(InlineKeyboardButton(text=f"🚷Скуколдиться",
+                                                   callback_data=f"skip_{chat_id}"))
         return inline_markup
     except KeyError:
         print(f"Game {chat_id} not found. roles_unifier/Main.py")

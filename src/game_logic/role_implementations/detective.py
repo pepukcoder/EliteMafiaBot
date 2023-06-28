@@ -15,6 +15,8 @@ class Detective(Role):
                                                callback_data=f"detectivecheck_{chat_id}"))
         inline_markup.add(InlineKeyboardButton(text="🔫 Убить игрока",
                                                callback_data=f"detectivekill_{chat_id}"))
+        inline_markup.add(InlineKeyboardButton(text=f"🚷Скуколдиться",
+                                               callback_data=f"detectiveskip_{chat_id}"))
         return inline_markup
 
     def __str__(self) -> str:
@@ -50,13 +52,11 @@ class DetectiveLogic:
 
     @staticmethod
     def get_check_message() -> str:
-        return "Выбери, кого ты быдешь проверять"
+        return "Выбери, кого ты будешь проверять"
 
     @staticmethod
     def get_kill_kb(chat_id):
         return get_all_users_kb(chat_id, InteractionTypes.kill, except_of_roles=[Roles.DETECTIVE])
-
-
 
     def get_voting_kb(self, chat_id: int) -> InlineKeyboardMarkup:
         return get_all_users_voting_kb(chat_id)

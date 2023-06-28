@@ -6,7 +6,8 @@ from aiogram.utils.exceptions import MessageNotModified
 from src.functions import get_role_by_user_id
 from src.game_logic.role_implementations import DetectiveLogic
 from src.misc import TgKeys
-from src.state.enums import Roles
+from src.state import State, InteractionHistoryRecord
+from src.state.enums import Roles, InteractionTypes
 
 bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
 
@@ -36,3 +37,18 @@ def register_detective_interaction_choice_handler(dp: Dispatcher):
                                    text=f"{str(get_role_by_user_id(chat_id=int(chat_id),user_id=int(call.from_user.id)))} уже зарядил свой пистолет...")
         except MessageNotModified:
             await call.message.edit_text("Ты уже убил всех игроков. Странно, что ты видишь это сообщение")
+
+    @dp.callback_query_handler(regexp="detectiveskip_(\-?\d+)")
+    async def skip_handler(call: CallbackQuery):
+        state = State()
+        skip_text, chat_id = call.data.split("_")
+        user_id = call.from_user.id
+        day = state.games[int(chat_id)].day
+        state.games[int(chat_id)].interaction_history.append(InteractionHistoryRecord(InteractionTypes.nothing,
+                                                                                      0,
+                                                                                      user_id,
+                                                                                      day))
+        await call.message.answer("Вы пропустили ход")
+        await bot.send_message(chat_id=int(chat_id),
+                               text=f"{str(get_role_by_user_id(chat_id=int(chat_id), user_id=user_id))} решил скуколдиться и забил хуй")
+        await call.message.delete()
