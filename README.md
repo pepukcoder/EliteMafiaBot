@@ -1,8 +1,14 @@
 # EliteMafiaBot
-Very sussy telegram bot to play very sussy mafia game (maf maf)
+Mafia telegram bot, written on python
+Currenly implemented:
+  Basic mafia game 
+  Changed roles
 
-Creator: t.me/Umlaut
-unfortunately access to the repository is temporarily occupied by this unknown account
+#TODO
+make Alfa role
+add buffs
+restructure
+
 
 # How to run
 ```
