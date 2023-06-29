@@ -125,14 +125,21 @@ async def assign(chat_id):
         first_names = [item.first_name for item in user_dict.users.values()]
         links = [item.link for item in user_dict.users.values()]
         users = []
+        initial_roles = []
         for idx, x in enumerate(user_dict.users):
             users.append(UserState(first_name=first_names[idx],
                                    user_id=list(user_dict.users.keys())[idx],
                                    role=player_roles[idx],
                                    link=links[idx]))
 
+            initial_roles.append(UserState(first_name=first_names[idx],
+                                   user_id=list(user_dict.users.keys())[idx],
+                                   role=player_roles[idx],
+                                   link=links[idx]))
+
         try:
             state.games[chat_id].users = users
+            state.games[chat_id].initial_roles = initial_roles
         except KeyError:
             print(f"Game {chat_id} not found")
 

@@ -92,14 +92,16 @@ async def activate_interactions(chat_id: int) -> None:
         else:
             # kill most voted target
             users_to_kill.append(most_common_mafia_targets[0][0])
-        game.mafia_chat = True
+        mafia = get_user_id_by_role(chat_id, Roles.MAFIA)
+        don = get_user_id_by_role(chat_id, Roles.DON)
+        await bot.send_message(chat_id=mafia, text=f"Известная вам мафия с\n1.{get_name_by_user_id(chat_id, don)}\n{get_name_by_user_id(chat_id, mafia)}")
+        await bot.send_message(chat_id=don,
+                               text=f"Известная вам мафия с\n1.{get_name_by_user_id(chat_id, don)}\n{get_name_by_user_id(chat_id, mafia)}")
     except:
         try:
             users_to_kill.append(most_common_mafia_targets[0][0])
-            game.mafia_chat = True
         except:
             print('huy')
-    game.mafia_chat = True
     try:
         # Detective check move
         detective_check_record = [record for record in today_int if

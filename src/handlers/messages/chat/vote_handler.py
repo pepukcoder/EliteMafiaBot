@@ -60,7 +60,7 @@ def register_chat_vote_handler(dp: Dispatcher):
 
         print(game.chat_votes)
         await call.answer("Вы проголосовали 👍")
-        await call.message.edit_text(text=f"Ебашим {get_name_by_user_id(chat_id, int(object_id))}?", reply_markup=inline_markup)
+        await call.message.edit_text(text=f"Ебашим {object_id}?", reply_markup=inline_markup)
 
     @dp.callback_query_handler(regexp="voteagainst_(\d+)_(\-?\d+)")
     async def vote_handler(call: types.CallbackQuery):
@@ -107,4 +107,4 @@ def register_chat_vote_handler(dp: Dispatcher):
 
         print(game.chat_votes)
         await call.answer("Вы проголосовали 👎")
-        await call.message.edit_text(text=f"Ебашим {get_name_by_user_id(chat_id, int(object_id))}?", reply_markup=inline_markup)
+        await call.message.edit_text(text=f"Ебашим {object_id}?", reply_markup=inline_markup)

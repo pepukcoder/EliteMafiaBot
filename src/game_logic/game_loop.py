@@ -54,6 +54,7 @@ async def start_loop(chat_id):
         await activate_interactions(chat_id)
 
         # set day
+        await Delete.delete_all_interaction_keyboards(chat_id, bot)
         await increment_day(chat_id)
         await set_day(chat_id, bot)
         await show_alive(chat_id, bot)
@@ -62,7 +63,7 @@ async def start_loop(chat_id):
         playing = await win_check(chat_id, bot)
 
         # vote
-        await asyncio.sleep(30)
+        # await asyncio.sleep(15)
         await announce_vote(chat_id, bot)
         sending_context = SendingContext(SendVotingMessages())
         await sending_context.send_voting(chat_id, bot)

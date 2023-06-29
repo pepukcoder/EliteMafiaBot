@@ -6,15 +6,26 @@ class Delete:
     @staticmethod
     async def delete_all_keyboards(chat_id: int, bot: Bot):
         state = State()
-        keyboards = state.games[chat_id].voting_keyboards
-        print(keyboards)
+        vote_keyboards = state.games[chat_id].voting_keyboards
 
-        for pair in keyboards:
+        for pair in vote_keyboards:
             id, msg_id = pair
             try:
                 await bot.delete_message(chat_id=id, message_id=msg_id)
             except:
-                print(f"Message does not exist id:{id}, message_id:{msg_id}")
+                print(f"Message does not exist on vote_keyboards id:{id}, message_id:{msg_id}")
+
+    async def delete_all_interaction_keyboards(chat_id: int, bot: Bot):
+        state = State()
+        interaction_keyboards = state.games[chat_id].interaction_keyboards
+
+        for pair in interaction_keyboards:
+            id, msg_id = pair
+            try:
+                    await bot.delete_message(chat_id=id, message_id=msg_id)
+            except:
+                print(f"Message does not exist on interaction_keyboards id:{id}, message_id:{msg_id}")
+
 
     @staticmethod
     def delete_all_elements_by_id(chat_id: int, user_ids: list[int]):

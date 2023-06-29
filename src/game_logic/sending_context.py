@@ -20,13 +20,15 @@ class SendingContext:
         state = State()
         try:
             game = state.games[game_chat_id]
+            state.games[game_chat_id].interaction_keyboards = []
             for user in game.users:
                 if self._strategy.get_text(user.role):
-                    await bot.send_message(user.user_id,
+                    msg = await bot.send_message(user.user_id,
                                            text=self._strategy.get_text(user.role),
                                            parse_mode='HTML',
                                            disable_web_page_preview=True,
                                            reply_markup=self._strategy.get_markup(user.role, game_chat_id))
+                    state.games[game_chat_id].interaction_keyboards.append([user.user_id, msg.message_id])
                 else:
                     await bot.send_message(user.user_id,
                                            text="Ваша роль не активна, вы пропускаете ход.",

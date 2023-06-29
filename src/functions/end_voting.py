@@ -47,7 +47,13 @@ async def end_voting(chat_id):
     if len(vote_objects) != 0:
         result = find_duplicates(vote_objects)
         print(result)
-        await send_voting(chat_id, result)
+        if result:
+            await send_voting(chat_id, result)
+        else:
+            await bot.send_message(chat_id=chat_id,
+                               text="...")
+            return
     else:
         await bot.send_message(chat_id=chat_id,
-                               text="Так как жители сидели и дрочили мы не смогли выбрать кого линчевать")
+                               text="Так как жители сидели и пиздели мы не смогли выбрать кого линчевать")
+        return

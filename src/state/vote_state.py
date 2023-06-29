@@ -10,6 +10,6 @@ class VoteState:
 
 @dataclass
 class ChatVoteState:
-    voting: List[Tuple[int, bool]]  # vote subject, for/against
+    voting: Optional[List[Tuple[int, bool]]] = None  # vote subject, for/against
     vote_for: Optional[int] = None
     message_id: Optional[int] = None

@@ -13,3 +13,4 @@ from .vote_lynch import vote_lynch
 from .win_check import win_check
 from .announce_vote import announce_vote
 from .clean_voting import clean_voting
+from .show_initial_roles import show_initial
