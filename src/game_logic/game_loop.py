@@ -63,7 +63,7 @@ async def start_loop(chat_id):
         playing = await win_check(chat_id, bot)
 
         # vote
-        # await asyncio.sleep(15)
+        await asyncio.sleep(40)
         await announce_vote(chat_id, bot)
         sending_context = SendingContext(SendVotingMessages())
         await sending_context.send_voting(chat_id, bot)

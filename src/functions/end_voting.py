@@ -51,7 +51,7 @@ async def end_voting(chat_id):
             await send_voting(chat_id, result)
         else:
             await bot.send_message(chat_id=chat_id,
-                               text="...")
+                               text="Так как жители сидели и никого не выбрали мы не смогли выбрать кого линчевать")
             return
     else:
         await bot.send_message(chat_id=chat_id,

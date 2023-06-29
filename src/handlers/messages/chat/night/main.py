@@ -34,9 +34,8 @@ def register_night_handlers(dp: Dispatcher):
             else:
                 await bot.delete_message(message.chat.id, message.message_id)
 
-
-
             if message.from_user.id not in user_ids:
                 await bot.delete_message(message.chat.id, message.message_id)
+
         except:
             print('User written')

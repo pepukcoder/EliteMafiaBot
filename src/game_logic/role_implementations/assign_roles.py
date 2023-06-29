@@ -14,16 +14,9 @@ GOOD_ROLES = [Detective(), Doctor()]
 
 async def assign(chat_id):
     state = State()
-
-    def insert_townie_position(lst, value):
-        townie_indices = [i for i, elem in enumerate(lst) if isinstance(elem, Townie)]
-        if townie_indices:
-            random_index = random.choice(townie_indices)
-            lst[random_index] = value
-
     def assign_roles(player_count):
         match player_count:
-            case 4:
+            case 2:
                 return assign_roles_scenario_4()
             case 5:
                 return assign_roles_scenario_5()
@@ -38,10 +31,12 @@ async def assign(chat_id):
                 # raise ValueError("Invalid number of players.")
 
     def assign_roles_scenario_4():
-        player_roles = [Townie()] * 4
-        unique_indices = random.sample(range(4), 2)
-        player_roles[unique_indices[0]] = Don()
-        player_roles[unique_indices[1]] = Doctor()
+        # player_roles = [Townie()] * 4
+        # unique_indices = random.sample(range(4), 2)
+        # player_roles[unique_indices[0]] = Don()
+        # player_roles[unique_indices[1]] = Doctor()
+        player_roles = [Don()]
+        player_roles.append(Doctor())
         return player_roles
 
     def assign_roles_scenario_5():
@@ -65,7 +60,7 @@ async def assign(chat_id):
         player_roles.append(Doctor())
 
         bad_role = random.choice([role for role in BAD_ROLES if int(role) != Roles.MAFIA.value and int(role) != Roles.DON.value])
-        player_roles.append(bad_role)
+        player_roles.append(Mafia())
         player_roles.append(Detective())
         random.shuffle(player_roles)
         return player_roles
@@ -85,19 +80,17 @@ async def assign(chat_id):
         return player_roles
 
     def assign_roles_scenario_8():
-        player_roles = [Doctor()]
+        player_roles = [Townie()]*2
+        bad_role = random.choice([role for role in BAD_ROLES if int(role) != Roles.DON.value])
         player_roles.append(Don())
-        #player_roles = [Townie()]*2
-        #bad_role = random.choice([role for role in BAD_ROLES if int(role) != Roles.DON.value])
-        #player_roles.append(Don())
-        #player_roles.append(bad_role)
+        player_roles.append(bad_role)
 
-        #player_roles.append(Doctor())
-        #player_roles.append(Detective())
+        player_roles.append(Doctor())
+        player_roles.append(Detective())
 
-        #neutral_roles = random.sample(ADDITIONAL_ROLES, 2)
-        #player_roles.extend(neutral_roles)
-        #random.shuffle(player_roles)
+        neutral_roles = random.sample(ADDITIONAL_ROLES, 2)
+        player_roles.extend(neutral_roles)
+        random.shuffle(player_roles)
         return player_roles
 
     def assign_roles_scenario_8plus(count):

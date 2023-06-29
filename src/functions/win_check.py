@@ -16,10 +16,10 @@ async def win_check(chat_id, bot: Bot) -> bool:
 
     if len(bad) >= len(good):
         msg = f'Криминальный мир одержал победу'
-        await show_initial(chat_id, bot)
+        await show_initial(chat_id, bot, True)
     elif len(bad) == 0:
         msg = f'В городе восстановился порядок'
-        await show_initial(chat_id, bot)
+        await show_initial(chat_id, bot, False)
     else:
         print('win check: continue')
         return True

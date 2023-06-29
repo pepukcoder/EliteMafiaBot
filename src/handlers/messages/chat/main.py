@@ -11,7 +11,7 @@ def register_chat_handlers(dp: Dispatcher) -> None:
         register_start_handlers,
         register_stop_handlers,
         register_night_handlers,
-        register_chat_vote_handler
+        register_chat_vote_handler,
     )
     for handler in handlers:
         handler(dp)

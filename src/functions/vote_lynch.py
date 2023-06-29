@@ -33,5 +33,5 @@ async def vote_lynch(chat_id, bot: Bot):
                                    parse_mode='Markdown')
     except:
         await bot.send_message(chat_id,
-                               f"None ",
+                               f"Идём дальше...",
                                parse_mode='Markdown')
