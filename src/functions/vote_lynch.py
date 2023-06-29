@@ -13,7 +13,11 @@ def get_name_by_user_id(chat_id: int, user_id: int):
 async def vote_lynch(chat_id, bot: Bot):
     state = State()
     game = state.games[chat_id]
-    true_count, false_count = game.count_votes()
+    try:
+        true_count, false_count = game.count_votes()
+    except:
+        true_count = 0
+        false_count = 0
     try:
         user = game.chat_votes.vote_for
         msg_id = game.chat_votes.message_id
@@ -23,10 +27,11 @@ async def vote_lynch(chat_id, bot: Bot):
                                    parse_mode='Markdown')
             Delete.delete_all_elements_by_id(chat_id, [user])
         else:
+            await bot.delete_message(chat_id, msg_id)
             await bot.send_message(chat_id,
                                    f"Из-за того, что жители только и делали, что пиздели, они не смогли договориться, кого линчевать.",
                                    parse_mode='Markdown')
     except:
         await bot.send_message(chat_id,
-                               f"Из-за того, что жители только и делали, что пиздели, они не смогли договориться, кого линчевать.",
+                               f"None ",
                                parse_mode='Markdown')

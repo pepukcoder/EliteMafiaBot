@@ -21,20 +21,27 @@ def register_chat_vote_handler(dp: Dispatcher):
         text_vote, object_id, chat_id = call.data.split("_")
         print(object_id)
         game = state.games[int(chat_id)]
-        user_id = int(call.from_user.id)
+        user_id = call.from_user.id
         game.chat_votes.vote_for = int(object_id)
         game.chat_votes.message_id = call.message.message_id
         # remove oposite vote
         game.decrease_false_count(user_id)
+
+        print(user_id, int(object_id))
 
         # check if user is alive
         users = state.games[int(chat_id)].users
         for user in users:
             if user_id == user.user_id:
                 break
+            if user_id == int(object_id):
+                print('f')
+                await call.answer("Еблан, голосуют то за тебя!)")
+                return
         else:
             await call.answer("Ты не в игре 🤡", show_alert=True)
             return
+
 
         # Check if the user has already voted
         if game.chat_votes.voting and any(user_id == vote[0] for vote in game.chat_votes.voting):
@@ -60,7 +67,7 @@ def register_chat_vote_handler(dp: Dispatcher):
 
         print(game.chat_votes)
         await call.answer("Вы проголосовали 👍")
-        await call.message.edit_text(text=f"Ебашим {object_id}?", reply_markup=inline_markup)
+        await call.message.edit_reply_markup(reply_markup=inline_markup)
 
     @dp.callback_query_handler(regexp="voteagainst_(\d+)_(\-?\d+)")
     async def vote_handler(call: types.CallbackQuery):
@@ -68,17 +75,24 @@ def register_chat_vote_handler(dp: Dispatcher):
         text_vote, object_id, chat_id = call.data.split("_")
         game = state.games[int(chat_id)]
         print(object_id)
-        user_id = int(call.from_user.id)
+        user_id = call.from_user.id
         game.chat_votes.vote_for = int(object_id)
         game.chat_votes.message_id = call.message.message_id
         # remove oposite vote
         game.decrease_true_count(user_id)
+
+        print(user_id, int(object_id))
 
         #check if user is alive
         users = state.games[int(chat_id)].users
         for user in users:
             if user_id == user.user_id:
                 break
+
+            if user_id == int(object_id):
+                print('f')
+                await call.answer("Еблан, голосуют то за тебя!)")
+                return
         else:
             await call.answer("Ты не в игре 🤡", show_alert=True)
             return
@@ -107,4 +121,4 @@ def register_chat_vote_handler(dp: Dispatcher):
 
         print(game.chat_votes)
         await call.answer("Вы проголосовали 👎")
-        await call.message.edit_text(text=f"Ебашим {object_id}?", reply_markup=inline_markup)
+        await call.message.edit_reply_markup(reply_markup=inline_markup)

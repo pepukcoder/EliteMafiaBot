@@ -1,8 +1,17 @@
 from aiogram import Bot
 
+from src.functions import get_user_id_by_role
 from src.game_logic.sending_strategies import Strategy, SendVotingMessages
 from src.state import State
+from src.state.enums import Roles
 
+def get_name_by_user_id(chat_id: int, user_id: int):
+    state = State()
+    game = state.games[chat_id]
+
+    for user in game.users:
+        if user.user_id == user_id:
+            return user.first_name
 
 class SendingContext:
     def __init__(self, strategy: Strategy):
@@ -21,6 +30,17 @@ class SendingContext:
         try:
             game = state.games[game_chat_id]
             state.games[game_chat_id].interaction_keyboards = []
+
+            try:
+                don = get_user_id_by_role(game_chat_id, Roles.DON)
+                mafia = get_user_id_by_role(game_chat_id, Roles.MAFIA)
+                await bot.send_message(chat_id=don,
+                                       text=f"Известная вам мафия:\n1. {get_name_by_user_id(game_chat_id, don)}\n2. {get_name_by_user_id(game_chat_id, mafia)}")
+                await bot.send_message(chat_id=mafia,
+                                       text=f"Известная вам мафия:\n1. {get_name_by_user_id(game_chat_id, don)}\n2. {get_name_by_user_id(game_chat_id, mafia)}")
+            except:
+                print("No maf")
+
             for user in game.users:
                 if self._strategy.get_text(user.role):
                     msg = await bot.send_message(user.user_id,
@@ -35,7 +55,7 @@ class SendingContext:
                                            reply_markup=self._strategy.get_markup(user.role, game_chat_id))
         except KeyError:
             print(f"Game {game_chat_id} not found")
-    
+
     async def send_voting(self, game_chat_id, bot: Bot):
         state = State()
         try:

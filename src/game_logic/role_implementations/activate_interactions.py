@@ -92,11 +92,6 @@ async def activate_interactions(chat_id: int) -> None:
         else:
             # kill most voted target
             users_to_kill.append(most_common_mafia_targets[0][0])
-        mafia = get_user_id_by_role(chat_id, Roles.MAFIA)
-        don = get_user_id_by_role(chat_id, Roles.DON)
-        await bot.send_message(chat_id=mafia, text=f"Известная вам мафия с\n1.{get_name_by_user_id(chat_id, don)}\n{get_name_by_user_id(chat_id, mafia)}")
-        await bot.send_message(chat_id=don,
-                               text=f"Известная вам мафия с\n1.{get_name_by_user_id(chat_id, don)}\n{get_name_by_user_id(chat_id, mafia)}")
     except:
         try:
             users_to_kill.append(most_common_mafia_targets[0][0])
@@ -178,11 +173,20 @@ async def activate_interactions(chat_id: int) -> None:
 
     if len(users_to_kill) == 0:
         await bot.send_message(chat_id=chat_id,
-                               text=f"Сегодня был ёбнут... А стоп... *Никто небыл ёбнут!*\n#донгандон", parse_mode="Markdown")
+                               text=f"🤷‍♂️ Удивительно, но *никто небыл убит!*\n#донгандон", parse_mode="Markdown")
+
+        for el in users_to_kill:
+            await bot.send_message(chat_id=el,
+                                   text=f"🤷‍♂️ Тебя пытались убить, но ты выжил.", parse_mode="Markdown")
     for usr in users_to_kill:
         print(usr)
         await bot.send_message(chat_id=chat_id,
                                text=f"Сегодня был ёбнут *{get_name_by_user_id(chat_id, usr)}*\n#донгандон", parse_mode="Markdown")
+
+        for el in users_to_kill:
+            await bot.send_message(chat_id=el,
+                                   text=f"Тебя убили :(\n Напиши предсмертное сообщение:", parse_mode="Markdown")
+
     Delete.delete_all_elements_by_id(chat_id=chat_id, user_ids=users_to_kill)
 
 
