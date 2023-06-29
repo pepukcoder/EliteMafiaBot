@@ -12,3 +12,4 @@ from .increase_day import increment_day
 from .vote_lynch import vote_lynch
 from .win_check import win_check
 from .announce_vote import announce_vote
+from .clean_voting import clean_voting
