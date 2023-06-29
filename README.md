@@ -4,7 +4,7 @@ Currenly implemented:
   Basic mafia game 
   Changed roles
 
-#TODO
+# TODO
 make Alfa role
 add buffs
 restructure
