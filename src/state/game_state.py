@@ -15,6 +15,8 @@ class GameState:
     interaction_history: list[InteractionHistoryRecord]
     chat_votes: Optional[ChatVoteState] = None
 
+    mafia_chat: bool = False
+
     def count_votes(self):
         true_count = 0
         false_count = 0

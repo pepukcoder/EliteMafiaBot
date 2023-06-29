@@ -41,10 +41,14 @@ async def end_voting(chat_id):
 
     print(vote_objects)  # output [1311292414, 1311292414]
     # object_count, most_common_id = count_dublicates(vote_objects)
-    result = find_duplicates(vote_objects)
-    if result:
-        await send_voting(chat_id, result)
-        # Не работает state.games[chat_id].chat_votes = []
+    if len(vote_objects) != 0:
+        result = find_duplicates(vote_objects)
+        if result:
+            await send_voting(chat_id, result)
+            # Не работает state.games[chat_id].chat_votes = []
+        else:
+            await bot.send_message(chat_id=chat_id,
+                               text="Так как жители сидели и дрочили мы не смогли выбрать кого линчевать")
     else:
         await bot.send_message(chat_id=chat_id,
-                               text="Так как жители - долбоёбы, которые не могут линчевать, мы вынуждены СУКА никого не ЕБАШИТЬ")
+                               text="Так как жители сидели и дрочили мы не смогли выбрать кого линчевать")

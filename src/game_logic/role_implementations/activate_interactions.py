@@ -88,15 +88,18 @@ async def activate_interactions(chat_id: int) -> None:
             don_target = [record.interaction_object for record in today_int if
                           record.interaction_type == InteractionTypes.don_vote_kill][0]
             users_to_kill.append(don_target)
+
         else:
             # kill most voted target
             users_to_kill.append(most_common_mafia_targets[0][0])
+        game.mafia_chat = True
     except:
         try:
             users_to_kill.append(most_common_mafia_targets[0][0])
+            game.mafia_chat = True
         except:
             print('huy')
-
+    game.mafia_chat = True
     try:
         # Detective check move
         detective_check_record = [record for record in today_int if
