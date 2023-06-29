@@ -38,9 +38,11 @@ class SendingContext:
         state = State()
         try:
             game = state.games[game_chat_id]
+            state.games[game_chat_id].voting_keyboards = []
             for user in game.users:
-                await bot.send_message(user.user_id,
+                msg = await bot.send_message(user.user_id,
                                        text="За кого ты хочешь проголосовать?",
                                        reply_markup=SendVotingMessages.get_voting(user.role, game_chat_id))
+                state.games[game_chat_id].voting_keyboards.append([user.user_id, msg.message_id])
         except KeyError:
             print(f"Game {game_chat_id} not found")

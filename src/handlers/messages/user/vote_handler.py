@@ -26,6 +26,7 @@ def register_vote_handler(dp: Dispatcher):
 
     @dp.callback_query_handler(regexp="skipvote_(\-?\d+)")
     async def skip_handler(call: types.CallbackQuery):
+        await call.message.delete()
         state = State()
         skip_text, chat_id = call.data.split("_")
         user_id = call.from_user.id
@@ -34,4 +35,3 @@ def register_vote_handler(dp: Dispatcher):
 
         await call.message.answer("Вы пропустили голосование")
         await bot.send_message(chat_id=int(chat_id), text=f"🚷{call.from_user.first_name} сидит дома и молча дрочит")
-        await call.message.delete()

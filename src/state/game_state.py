@@ -13,7 +13,9 @@ class GameState:
     users: list[UserState]
     votes: list[VoteState]
     interaction_history: list[InteractionHistoryRecord]
+    voting_keyboards: Optional[list[int, int]] = None
     chat_votes: Optional[ChatVoteState] = None
+
 
     mafia_chat: bool = False
 

@@ -1,8 +1,21 @@
 from src.state import State
-from src.state import InteractionHistoryRecord
-
+from aiogram import Bot
 
 class Delete:
+
+    @staticmethod
+    async def delete_all_keyboards(chat_id: int, bot: Bot):
+        state = State()
+        keyboards = state.games[chat_id].voting_keyboards
+        print(keyboards)
+
+        for pair in keyboards:
+            id, msg_id = pair
+            try:
+                await bot.delete_message(chat_id=id, message_id=msg_id)
+            except:
+                print(f"Message does not exist id:{id}, message_id:{msg_id}")
+
     @staticmethod
     def delete_all_elements_by_id(chat_id: int, user_ids: list[int]):
         state = State()

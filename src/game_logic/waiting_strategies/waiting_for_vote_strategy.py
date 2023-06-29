@@ -28,7 +28,7 @@ class WaitingForVoteStrategy(Strategy):
                     await asyncio.sleep(15)
                     return
 
-                if timer >= 60:
+                if timer >= 10:
                     return
             except KeyError:
                 print(f"Game {game_chat_id} not found")
