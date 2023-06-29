@@ -22,6 +22,9 @@ def find_duplicates(array):
     if len(duplicates) == 0:
         return None
 
+    if len(array) == 1:
+        return array[0]
+
     # Sort duplicates based on count in descending order
     duplicates.sort(key=lambda x: x[1], reverse=True)
 
@@ -43,12 +46,8 @@ async def end_voting(chat_id):
     # object_count, most_common_id = count_dublicates(vote_objects)
     if len(vote_objects) != 0:
         result = find_duplicates(vote_objects)
-        if result:
-            await send_voting(chat_id, result)
-            # Не работает state.games[chat_id].chat_votes = []
-        else:
-            await bot.send_message(chat_id=chat_id,
-                               text="Так как жители сидели и дрочили мы не смогли выбрать кого линчевать")
+        print(result)
+        await send_voting(chat_id, result)
     else:
         await bot.send_message(chat_id=chat_id,
                                text="Так как жители сидели и дрочили мы не смогли выбрать кого линчевать")

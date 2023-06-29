@@ -9,11 +9,12 @@ from src.misc import set_night, set_day
 from src.game_logic.waiting_context import WaitingContext
 from src.game_logic.waiting_strategies import WaitingForInteractionStrategy, WaitingForVoteStrategy
 
-from src.functions import show_alive, delete_reg, increment_day, vote_lynch, win_check, announce_vote
+from src.functions import show_alive, delete_reg, increment_day, vote_lynch, win_check, announce_vote, Delete, clean_voting
 from src.state import State
 
 # Вот это как временная хуйня онли, передавай в start_loop бота крч. Як Ілля, жорстко плюсую
 # Как пепуку, мне похуй, я просто делаю таски, плюсую на всякий
+# Как паша, хочу сказать, что это полная хуйня. И кстати, прошло уже сколько ебать дней а так нихуя. Привет из 29.06.2023, внуки, если вы это читаете, я вас люблю, а еще знайте, что в детстве Паша пиздился в гаражах за бутылку пива, так что не всегда его нужно слушать ибо он еблан. Передаю привет внучкам короче, а моим деткам на будущее советую чтоб не слушали этого старого петуха пердуна, кстати, если это читают дети или внуки пепука и ильи я желаю им всего найлучшего.
 from src.misc import TgKeys
 from src.state import State
 
@@ -71,6 +72,10 @@ async def start_loop(chat_id):
 
         # check voting and kill
         await vote_lynch(chat_id, bot)
+
+        await Delete.delete_all_keyboards(chat_id, bot)
+
+        clean_voting(chat_id)
 
         # win check 2
         playing = await win_check(chat_id, bot)

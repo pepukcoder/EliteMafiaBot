@@ -19,6 +19,7 @@ def register_chat_vote_handler(dp: Dispatcher):
     async def vote_handler(call: types.CallbackQuery):
         state = State()
         text_vote, object_id, chat_id = call.data.split("_")
+        print(object_id)
         game = state.games[int(chat_id)]
         user_id = int(call.from_user.id)
         game.chat_votes.vote_for = int(object_id)
@@ -66,6 +67,7 @@ def register_chat_vote_handler(dp: Dispatcher):
         state = State()
         text_vote, object_id, chat_id = call.data.split("_")
         game = state.games[int(chat_id)]
+        print(object_id)
         user_id = int(call.from_user.id)
         game.chat_votes.vote_for = int(object_id)
         game.chat_votes.message_id = call.message.message_id
