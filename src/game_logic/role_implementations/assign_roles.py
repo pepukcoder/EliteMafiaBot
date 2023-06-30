@@ -16,7 +16,7 @@ async def assign(chat_id):
     state = State()
     def assign_roles(player_count):
         match player_count:
-            case 2:
+            case 4:
                 return assign_roles_scenario_4()
             case 5:
                 return assign_roles_scenario_5()
@@ -31,12 +31,10 @@ async def assign(chat_id):
                 # raise ValueError("Invalid number of players.")
 
     def assign_roles_scenario_4():
-        # player_roles = [Townie()] * 4
-        # unique_indices = random.sample(range(4), 2)
-        # player_roles[unique_indices[0]] = Don()
-        # player_roles[unique_indices[1]] = Doctor()
-        player_roles = [Don()]
-        player_roles.append(Townie())
+        player_roles = [Townie()] * 4
+        unique_indices = random.sample(range(4), 2)
+        player_roles[unique_indices[0]] = Don()
+        player_roles[unique_indices[1]] = Doctor()
         return player_roles
 
     def assign_roles_scenario_5():

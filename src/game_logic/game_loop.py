@@ -43,7 +43,7 @@ async def start_loop(chat_id):
 
     playing = True
 
-    while True:
+    while playing:
         # set night
         await set_night(chat_id, bot)
         # show alive users
@@ -66,7 +66,7 @@ async def start_loop(chat_id):
         await show_alive(chat_id, bot)
 
         # win check
-        #playing = await win_check(chat_id, bot)
+        playing = await win_check(chat_id, bot)
 
         # vote
         await asyncio.sleep(40)
@@ -85,4 +85,4 @@ async def start_loop(chat_id):
         clean_voting(chat_id)
 
         # win check 2
-        #playing = await win_check(chat_id, bot)
+        playing = await win_check(chat_id, bot)
