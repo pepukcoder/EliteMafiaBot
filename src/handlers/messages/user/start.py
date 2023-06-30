@@ -5,7 +5,7 @@ from aiogram.utils.deep_linking import decode_payload
 from src.misc import TgKeys
 from src.state import State, UserInfo
 
-bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML',proxy="http://proxy.server:3128")
+bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
 
 
 def register_start_handler(dp: Dispatcher):

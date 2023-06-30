@@ -4,7 +4,7 @@ from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from src.state import State, VoteState, ChatVoteState
 from src.misc import TgKeys
 
-bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML',proxy="http://proxy.server:3128")
+bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
 
 def get_name_by_user_id(chat_id: int, user_id: int):
     state = State()

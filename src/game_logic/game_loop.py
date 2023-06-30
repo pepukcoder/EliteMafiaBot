@@ -21,7 +21,7 @@ from src.state import State
 from src.misc import TgKeys
 from src.state import State
 
-bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML',proxy="http://proxy.server:3128")
+bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
 # --------
 
 from src.functions.increase_day import increment_day

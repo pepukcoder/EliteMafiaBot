@@ -9,7 +9,7 @@ from src.functions import delete_reg
 
 from src.misc import TgKeys
 
-bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML',proxy="http://proxy.server:3128")
+bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
 
 def register_start_handlers(dp: Dispatcher):
     @dp.message_handler(commands=['game'], chat_type=[types.ChatType.GROUP, types.ChatType.SUPERGROUP])

@@ -5,7 +5,7 @@ from src.state.enums import InteractionTypes
 
 from src.misc import TgKeys
 
-bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML',proxy="http://proxy.server:3128")
+bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
 
 from src.functions.delete_element_by_id import Delete
 

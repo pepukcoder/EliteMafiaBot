@@ -8,7 +8,7 @@ from src.state.enums import InteractionTypes
 from src.misc import TgKeys
 from src.state.enums import Roles
 
-bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML',proxy="http://proxy.server:3128")
+bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
 
 def register_interaction_handler(dp: Dispatcher):
     @dp.callback_query_handler(regexp="^(-?\d+)_(\d+)_(\-?\d+)$")

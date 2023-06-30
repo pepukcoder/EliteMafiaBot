@@ -3,7 +3,7 @@ from src.functions import delete_reg
 
 from src.misc import TgKeys
 
-bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML',proxy="http://proxy.server:3128")
+bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
 
 def register_stop_handlers(dp: Dispatcher):
     @dp.message_handler(commands=['stop_game'])

@@ -4,7 +4,7 @@ from src.state import State, VoteState
 from src.functions import get_role_by_user_id
 from src.misc import TgKeys
 
-bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML',proxy="http://proxy.server:3128")
+bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
 
 
 def register_vote_handler(dp: Dispatcher):
