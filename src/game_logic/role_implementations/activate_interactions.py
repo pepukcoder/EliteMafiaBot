@@ -6,7 +6,7 @@ from src.state.enums import Roles
 from src.functions import get_user_id_by_role, get_role_by_user_id, change_user_role
 from src.functions.delete_element_by_id import Delete
 
-bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
+bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML',proxy="http://proxy.server:3128")
 
 from src.state import State
 from src.state.enums import InteractionTypes
@@ -182,6 +182,8 @@ async def activate_interactions(chat_id: int) -> None:
 
     try:
         users_to_kill.remove(doctor_target_id)
+        await bot.send_message(chat_id=doctor_target_id,
+                               text=f"*К тебе заходил доктор*", parse_mode="Markdown")
     except:
         print('Doc didnt choose')
     if len(users_to_kill) == 0:

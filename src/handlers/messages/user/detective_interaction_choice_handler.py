@@ -9,7 +9,7 @@ from src.misc import TgKeys
 from src.state import State, InteractionHistoryRecord
 from src.state.enums import Roles, InteractionTypes
 
-bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
+bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML',proxy="http://proxy.server:3128")
 
 def register_detective_interaction_choice_handler(dp: Dispatcher):
     @dp.callback_query_handler(filters.Regexp(r'detectivecheck_\d*'))

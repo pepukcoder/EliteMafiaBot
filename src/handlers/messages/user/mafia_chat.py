@@ -16,7 +16,7 @@ def get_name_by_user_id(chat_id: int, user_id: int):
             return user.first_name
 
 
-bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
+bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML',proxy="http://proxy.server:3128")
 
 
 def register_mafia_chat_handlers(dp: Dispatcher):

@@ -6,7 +6,7 @@ from src.functions.is_group import IsGroup
 from src.misc import TgKeys
 from src.state.enums import Roles
 
-bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
+bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML',proxy="http://proxy.server:3128")
 from src.functions import get_user_id_by_role, get_role_by_user_id
 
 

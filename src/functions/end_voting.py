@@ -3,7 +3,7 @@ from src.state import State
 from src.functions import send_voting
 from aiogram import Bot
 
-bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
+bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML',proxy="http://proxy.server:3128")
 
 
 def find_duplicates(array):
