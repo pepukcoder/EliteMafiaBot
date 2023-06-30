@@ -1,9 +1,9 @@
-from aiogram import Bot
+from aiogram import Bot, types
 
 from src.game_logic.role_implementations import Townie
 from src.misc import TgKeys
 from src.state.enums import Roles
-from src.functions import get_user_id_by_role, get_role_by_user_id, change_user_role
+from src.functions import get_user_id_by_role, get_role_by_user_id, change_user_role, check_reply
 from src.functions.delete_element_by_id import Delete
 
 bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
@@ -198,7 +198,11 @@ async def activate_interactions(chat_id: int) -> None:
                                parse_mode="Markdown")
 
         for el in users_to_kill:
-            await bot.send_message(chat_id=el,
-                                   text=f"Тебя убили :(\n Напиши предсмертное сообщение:", parse_mode="Markdown")
+            msg = await bot.send_message(chat_id=el,
+                                         text=f"Тебя убили :(\nНапиши предсмертное сообщение:",
+                                         parse_mode="Markdown",
+                                         reply_markup=types.ForceReply())
+            game.death_message[el] = [chat_id, msg.message_id, False]
+
 
     Delete.delete_all_elements_by_id(chat_id=chat_id, user_ids=users_to_kill)

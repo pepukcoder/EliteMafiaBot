@@ -2,6 +2,7 @@ from aiogram import Dispatcher, Bot
 from aiogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.utils.deep_linking import decode_payload
 
+from src.functions import check_reply
 from src.misc import TgKeys
 from src.state import State, UserInfo
 
@@ -9,6 +10,7 @@ bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
 
 
 def register_start_handler(dp: Dispatcher):
+
     @dp.message_handler(commands=["start"])
     async def handler(message: Message):
         args = message.get_args()

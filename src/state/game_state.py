@@ -15,11 +15,10 @@ class GameState:
     interaction_history: list[InteractionHistoryRecord]
     chat_votes: ChatVoteState
     initial_roles: list[UserState]
+    death_message: dict[int, list[int, int, bool]]  # user_id: [chat_id, message_id, is_sent]
 
     voting_keyboards: Optional[list[int, int]] = None
     interaction_keyboards: Optional[list[int, int]] = None
-
-
 
     mafia_chat: bool = False
 
@@ -35,7 +34,6 @@ class GameState:
                     false_count += 1
 
         return true_count, false_count
-
 
     def increase_true_count(self, chat_id: int):
         if self.chat_votes is not None:

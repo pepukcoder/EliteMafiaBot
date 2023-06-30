@@ -1,10 +1,7 @@
-from aiogram import Bot
 from aiogram.types import InlineKeyboardMarkup
 
 from src.game_logic.sending_strategies import Strategy
-from src.state import UserState, State, Role
-from src.game_logic.role_implementations.assign_roles import assign
-from src.functions import send_to_pm
+from src.state import Role
 
 
 class SendRoleNameMessagesStrategy(Strategy):

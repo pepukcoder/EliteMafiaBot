@@ -38,4 +38,4 @@ def register_night_handlers(dp: Dispatcher):
                 await bot.delete_message(message.chat.id, message.message_id)
 
         except:
-            print('User written')
+            pass

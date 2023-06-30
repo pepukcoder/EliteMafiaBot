@@ -3,13 +3,15 @@ import asyncio
 from src.game_logic.create_game_state import create_game_state
 from src.game_logic.role_implementations import assign, activate_interactions
 from src.game_logic.sending_context import SendingContext
-from src.game_logic.sending_strategies import SendRoleNameMessagesStrategy, SendInteractiveMessagesStrategy, SendVotingMessages
+from src.game_logic.sending_strategies import SendRoleNameMessagesStrategy, SendInteractiveMessagesStrategy, \
+    SendVotingMessages, SendMafiaParticipants
 from aiogram import Bot
 from src.misc import set_night, set_day
 from src.game_logic.waiting_context import WaitingContext
 from src.game_logic.waiting_strategies import WaitingForInteractionStrategy, WaitingForVoteStrategy
 
-from src.functions import show_alive, delete_reg, increment_day, vote_lynch, win_check, announce_vote, Delete, clean_voting
+from src.functions import show_alive, delete_reg, increment_day, vote_lynch, win_check, announce_vote, Delete, \
+    clean_voting
 from src.state import State
 
 # Вот это как временная хуйня онли, передавай в start_loop бота крч. Як Ілля, жорстко плюсую
@@ -35,10 +37,14 @@ async def start_loop(chat_id):
     sending_context = SendingContext(SendRoleNameMessagesStrategy())
     # send roles to pm
     await sending_context.send(chat_id, bot)
+    # send mafia participants if they are
+    sending_context = SendingContext(SendMafiaParticipants())
+    await sending_context.send_mafia(chat_id, bot)
+
     playing = True
 
-    while playing:
-        #set night
+    while True:
+        # set night
         await set_night(chat_id, bot)
         # show alive users
         await show_alive(chat_id, bot)
@@ -60,7 +66,7 @@ async def start_loop(chat_id):
         await show_alive(chat_id, bot)
 
         # win check
-        playing = await win_check(chat_id, bot)
+        #playing = await win_check(chat_id, bot)
 
         # vote
         await asyncio.sleep(40)
@@ -79,4 +85,4 @@ async def start_loop(chat_id):
         clean_voting(chat_id)
 
         # win check 2
-        playing = await win_check(chat_id, bot)
+        #playing = await win_check(chat_id, bot)

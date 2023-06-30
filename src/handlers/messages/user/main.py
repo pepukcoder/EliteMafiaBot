@@ -1,6 +1,4 @@
-from aiogram import Dispatcher, Bot
-from aiogram.utils.deep_linking import decode_payload
-from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
+from aiogram import Dispatcher
 
 from src.handlers.messages.user.mafia_chat import register_mafia_chat_handlers
 from src.handlers.messages.user.detective_interaction_choice_handler import \
@@ -10,6 +8,7 @@ from src.handlers.messages.user.start import register_start_handler
 from src.state import State, UserInfo
 from src.misc import TgKeys
 from src.handlers.messages.user.vote_handler import register_vote_handler
+
 
 def register_user_handlers(dp: Dispatcher):
     handlers = (

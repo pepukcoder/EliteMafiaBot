@@ -12,7 +12,7 @@ from src.misc import TgKeys
 bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
 
 def register_start_handlers(dp: Dispatcher):
-    @dp.message_handler(commands=['game'])
+    @dp.message_handler(commands=['game'], chat_type=[types.ChatType.GROUP, types.ChatType.SUPERGROUP])
     async def game(message: types.Message):
         state = State()
         chat_id = message.chat.id
@@ -30,6 +30,10 @@ def register_start_handlers(dp: Dispatcher):
             print(state.registrations)
 
             await msg.edit_text("Набор в игру начат!", reply_markup=inline)
+
+    @dp.message_handler(commands=['game'], chat_type=types.ChatType.PRIVATE)
+    async def game(message: types.Message):
+        await message.answer('Добавьте бота в чат и зарегестрируйтесь уже там')
 
 
     @dp.message_handler(commands=['start_game'])

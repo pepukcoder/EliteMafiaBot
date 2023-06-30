@@ -36,7 +36,7 @@ async def assign(chat_id):
         # player_roles[unique_indices[0]] = Don()
         # player_roles[unique_indices[1]] = Doctor()
         player_roles = [Don()]
-        player_roles.append(Doctor())
+        player_roles.append(Townie())
         return player_roles
 
     def assign_roles_scenario_5():

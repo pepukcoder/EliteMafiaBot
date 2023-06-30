@@ -31,16 +31,6 @@ class SendingContext:
             game = state.games[game_chat_id]
             state.games[game_chat_id].interaction_keyboards = []
 
-            try:
-                don = get_user_id_by_role(game_chat_id, Roles.DON)
-                mafia = get_user_id_by_role(game_chat_id, Roles.MAFIA)
-                await bot.send_message(chat_id=don,
-                                       text=f"Известная вам мафия:\n1. {get_name_by_user_id(game_chat_id, don)}\n2. {get_name_by_user_id(game_chat_id, mafia)}")
-                await bot.send_message(chat_id=mafia,
-                                       text=f"Известная вам мафия:\n1. {get_name_by_user_id(game_chat_id, don)}\n2. {get_name_by_user_id(game_chat_id, mafia)}")
-            except:
-                print("No maf")
-
             for user in game.users:
                 if self._strategy.get_text(user.role):
                     msg = await bot.send_message(user.user_id,
@@ -52,9 +42,21 @@ class SendingContext:
                 else:
                     await bot.send_message(user.user_id,
                                            text="Ваша роль не активна, вы пропускаете ход.",
-                                           reply_markup=self._strategy.get_markup(user.role, game_chat_id))
+                                           reply_markup=self._strategy.get_markup(user.role, game_chat_id), parse_mode="Markdown")
         except KeyError:
             print(f"Game {game_chat_id} not found")
+
+    async def send_mafia(self, chat_id: int, bot: Bot):
+        don = get_user_id_by_role(chat_id, Roles.DON)
+        mafia = get_user_id_by_role(chat_id, Roles.MAFIA)
+        if mafia:
+            await bot.send_message(chat_id=don, parse_mode="Markdown",
+                                       text=f"Известная вам мафия:\n1. {get_name_by_user_id(chat_id, don)}\n2. {get_name_by_user_id(chat_id, mafia)}")
+            await bot.send_message(chat_id=mafia, parse_mode="Markdown",
+                                       text=f"Известная вам мафия:\n1. {get_name_by_user_id(chat_id, don)}\n2. {get_name_by_user_id(chat_id, mafia)}")
+        else:
+            await bot.send_message(chat_id=don,
+                                       text=f"Вы единственная мафия в этой игре.")
 
     async def send_voting(self, game_chat_id, bot: Bot):
         state = State()

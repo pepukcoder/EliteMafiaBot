@@ -2,3 +2,4 @@ from .strategy_base import Strategy
 from .send_role_name_messages_strategy import SendRoleNameMessagesStrategy
 from .send_interactive_messages_strategy import SendInteractiveMessagesStrategy
 from .send_voting_messages import SendVotingMessages
+from .send_mafia_participants import SendMafiaParticipants
