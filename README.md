@@ -5,9 +5,9 @@ Currenly implemented:
   - Changed roles
 
 # TODO
-make Alfa role
-add buffs
-restructure
+  - make Alfa role
+  - add buffs
+  - restructure
 
 
 # How to run
