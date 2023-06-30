@@ -1,5 +1,6 @@
 import asyncio
 
+from src.functions.remove_game_state import remove_game_state
 from src.game_logic.create_game_state import create_game_state
 from src.game_logic.role_implementations import assign, activate_interactions
 from src.game_logic.sending_context import SendingContext
@@ -67,6 +68,8 @@ async def start_loop(chat_id):
 
         # win check
         playing = await win_check(chat_id, bot)
+        if not playing:
+            break
 
         # vote
         await asyncio.sleep(40)
@@ -86,3 +89,6 @@ async def start_loop(chat_id):
 
         # win check 2
         playing = await win_check(chat_id, bot)
+
+    # remove game_state
+    remove_game_state(chat_id)
