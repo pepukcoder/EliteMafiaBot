@@ -3,7 +3,7 @@ from aiogram import Bot, types
 from src.game_logic.role_implementations import Townie
 from src.misc import TgKeys
 from src.state.enums import Roles
-from src.functions import get_user_id_by_role, get_role_by_user_id, change_user_role, check_reply
+from src.functions import get_user_id_by_role, get_role_by_user_id, change_user_role
 from src.functions.delete_element_by_id import Delete
 
 bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')

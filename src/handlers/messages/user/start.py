@@ -2,7 +2,6 @@ from aiogram import Dispatcher, Bot
 from aiogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.utils.deep_linking import decode_payload
 
-from src.functions import check_reply
 from src.misc import TgKeys
 from src.state import State, UserInfo
 
