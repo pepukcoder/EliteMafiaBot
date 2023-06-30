@@ -6,7 +6,7 @@ from src.state.enums import Roles
 from src.functions import get_user_id_by_role, get_role_by_user_id, change_user_role
 from src.functions.delete_element_by_id import Delete
 
-bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML',proxy="http://proxy.server:3128")
+bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML', proxy="http://proxy.server:3128")
 
 from src.state import State
 from src.state.enums import InteractionTypes
@@ -62,6 +62,18 @@ async def activate_interactions(chat_id: int) -> None:
                      record.interaction_object is not whore_target_id]
     except IndexError:
         whore_target_id = []
+
+    whore_target = whore_target_id[0]
+
+    # Alfa
+    try:
+        alfa_target_id = [record.interaction_subject for record in today_int if
+                          record.interaction_type == InteractionTypes.fuck_alfa]
+
+        today_int = [record for record in today_int if
+                     record.interaction_object is not alfa_target_id]
+    except IndexError:
+        alfa_target_id = []
 
     # Liar move
     try:
@@ -178,7 +190,14 @@ async def activate_interactions(chat_id: int) -> None:
     except IndexError:
         informant_target_id = []
 
-    remove_duplicates(users_to_kill)
+    users_to_kill = remove_duplicates(users_to_kill)
+
+    try:
+        users_to_kill.remove(whore_target)
+        await bot.send_message(chat_id=whore_target,
+                               text=f"*У тебя сосала шлюха*", parse_mode="Markdown")
+    except:
+        pass
 
     try:
         users_to_kill.remove(doctor_target_id)
@@ -205,6 +224,5 @@ async def activate_interactions(chat_id: int) -> None:
                                          parse_mode="Markdown",
                                          reply_markup=types.ForceReply())
             game.death_message[el] = [chat_id, msg.message_id, False]
-
 
     Delete.delete_all_elements_by_id(chat_id=chat_id, user_ids=users_to_kill)
