@@ -1,6 +1,6 @@
 from aiogram import Dispatcher, types, Bot
 
-from src.functions import check_reply
+
 from src.functions.is_group import IsPrivate
 from src.misc import TgKeys
 from src.state import State, GameState
