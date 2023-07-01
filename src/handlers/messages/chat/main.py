@@ -4,10 +4,11 @@ from src.handlers.messages.chat.start import register_start_handlers
 from src.handlers.messages.chat.stop import register_stop_handlers
 from src.handlers.messages.chat.night import register_night_handlers
 from src.handlers.messages.chat.vote_handler import register_chat_vote_handler
-
+from src.handlers.messages.chat.settings import register_settings_handlers
 
 def register_chat_handlers(dp: Dispatcher) -> None:
     handlers = (
+        register_settings_handlers,
         register_start_handlers,
         register_stop_handlers,
         register_night_handlers,

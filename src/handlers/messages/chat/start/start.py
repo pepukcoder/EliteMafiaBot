@@ -10,7 +10,7 @@ from src.functions import delete_reg
 from src.misc import TgKeys
 
 bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
-
+from src.settings.main import set_settings, get_settings, get_language
 def register_start_handlers(dp: Dispatcher):
     @dp.message_handler(commands=['game'], chat_type=[types.ChatType.GROUP, types.ChatType.SUPERGROUP])
     async def game(message: types.Message):
@@ -19,22 +19,38 @@ def register_start_handlers(dp: Dispatcher):
 
         try:
             registration_state = state.registrations[chat_id]
-            msg = await message.reply("Где-то в чате уже зарегестрированна игра")
+            try:
+                msg = await message.reply(get_language(chat_id)["registered_game_warn"])
+            except:
+                set_settings(chat_id, 'uk')
+                msg = await message.reply(get_language(chat_id)["registered_game_warn"])
         except:
-            msg = await message.reply("Набор в игру начат!")
+            try:
+                msg = await message.reply(get_language(chat_id)['game'])
+            except:
+                set_settings(chat_id, 'uk')
+                msg = await message.reply(get_language(chat_id)['game'])
+
             link = await get_start_link(str(chat_id) + ", " + str(msg['message_id']), encode=True)
             state.registrations[chat_id] = RegistrationState(msg['message_id'], {})
-            join_button = InlineKeyboardButton(text='Присоединиться', url=link)
+            join_button = InlineKeyboardButton(text=get_language(chat_id)['join'], url=link)
             inline = InlineKeyboardMarkup().add(join_button)
 
             print(state.registrations)
 
-            await msg.edit_text("Набор в игру начат!", reply_markup=inline)
-
+            try:
+                await msg.edit_text(get_language(chat_id)['game'], reply_markup=inline)
+            except:
+                set_settings(chat_id, 'uk')
+                await msg.edit_text(get_language(chat_id)['game'], reply_markup=inline)
     @dp.message_handler(commands=['game'], chat_type=types.ChatType.PRIVATE)
     async def game(message: types.Message):
-        await message.answer('Добавьте бота в чат и зарегестрируйтесь уже там')
-
+        chat_id = message.chat.id
+        try:
+            await message.answer('Добавьте бота в чат и зарегестрируйтесь уже там')
+        except:
+            set_settings(chat_id, 'uk')
+            await message.answer('Добавьте бота в чат и зарегестрируйтесь уже там')
 
     @dp.message_handler(commands=['start_game'])
     async def start_game(message: types.Message):

@@ -40,9 +40,10 @@ class SendingContext:
                                            reply_markup=self._strategy.get_markup(user.role, game_chat_id))
                     state.games[game_chat_id].interaction_keyboards.append([user.user_id, msg.message_id])
                 else:
-                    await bot.send_message(user.user_id,
-                                           text="Ваша роль не активна, вы пропускаете ход.",
-                                           reply_markup=self._strategy.get_markup(user.role, game_chat_id), parse_mode="Markdown")
+                    # await bot.send_message(user.user_id,
+                    #                        text="Ваша роль не активна, вы пропускаете ход.",
+                    #                        reply_markup=self._strategy.get_markup(user.role, game_chat_id), parse_mode="Markdown")
+                    pass
         except KeyError:
             print(f"Game {game_chat_id} not found")
 

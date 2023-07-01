@@ -4,8 +4,6 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 
 from src.misc import TgKeys
 from src.handlers import register_all_handlers
-import asyncio
-
 
 
 async def __on_start_up(dp: Dispatcher) -> None:
