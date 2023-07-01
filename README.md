@@ -3,6 +3,7 @@ Mafia telegram bot, written on python
 Currenly implemented:
   - Basic mafia game
   - Changed roles
+  - Languages
 
 # TODO
   - make Alfa role
