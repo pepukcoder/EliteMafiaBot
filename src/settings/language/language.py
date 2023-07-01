@@ -3,6 +3,7 @@ import enum
 
 class Language(enum.Enum):
     RUSSIAN = 'ru'
+    RUSSIAN_MOD = 'ru_mod'
     UKRAINIAN = 'uk'
     ENGLISH = 'en'
 

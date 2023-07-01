@@ -30,6 +30,7 @@ def register_start_handlers(dp: Dispatcher):
             print(state.registrations)
 
             await msg.edit_text(get_language(chat_id)['game'], reply_markup=inline)
+            await msg.pin()
     @dp.message_handler(commands=['game'], chat_type=types.ChatType.PRIVATE)
     async def game(message: types.Message):
         chat_id = message.chat.id

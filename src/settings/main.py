@@ -115,5 +115,5 @@ def get_default_settings():
     manager = BotSettingsManager()
 
     # Set the language and API key in the manager
-    return manager.setLanguage(Language.UKRAINIAN).setApiKey(get_config())
+    return manager.setLanguage(Language.ENGLISH).setApiKey(get_config())
 

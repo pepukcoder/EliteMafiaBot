@@ -58,12 +58,12 @@ async def start_loop(chat_id):
         # wait_until_all_users_interact_or_timeout
         waiting_context = WaitingContext(WaitingForInteractionStrategy())
         await waiting_context.wait(chat_id)
+        await set_day(chat_id, bot)
         await activate_interactions(chat_id)
 
         # set day
         await Delete.delete_all_interaction_keyboards(chat_id, bot)
         await increment_day(chat_id)
-        await set_day(chat_id, bot)
         await show_alive(chat_id, bot)
 
         # win check
