@@ -22,7 +22,7 @@ def register_settings_handlers(dp: Dispatcher):
         lang_1 = InlineKeyboardButton(text="Русский🇷🇺", callback_data="change_ru")
         lang_2 = InlineKeyboardButton(text="Українська🇺🇦", callback_data="change_ua")
         lang_3 = InlineKeyboardButton(text="English🏳️‍🌈", callback_data="change_en")
-        inline = InlineKeyboardMarkup().add(lang_1, lang_2, lang_3)
+        inline = InlineKeyboardMarkup(row_width=1).add(lang_1, lang_2, lang_3)
         message = callback_query.message
         await message.edit_reply_markup(inline)
 
@@ -31,7 +31,7 @@ def register_settings_handlers(dp: Dispatcher):
         lang_1 = InlineKeyboardButton(text="Русский🇷🇺", callback_data="change_maf_")
         lang_2 = InlineKeyboardButton(text="Українська🇺🇦", callback_data="change_ua")
         lang_3 = InlineKeyboardButton(text="English🏳️‍🌈", callback_data="change_en")
-        inline = InlineKeyboardMarkup().add(lang_1, lang_2, lang_3)
+        inline = InlineKeyboardMarkup(row_width=1).add(lang_1, lang_2, lang_3)
         message = callback_query.message
         await message.edit_reply_markup(inline)
 
