@@ -26,14 +26,15 @@ async def check_switch_back(chat_id: int):
     for interaction in prev_day_interactions:
         if interaction.interaction_type == 10:
             snatched_role = get_role_by_user_id(chat_id, interaction.interaction_subject)
-            townie = get_role_by_user_id(chat_id, interaction.interaction_object)
-            change_user_role(chat_id, interaction.interaction_subject, townie)
+            change_user_role(chat_id, interaction.interaction_subject, Townie())
             await bot.send_message(chat_id=interaction.interaction_subject,
-                                   text=f"Тебя раскрыли и отпиздили, теперь ты ты - {str(get_role_by_user_id(chat_id, interaction.interaction_subject))}")
-            change_user_role(chat_id, interaction.interaction_object, snatched_role)
-            await bot.send_message(chat_id=interaction.interaction_object,
+                                   text=f"Тебя отпиздили, теперь но теперь ты уже чмоня - {str(get_role_by_user_id(chat_id, interaction.interaction_subject))}")
+            if snatched_role:
+                change_user_role(chat_id, interaction.interaction_object, snatched_role)
+                await bot.send_message(chat_id=interaction.interaction_object,
                                    text=f"Омега был успешно опущен, теперь ты снова {str(get_role_by_user_id(chat_id, interaction.interaction_object))}")
-
+            else:
+                return
         else:
             return
 
@@ -79,6 +80,8 @@ async def activate_interactions(chat_id: int) -> None:
     try:
         liar_target_id = [record.interaction_object for record in today_int if
                           record.interaction_type == InteractionTypes.lie][0]
+
+        await bot.send_message(chat_id=liar_target_id, text="*Тебя наёбывал пиздабол*", parse_mode="Markdown")
     except IndexError:
         liar_target_id = []
 
@@ -108,13 +111,18 @@ async def activate_interactions(chat_id: int) -> None:
             don_target = [record.interaction_object for record in today_int if
                           record.interaction_type == InteractionTypes.don_vote_kill][0]
             users_to_kill.append(don_target)
+            await bot.send_message(chat_id=don_target, text="*Тебя ёбала мафия*", parse_mode="Markdown")
+
 
         else:
             # kill most voted target
             users_to_kill.append(most_common_mafia_targets[0][0])
+            await bot.send_message(chat_id=most_common_mafia_targets[0][0], text="*Тебя ёбала мафия*",
+                                   parse_mode="Markdown")
     except:
         try:
             users_to_kill.append(most_common_mafia_targets[0][0])
+            await bot.send_message(chat_id=most_common_mafia_targets[0][0], text="*Тебя ёбала мафия*", parse_mode="Markdown")
         except:
             print('huy')
     try:
@@ -156,18 +164,20 @@ async def activate_interactions(chat_id: int) -> None:
     try:
         omega_target_id = [record.interaction_object for record in today_int if
                            record.interaction_type == InteractionTypes.switch][0]
+        omega_target_role = get_role_by_user_id(chat_id, omega_target_id)
         print(omega_target_id)
         omega = get_user_id_by_role(chat_id, Roles.OMEGA)
         temp_role = get_role_by_user_id(chat_id, omega_target_id)
-        change_user_role(chat_id, omega, temp_role)
-        change_user_role(chat_id, omega_target_id, Townie())
-        await bot.send_message(chat_id=omega_target_id, text=f"Омега спиздил твою роль, теперь ты сосёшь хуйца")
-        await bot.send_message(chat_id=omega_target_id,
-                               text=f"У тебя спиздили роль на следующую ночь, поэтому ты не сможешь ничего делать")
-        await bot.send_message(chat_id=omega,
-                               text=f"Ты успешно спиздил роль. Теперь ты - {get_role_by_user_id(chat_id, omega)}")
-
-        await check_switch_back(chat_id)
+        if omega_target_role == Roles.DON or omega_target_role == Roles.MAFIA:
+            change_user_role(chat_id, omega_target_id, Townie())
+        else:
+            change_user_role(chat_id, omega, temp_role)
+            change_user_role(chat_id, omega_target_id, Townie())
+            await bot.send_message(chat_id=omega_target_id, text=f"Омега спиздил твою роль, теперь ты сосёшь хуйца")
+            await bot.send_message(chat_id=omega_target_id,
+                                   text=f"У тебя спиздили роль на следующую ночь, поэтому ты не сможешь ничего делать")
+            await check_switch_back(chat_id)
+        await bot.send_message(chat_id=omega, text=f"*Ты успешно спиздил роль*", parse_mode="Markdown")
     except:
         omega_target_id = []
         await check_switch_back(chat_id)
@@ -175,6 +185,8 @@ async def activate_interactions(chat_id: int) -> None:
     try:
         informant_target_id = [record.interaction_object for record in today_int if
                                record.interaction_type == InteractionTypes.podsos][0]
+
+        await bot.send_message(chat_id=informant_target_id, text="*К тебе пососался Подсосыш*", parse_mode="Markdown")
 
         try:
             if informant_target_id == get_user_id_by_role(chat_id, Roles.DETECTIVE):
