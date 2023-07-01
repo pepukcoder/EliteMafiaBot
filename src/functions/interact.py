@@ -8,7 +8,7 @@ from src.misc import TgKeys
 bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
 
 from src.functions.delete_element_by_id import Delete
-
+from src.settings.main import get_language
 
 async def interact(chat_id):
     state = State()
@@ -36,11 +36,11 @@ async def interact(chat_id):
     for kill_rec, heal_rec in zip(kill_int, heal_int):
         if kill_rec.interaction_object == heal_rec.interaction_object:
             await bot.send_message(chat_id=chat_id,
-                                   text="🤷‍Удивительно, но этой ночью все выжили\n#доккрос\n#донгандон")
+                                   text=f"{get_language(chat_id)['killed_nobody']}\n#доккрос\n#донгандон")
         else:
             Delete.delete_element_by_id(chat_id=chat_id, user_id=kill_rec.interaction_object)
             await bot.send_message(chat_id=chat_id,
-                                   text=f"Сегодня был жёстко убит {get_user_firstname_by_id(chat_id=chat_id, user_id=kill_rec.interaction_object)}...\n#донгандон")
+                                   text=f"{get_language(chat_id)['killed']} {get_user_firstname_by_id(chat_id=chat_id, user_id=kill_rec.interaction_object)}...\n#донгандон")
 
 
     for whore_rec, all_rec in zip(whore_int, today_int):

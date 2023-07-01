@@ -1,6 +1,9 @@
 from src.state import Role, State
 from src.state.enums import InteractionTypes
 from aiogram import Bot, types
+from src.settings.main import get_language
+
+
 class InteractiveMessageSender:
     async def send_interactive_messages(self, chat_id: int, bot: Bot, role: Role):
         state = State()
@@ -17,10 +20,14 @@ class InteractiveMessageSender:
             if user_state.role.get_type() == role.get_type():
                 pass
             elif user_state.role.get_type() == 4:
-                inline_markup.add(types.InlineKeyboardButton(text=user_state.first_name, callback_data=f"{role.get_type()}_{user_state.user_id}_{chat_id}"))
+                inline_markup.add(types.InlineKeyboardButton(text=user_state.first_name,
+                                                             callback_data=f"{role.get_type()}_{user_state.user_id}_{chat_id}"))
             else:
-                inline_markup.add(types.InlineKeyboardButton(text=user_state.first_name, callback_data=f"{role.get_type()}_{user_state.user_id}_{chat_id}"))
+                inline_markup.add(types.InlineKeyboardButton(text=user_state.first_name,
+                                                             callback_data=f"{role.get_type()}_{user_state.user_id}_{chat_id}"))
 
         print(f"{role.get_type()}_{user_state.user_id}_{chat_id}")
 
-        await bot.send_message(chat_id=user_id, text="Выбери взаимодействие:", reply_markup=inline_markup)
+        await bot.send_message(chat_id=user_id,
+                               text=f"{get_language(chat_id)['int_select']}:",
+                               reply_markup=inline_markup)

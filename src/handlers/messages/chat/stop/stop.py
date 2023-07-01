@@ -1,5 +1,6 @@
 from aiogram import Dispatcher, types, Bot
 from src.functions import delete_reg
+from src.settings.main import get_language
 
 from src.misc import TgKeys
 
@@ -12,6 +13,6 @@ def register_stop_handlers(dp: Dispatcher):
 
         try:
             await delete_reg(chat_id, bot)
-            await message.reply("*Игра отменена*", parse_mode='Markdown')
+            await message.reply(f"{get_language(chat_id)['game_stop']}", parse_mode='Markdown')
         except:
-            await message.reply("*Игры не существует*", parse_mode='Markdown')
+            await message.reply(f"{get_language(chat_id)['game_notfound']}", parse_mode='Markdown')

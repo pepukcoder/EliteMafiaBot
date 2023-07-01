@@ -1,6 +1,7 @@
 from src.misc import TgKeys
 from src.state import State
 from src.functions import send_voting
+from src.settings.main import get_language
 from aiogram import Bot
 
 bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
