@@ -19,18 +19,9 @@ def register_start_handlers(dp: Dispatcher):
 
         try:
             registration_state = state.registrations[chat_id]
-            try:
-                msg = await message.reply(get_language(chat_id)["registered_game_warn"])
-            except:
-                set_settings(chat_id, 'uk')
-                msg = await message.reply(get_language(chat_id)["registered_game_warn"])
+            msg = await message.reply(get_language(chat_id)["registered_game_warn"])
         except:
-            try:
-                msg = await message.reply(get_language(chat_id)['game'])
-            except:
-                set_settings(chat_id, 'uk')
-                msg = await message.reply(get_language(chat_id)['game'])
-
+            msg = await message.reply(get_language(chat_id)['game'])
             link = await get_start_link(str(chat_id) + ", " + str(msg['message_id']), encode=True)
             state.registrations[chat_id] = RegistrationState(msg['message_id'], {})
             join_button = InlineKeyboardButton(text=get_language(chat_id)['join'], url=link)
@@ -38,19 +29,11 @@ def register_start_handlers(dp: Dispatcher):
 
             print(state.registrations)
 
-            try:
-                await msg.edit_text(get_language(chat_id)['game'], reply_markup=inline)
-            except:
-                set_settings(chat_id, 'uk')
-                await msg.edit_text(get_language(chat_id)['game'], reply_markup=inline)
+            await msg.edit_text(get_language(chat_id)['game'], reply_markup=inline)
     @dp.message_handler(commands=['game'], chat_type=types.ChatType.PRIVATE)
     async def game(message: types.Message):
         chat_id = message.chat.id
-        try:
-            await message.answer('Добавьте бота в чат и зарегестрируйтесь уже там')
-        except:
-            set_settings(chat_id, 'uk')
-            await message.answer('Добавьте бота в чат и зарегестрируйтесь уже там')
+        await message.answer(get_language(chat_id)['game_warn'])
 
     @dp.message_handler(commands=['start_game'])
     async def start_game(message: types.Message):

@@ -87,16 +87,29 @@ def set_settings(chat_id: int, language: str):
     return manager.setLanguage(set_language_by_chat_id(chat_id, language)).setApiKey(get_config())
 
 def get_language(chat_id: int):
-    settings = get_settings(chat_id)
-    retrieved_settings = settings.getSettings()
-    retrieved_language = retrieved_settings.language
+    try:
+        settings = get_settings(chat_id)
+        retrieved_settings = settings.getSettings()
+        retrieved_language = retrieved_settings.language
 
-    thisfolder = os.path.dirname(os.path.abspath(__file__))
-    jsons = thisfolder + '/phrases/{}.json'
+        thisfolder = os.path.dirname(os.path.abspath(__file__))
+        jsons = thisfolder + '/phrases/{}.json'
 
-    phrases_file_path = jsons.format(retrieved_language.value)
-    phrases = load_phrases(phrases_file_path)
-    return phrases
+        phrases_file_path = jsons.format(retrieved_language.value)
+        phrases = load_phrases(phrases_file_path)
+        return phrases
+    except:
+        set_settings(chat_id, 'uk')
+        settings = get_settings(chat_id)
+        retrieved_settings = settings.getSettings()
+        retrieved_language = retrieved_settings.language
+
+        thisfolder = os.path.dirname(os.path.abspath(__file__))
+        jsons = thisfolder + '/phrases/{}.json'
+
+        phrases_file_path = jsons.format(retrieved_language.value)
+        phrases = load_phrases(phrases_file_path)
+        return phrases
 
 def get_default_settings():
     manager = BotSettingsManager()
