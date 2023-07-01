@@ -11,7 +11,7 @@ class SendVotingChat(Strategy):
     def send_voting_chat(chat_id: int, user_id: int, user_firstname: str):
         return send_voting(chat_id=chat_id, user_id=user_id, user_firstname=user_firstname)
 
-    def get_text(self, role: Role):
+    def get_text(self, role: Role, chat_id: int):
         pass
 
     def get_markup(self, role: Role, chat_id: int):

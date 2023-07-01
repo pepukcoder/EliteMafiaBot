@@ -1,5 +1,6 @@
 from aiogram import Dispatcher, types, Bot
 
+from src.settings import get_language
 from src.state import State, ChatVoteState
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from src.misc import TgKeys
@@ -28,5 +29,5 @@ async def send_voting(chat_id: int, user_id: int):
                                                callback_data=f"voteagainst_{user_id}_{chat_id}"))
     else:
         await bot.send_message(chat_id=chat_id,
-                               text="Так как жители - долбоёбы, которые не могут линчевать, мы вынуждены СУКА никого не ЕБАШИТЬ")
+                               text=get_language(chat_id)['citizens_idiots'])
     await bot.send_message(chat_id=chat_id, text=f"Ебашим {get_name_by_user_id(chat_id, user_id)}?", reply_markup=inline_markup)

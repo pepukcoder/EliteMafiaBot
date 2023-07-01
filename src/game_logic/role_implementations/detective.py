@@ -1,3 +1,4 @@
+from src.settings import get_language
 from src.state import Role, State
 from src.state.enums import Roles
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
@@ -6,16 +7,16 @@ from src.game_logic.role_implementations.roles_unifier import InteractiveMessage
 
 
 class Detective(Role):
-    def get_interactive_message(self) -> str:
-        return "Выбери действие"
+    def get_interactive_message(self, chat_id) -> str:
+        return get_language(chat_id)['detective_action_choose']
 
     def get_interactive_kb(self, chat_id: int) -> InlineKeyboardMarkup:
         inline_markup = InlineKeyboardMarkup(row_width=1)
-        inline_markup.add(InlineKeyboardButton(text="🔍 Проверить игрока",
+        inline_markup.add(InlineKeyboardButton(text=f"🔍 {get_language(chat_id)['check']}",
                                                callback_data=f"detectivecheck_{chat_id}"))
-        inline_markup.add(InlineKeyboardButton(text="🔫 Убить игрока",
+        inline_markup.add(InlineKeyboardButton(text=f"🔫 {get_language(chat_id)['kill']}",
                                                callback_data=f"detectivekill_{chat_id}"))
-        inline_markup.add(InlineKeyboardButton(text=f"🚷Скуколдиться",
+        inline_markup.add(InlineKeyboardButton(text=f"🚷 {get_language(chat_id)['kukold']}",
                                                callback_data=f"detectiveskip_{chat_id}"))
         return inline_markup
 
@@ -28,7 +29,7 @@ class Detective(Role):
     def get_voting_kb(self, chat_id: int) -> InlineKeyboardMarkup:
         return get_all_users_voting_kb(chat_id)
 
-    def get_interaction_message(self) -> str:
+    def get_interaction_message(self, chat_id: int) -> str:
         return "ага хуй"
 
 
@@ -51,8 +52,8 @@ class DetectiveLogic:
         return get_all_users_kb(chat_id, InteractionTypes.check, except_of_roles=[Roles.DETECTIVE])
 
     @staticmethod
-    def get_check_message() -> str:
-        return "Выбери, кого ты будешь проверять"
+    def get_check_message(chat_id:int) -> str:
+        return get_language(chat_id)['choose_check']
 
     @staticmethod
     def get_kill_kb(chat_id):
@@ -62,5 +63,5 @@ class DetectiveLogic:
         return get_all_users_voting_kb(chat_id)
 
     @staticmethod
-    def get_kill_message() -> str:
-        return "Выбери, кого ты будешь убивать"
+    def get_kill_message(chat_id:int) -> str:
+        return get_language(chat_id)['choose_kill']

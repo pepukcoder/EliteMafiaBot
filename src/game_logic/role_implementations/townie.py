@@ -7,7 +7,7 @@ from src.game_logic.role_implementations.roles_unifier import get_all_users_voti
 
 class Townie(Role):
 
-    def get_interactive_message(self) -> str:
+    def get_interactive_message(self, chat_id: int) -> str:
         pass
 
     def get_interactive_kb(self, chat_id: int) -> None:
@@ -27,5 +27,5 @@ class Townie(Role):
     def get_voting_kb(self, chat_id: int) -> InlineKeyboardMarkup:
         return get_all_users_voting_kb(chat_id)
 
-    def get_interaction_message(self) -> str:
+    def get_interaction_message(self, chat_id: int) -> str:
         pass

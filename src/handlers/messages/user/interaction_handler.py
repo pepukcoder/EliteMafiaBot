@@ -1,5 +1,6 @@
 from aiogram import Dispatcher, types, Bot
 
+from src.settings import get_language
 from src.state import State, InteractionHistoryRecord
 from src.state.enums import InteractionTypes
 from src.functions import get_role_by_user_id
@@ -27,7 +28,7 @@ def register_interaction_handler(dp: Dispatcher):
                                                                                       day))
         print(state.games)
 
-        await call.message.answer("Вы выбрали цель")
+        await call.message.answer(get_language(int(chat_id))['target_chosen'])
         print(interaction_type)
         print(InteractionTypes.kill)
         if int(interaction_type) == InteractionTypes.kill or int(interaction_type) == InteractionTypes.check:
@@ -35,7 +36,7 @@ def register_interaction_handler(dp: Dispatcher):
             return
         else:
             await bot.send_message(chat_id=int(chat_id),
-                                   text=f"{str(get_role_by_user_id(chat_id=int(chat_id), user_id=int(user_id)))} {get_role_by_user_id(chat_id=int(chat_id), user_id=int(user_id)).get_interaction_message()}")
+                                   text=f"{str(get_role_by_user_id(chat_id=int(chat_id), user_id=int(user_id)))} {get_role_by_user_id(chat_id=int(chat_id), user_id=int(user_id)).get_interaction_message(chat_id)}")
 
         # await bot.send_message(chat_id=int(chat_id),
         #                        text=f"{str(get_role_by_user_id(chat_id=int(chat_id), user_id=int(user_id)))} "
@@ -52,7 +53,7 @@ def register_interaction_handler(dp: Dispatcher):
                                                                                       0,
                                                                                       user_id,
                                                                                       day))
-        await call.message.answer("Вы пропустили ход")
+        await call.message.answer(get_language(int(chat_id))['skipped'])
         await bot.send_message(chat_id=int(chat_id),
-                               text=f"{str(get_role_by_user_id(chat_id=int(chat_id), user_id=user_id))} решил скуколдиться и забил хуй")
+                               text=f"{str(get_role_by_user_id(chat_id=int(chat_id), user_id=user_id))} {get_language(int(chat_id))['kukold_huy']}")
         await call.message.delete()

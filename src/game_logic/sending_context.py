@@ -2,9 +2,10 @@ from aiogram import Bot
 
 from src.functions import get_user_id_by_role
 from src.game_logic.sending_strategies import Strategy, SendVotingMessages
+from src.settings import get_language
 from src.state import State
 from src.state.enums import Roles
-from src.settings.main import get_language
+
 
 def get_name_by_user_id(chat_id: int, user_id: int):
     state = State()
@@ -13,6 +14,7 @@ def get_name_by_user_id(chat_id: int, user_id: int):
     for user in game.users:
         if user.user_id == user_id:
             return user.first_name
+
 
 class SendingContext:
     def __init__(self, strategy: Strategy):
@@ -33,12 +35,12 @@ class SendingContext:
             state.games[game_chat_id].interaction_keyboards = []
 
             for user in game.users:
-                if self._strategy.get_text(user.role):
+                if self._strategy.get_text(user.role, game_chat_id):
                     msg = await bot.send_message(user.user_id,
-                                           text=self._strategy.get_text(user.role),
-                                           parse_mode='HTML',
-                                           disable_web_page_preview=True,
-                                           reply_markup=self._strategy.get_markup(user.role, game_chat_id))
+                                                 text=self._strategy.get_text(user.role, game_chat_id),
+                                                 parse_mode='HTML',
+                                                 disable_web_page_preview=True,
+                                                 reply_markup=self._strategy.get_markup(user.role, game_chat_id))
                     state.games[game_chat_id].interaction_keyboards.append([user.user_id, msg.message_id])
                 else:
                     pass
@@ -50,12 +52,15 @@ class SendingContext:
         mafia = get_user_id_by_role(chat_id, Roles.MAFIA)
         if mafia:
             await bot.send_message(chat_id=don, parse_mode="Markdown",
-                                       text=f"{get_language(chat_id)['known_bad']}:\n1. {get_name_by_user_id(chat_id, don)}\n2. {get_name_by_user_id(chat_id, mafia)}")
+                                   text=f"{get_language(chat_id)['known_mafia']}\n1. {get_name_by_user_id(chat_id, don)}\n2. {get_name_by_user_id(chat_id, mafia)}")
             await bot.send_message(chat_id=mafia, parse_mode="Markdown",
-                                       text=f"{get_language(chat_id)['known_bad']}:\n1. {get_name_by_user_id(chat_id, don)}\n2. {get_name_by_user_id(chat_id, mafia)}")
+                                   text=f"{get_language(chat_id)['known_mafia']}\n1. {get_name_by_user_id(chat_id, don)}\n2. {get_name_by_user_id(chat_id, mafia)}")
         else:
-            await bot.send_message(chat_id=don,
-                                       text=f"{get_language(chat_id)['known_none']}")
+            try:
+                await bot.send_message(chat_id=don,
+                                       text=get_language(chat_id)['only_maf'])
+            except:
+                print('No don')
 
     async def send_voting(self, game_chat_id, bot: Bot):
         state = State()
@@ -64,8 +69,8 @@ class SendingContext:
             state.games[game_chat_id].voting_keyboards = []
             for user in game.users:
                 msg = await bot.send_message(user.user_id,
-                                       text=f"{get_language(game_chat_id)['vote_ask']}",
-                                       reply_markup=SendVotingMessages.get_voting(user.role, game_chat_id))
+                                             text=get_language(game_chat_id)['vote_aaaFOR'],
+                                             reply_markup=SendVotingMessages.get_voting(user.role, game_chat_id))
                 state.games[game_chat_id].voting_keyboards.append([user.user_id, msg.message_id])
         except KeyError:
             print(f"Game {game_chat_id} not found")

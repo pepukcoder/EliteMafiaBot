@@ -1,12 +1,11 @@
 from aiogram import Dispatcher, types, Bot
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
+from src.settings import get_language
 from src.state import State, VoteState, ChatVoteState
 from src.misc import TgKeys
-from src.settings.main import get_language
 
 bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
-
 
 def get_name_by_user_id(chat_id: int, user_id: int):
     state = State()
@@ -38,10 +37,10 @@ def register_chat_vote_handler(dp: Dispatcher):
                 break
             if user_id == int(object_id):
                 print('f')
-                await call.answer(f"{get_language(chat_id)['vote_isyou']}")
+                await call.answer(get_language(chat_id)['voting_for_u'])
                 return
         else:
-            await call.answer(f"{get_language(chat_id)['vote_notplayer']}", show_alert=True)
+            await call.answer(get_language(chat_id)['not_in_game'])
             return
 
 
@@ -51,10 +50,10 @@ def register_chat_vote_handler(dp: Dispatcher):
             existing_vote = next((vote for vote in game.chat_votes.voting if vote[0] == user_id), None)
             if existing_vote[1] is False:
                 existing_vote[1] = True  # Change the existing vote to True
-                await call.answer(f"{get_language(chat_id)['vote_change_true']}", show_alert=True)
+                await call.answer(get_language(chat_id)['vote_f'], show_alert=True)
                 return
 
-            await call.answer(f"{get_language(chat_id)['vote_already']}", show_alert=True)
+            await call.answer(get_language(chat_id)['already_voted'], show_alert=True)
             return
 
         # Increase the true count for the user
@@ -68,7 +67,7 @@ def register_chat_vote_handler(dp: Dispatcher):
                                                callback_data=f"voteagainst_{object_id}_{chat_id}"))
 
         print(game.chat_votes)
-        await call.answer(f"{get_language(chat_id)['vote_true']}")
+        await call.answer(get_language(chat_id)['vote_f'])
         await call.message.edit_reply_markup(reply_markup=inline_markup)
 
     @dp.callback_query_handler(regexp="voteagainst_(\d+)_(\-?\d+)")
@@ -93,10 +92,10 @@ def register_chat_vote_handler(dp: Dispatcher):
 
             if user_id == int(object_id):
                 print('f')
-                await call.answer(f"{get_language(chat_id)['vote_isyou']}")
+                await call.answer(get_language(chat_id)['voting_for_u'])
                 return
         else:
-            await call.answer(f"{get_language(chat_id)['vote_notplayer']}", show_alert=True)
+            await call.answer(get_language(chat_id)['not_in_game'])
             return
 
         # Check if the user has already voted
@@ -105,10 +104,10 @@ def register_chat_vote_handler(dp: Dispatcher):
             existing_vote = next((vote for vote in game.chat_votes.voting if vote[0] == user_id), None)
             if existing_vote[1] is True:
                 existing_vote[1] = False  # Change the existing vote to True
-                await call.answer(f"{get_language(chat_id)['vote_change_false']}", show_alert=True)
+                await call.answer(get_language(chat_id)['vote_agains'], show_alert=True)
                 return
 
-            await call.answer(f"{get_language(chat_id)['vote_already']}", show_alert=True)
+            await call.answer(get_language(chat_id)['already_voted'], show_alert=True)
             return
 
         # Increase the false count for the user
@@ -122,5 +121,5 @@ def register_chat_vote_handler(dp: Dispatcher):
                                                callback_data=f"voteagainst_{object_id}_{chat_id}"))
 
         print(game.chat_votes)
-        await call.answer(f"{get_language(chat_id)['vote_false']}")
+        await call.answer(get_language(chat_id)['vote_agains'])
         await call.message.edit_reply_markup(reply_markup=inline_markup)

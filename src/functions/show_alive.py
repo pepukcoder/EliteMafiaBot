@@ -1,8 +1,9 @@
-from aiogram import Bot
-from src.state import State
-from src.settings.main import get_language
+from aiogram import Dispatcher, Bot
 
-async def show_alive(chat_id, bot: Bot):
+from src.settings import get_language
+from src.state import State
+
+async def show_alive(chat_id, bot):
     state = State()
 
     try:

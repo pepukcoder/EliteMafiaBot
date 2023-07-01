@@ -4,7 +4,7 @@ from src.settings import get_settings, get_language
 from src.settings.main import set_settings
 from src.state import State
 from src.state import GameState
-from src.functions.is_group import IsGroup
+from src.functions.is_group import IsGroup, IsPrivate
 
 from src.misc import TgKeys
 from src.state.enums import Roles

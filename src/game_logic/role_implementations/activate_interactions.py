@@ -2,11 +2,12 @@ from aiogram import Bot, types
 
 from src.game_logic.role_implementations import Townie
 from src.misc import TgKeys
+from src.settings import get_language
 from src.state.enums import Roles
 from src.functions import get_user_id_by_role, get_role_by_user_id, change_user_role
 from src.functions.delete_element_by_id import Delete
 
-bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML', proxy="http://proxy.server:3128")
+bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
 
 from src.state import State
 from src.state.enums import InteractionTypes
@@ -29,10 +30,10 @@ async def check_switch_back(chat_id: int):
             townie = get_role_by_user_id(chat_id, interaction.interaction_object)
             change_user_role(chat_id, interaction.interaction_subject, townie)
             await bot.send_message(chat_id=interaction.interaction_subject,
-                                   text=f"Тебя раскрыли и отпиздили, теперь ты ты - {str(get_role_by_user_id(chat_id, interaction.interaction_subject))}")
+                                   text=f"{get_language(chat_id)['fucked_up_omega']} - {str(get_role_by_user_id(chat_id, interaction.interaction_subject))}")
             change_user_role(chat_id, interaction.interaction_object, snatched_role)
             await bot.send_message(chat_id=interaction.interaction_object,
-                                   text=f"Омега был успешно опущен, теперь ты снова {str(get_role_by_user_id(chat_id, interaction.interaction_object))}")
+                                   text=f"{get_language(chat_id)['omega_popusk']} {str(get_role_by_user_id(chat_id, interaction.interaction_object))}")
 
         else:
             return
@@ -63,7 +64,7 @@ async def activate_interactions(chat_id: int) -> None:
     except IndexError:
         whore_target_id = []
 
-    whore_target = whore_target_id[0]
+
 
     # Alfa
     try:
@@ -131,15 +132,15 @@ async def activate_interactions(chat_id: int) -> None:
             detective = get_user_id_by_role(chat_id, Roles.DETECTIVE)
             print(detective)
             await bot.send_message(chat_id=detective,
-                                   text=f"{get_name_by_user_id(chat_id, detective_check_user_id)} - 👨🏼Мирный житель")
-            await bot.send_message(chat_id=detective_check_user_id, text=f"Тебя чекал коммисар")
+                                   text=f"{get_name_by_user_id(chat_id, detective_check_user_id)} - {get_language(chat_id)['townie']}")
+            await bot.send_message(chat_id=detective_check_user_id, text=get_language(chat_id)['detective_checked'])
         else:
             # send detective real role
             detective = get_user_id_by_role(chat_id, Roles.DETECTIVE)
             print(detective)
             await bot.send_message(chat_id=detective,
                                    text=f"{get_name_by_user_id(chat_id, detective_check_user_id)} - {str(get_role_by_user_id(chat_id=chat_id, user_id=detective_check_user_id))}")
-            await bot.send_message(chat_id=detective_check_user_id, text=f"Тебя чекал коммисар")
+            await bot.send_message(chat_id=detective_check_user_id, text=get_language(chat_id)['detective_checked'])
             pass
     except:
         detective_check_record = []
@@ -161,11 +162,9 @@ async def activate_interactions(chat_id: int) -> None:
         temp_role = get_role_by_user_id(chat_id, omega_target_id)
         change_user_role(chat_id, omega, temp_role)
         change_user_role(chat_id, omega_target_id, Townie())
-        await bot.send_message(chat_id=omega_target_id, text=f"Омега спиздил твою роль, теперь ты сосёшь хуйца")
+        await bot.send_message(chat_id=omega_target_id, text=get_language(chat_id)['successfully_snatched'])
         await bot.send_message(chat_id=omega_target_id,
-                               text=f"У тебя спиздили роль на следующую ночь, поэтому ты не сможешь ничего делать")
-        await bot.send_message(chat_id=omega,
-                               text=f"Ты успешно спиздил роль. Теперь ты - {get_role_by_user_id(chat_id, omega)}")
+                               text=get_language(chat_id)['omega_switched'])
 
         await check_switch_back(chat_id)
     except:
@@ -193,34 +192,35 @@ async def activate_interactions(chat_id: int) -> None:
     users_to_kill = remove_duplicates(users_to_kill)
 
     try:
+        whore_target = whore_target_id[0]
         users_to_kill.remove(whore_target)
         await bot.send_message(chat_id=whore_target,
-                               text=f"*У тебя сосала шлюха*", parse_mode="Markdown")
+                               text=get_language(chat_id)['whore_fucked'], parse_mode="Markdown")
     except:
         pass
 
     try:
         users_to_kill.remove(doctor_target_id)
         await bot.send_message(chat_id=doctor_target_id,
-                               text=f"*К тебе заходил доктор*", parse_mode="Markdown")
+                               text=get_language(chat_id)['doctor_healder'], parse_mode="Markdown")
     except:
         print('Doc didnt choose')
     if len(users_to_kill) == 0:
         await bot.send_message(chat_id=chat_id,
-                               text=f"🤷‍♂️ Удивительно, но *никто небыл убит!*\n#донгандон", parse_mode="Markdown")
+                               text=get_language(chat_id)['nobody_killed'], parse_mode="Markdown")
 
         for el in users_to_kill:
             await bot.send_message(chat_id=el,
-                                   text=f"🤷‍♂️ Тебя пытались убить, но ты выжил.", parse_mode="Markdown")
+                                   text=get_language(chat_id)['tried_but_survive'], parse_mode="Markdown")
     for usr in users_to_kill:
         print(usr)
         await bot.send_message(chat_id=chat_id,
-                               text=f"Сегодня был ёбнут *{get_name_by_user_id(chat_id, usr)}*\n#донгандон",
+                               text=f"{get_language(chat_id)['today_killed']} *{get_name_by_user_id(chat_id, usr)}*\n#донгандон",
                                parse_mode="Markdown")
 
         for el in users_to_kill:
             msg = await bot.send_message(chat_id=el,
-                                         text=f"Тебя убили :(\nНапиши предсмертное сообщение:",
+                                         text=get_language(chat_id)['death_message'],
                                          parse_mode="Markdown",
                                          reply_markup=types.ForceReply())
             game.death_message[el] = [chat_id, msg.message_id, False]

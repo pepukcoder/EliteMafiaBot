@@ -1,8 +1,8 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
+from src.settings import get_language
 from src.state import State
 from src.state.enums import InteractionTypes
-from src.settings.main import get_language
 
 
 def get_all_users_voting_kb(chat_id: int) -> InlineKeyboardMarkup:
@@ -28,7 +28,7 @@ def get_all_users_voting_kb(chat_id: int) -> InlineKeyboardMarkup:
                 inline_markup.add(InlineKeyboardButton(text=user_state.first_name,
                                                        callback_data=f"voting_{user_state.user_id}_{chat_id}"))
 
-        inline_markup.add(InlineKeyboardButton(text=f"{get_language(chat_id)['vote_skip']}",
+        inline_markup.add(InlineKeyboardButton(text=f"🚷{get_language(chat_id)['sit_at_home']}",
                                                    callback_data=f"skipvote_{chat_id}"))
         print(f"voting_{user_state.user_id}_{chat_id}")
 
@@ -69,7 +69,7 @@ def get_all_users_kb(chat_id: int, interaction_type: int,
         if int(interaction_type) == InteractionTypes.kill or int(interaction_type) == InteractionTypes.check:
             pass
         else:
-            inline_markup.add(InlineKeyboardButton(text=f"{get_language(chat_id)['int_skip']}",
+            inline_markup.add(InlineKeyboardButton(text=f"🚷{get_language(chat_id)['kukold']}",
                                                    callback_data=f"skip_{chat_id}"))
         return inline_markup
     except KeyError:

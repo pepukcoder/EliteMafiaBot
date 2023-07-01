@@ -14,7 +14,7 @@ class Role(ABC):
         pass
 
     @abstractmethod
-    def get_interactive_message(self) -> str:
+    def get_interactive_message(self, chat_id: int) -> str:
         pass
 
     @abstractmethod
@@ -22,7 +22,7 @@ class Role(ABC):
         pass
 
     @abstractmethod
-    def get_interaction_message(self) -> str:
+    def get_interaction_message(self, chat_id: int) -> str:
         pass
 
     @abstractmethod

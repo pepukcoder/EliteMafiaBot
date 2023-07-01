@@ -7,7 +7,7 @@ from src.state import Role
 
 class Strategy(ABC):
     @abstractmethod
-    def get_text(self, role: Role):
+    def get_text(self, role: Role, chat_id: int):
         pass
 
     @abstractmethod

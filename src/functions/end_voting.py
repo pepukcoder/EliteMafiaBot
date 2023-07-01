@@ -1,4 +1,5 @@
 from src.misc import TgKeys
+from src.settings import get_language
 from src.state import State
 from src.functions import send_voting
 from src.settings.main import get_language
@@ -52,9 +53,9 @@ async def end_voting(chat_id):
             await send_voting(chat_id, result)
         else:
             await bot.send_message(chat_id=chat_id,
-                               text="Так как жители сидели и никого не выбрали мы не смогли выбрать кого линчевать")
+                               text=get_language(chat_id)['citizens_idiots'])
             return
     else:
         await bot.send_message(chat_id=chat_id,
-                               text="Так как жители сидели и пиздели мы не смогли выбрать кого линчевать")
+                               text=get_language(chat_id)['citizens_idiots'])
         return

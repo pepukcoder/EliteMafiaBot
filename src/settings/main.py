@@ -99,7 +99,7 @@ def get_language(chat_id: int):
         phrases = load_phrases(phrases_file_path)
         return phrases
     except:
-        set_settings(chat_id, 'uk')
+        set_settings(chat_id, 'en')
         settings = get_settings(chat_id)
         retrieved_settings = settings.getSettings()
         retrieved_language = retrieved_settings.language

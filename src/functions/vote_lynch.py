@@ -1,4 +1,6 @@
 from aiogram import Dispatcher, types, Bot
+
+from src.settings import get_language
 from src.state import State, ChatVoteState
 from src.functions import Delete
 
@@ -29,9 +31,9 @@ async def vote_lynch(chat_id, bot: Bot):
         else:
             await bot.delete_message(chat_id, msg_id)
             await bot.send_message(chat_id,
-                                   f"Из-за того, что жители только и делали, что пиздели, они не смогли договориться, кого линчевать.",
+                                   get_language(chat_id)['citizens_idiots'],
                                    parse_mode='Markdown')
     except:
         await bot.send_message(chat_id,
-                               f"Идём дальше...",
+                               get_language(chat_id)['going_further'],
                                parse_mode='Markdown')

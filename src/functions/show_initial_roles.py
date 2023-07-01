@@ -1,6 +1,6 @@
+from src.settings import get_language
 from src.state import State
 from src.state.enums import Roles
-from src.settings.main import get_language
 
 
 async def show_initial(chat_id, bot, winner: bool):
@@ -12,7 +12,7 @@ async def show_initial(chat_id, bot, winner: bool):
         bad = [user for user in users if int(user.role) == Roles.DON.value or int(user.role) == Roles.MAFIA.value]
         good = [user for user in users if int(user.role) != Roles.DON.value and int(user.role) != Roles.MAFIA.value]
 
-        winners = f"{get_language(chat_id)['players_win']}:\n"
+        winners = f"{get_language(chat_id)['players_win']}\n"
         if winner:
             for idx, x in enumerate(bad):
                 winners = winners + str(idx + 1) + '. ' + str(x.link) + " — " + str(x.role) + "\n"
@@ -20,7 +20,7 @@ async def show_initial(chat_id, bot, winner: bool):
             for idx, x in enumerate(good):
                 winners = winners + str(idx + 1) + '. ' + str(x.link) + " — " + str(x.role) + "\n"
 
-        message = f"{get_language(chat_id)['initial_roles']}:\n"
+        message = f"{get_language(chat_id)['initial_roles']}\n"
 
         for idx, x in enumerate(initial_users):
             message = message + str(idx + 1) + '. ' + str(x.link) + " — " + str(x.role) + "\n"

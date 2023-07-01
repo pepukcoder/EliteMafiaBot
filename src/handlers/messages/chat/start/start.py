@@ -10,7 +10,7 @@ from src.functions import delete_reg
 from src.misc import TgKeys
 
 bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
-from src.settings.main import set_settings, get_settings, get_language
+from src.settings.main import get_language
 def register_start_handlers(dp: Dispatcher):
     @dp.message_handler(commands=['game'], chat_type=[types.ChatType.GROUP, types.ChatType.SUPERGROUP])
     async def game(message: types.Message):
@@ -30,7 +30,6 @@ def register_start_handlers(dp: Dispatcher):
             print(state.registrations)
 
             await msg.edit_text(get_language(chat_id)['game'], reply_markup=inline)
-
     @dp.message_handler(commands=['game'], chat_type=types.ChatType.PRIVATE)
     async def game(message: types.Message):
         chat_id = message.chat.id
@@ -46,11 +45,11 @@ def register_start_handlers(dp: Dispatcher):
 
             first_names = [item.first_name for item in registration_state.users.values()]
 
-            if len(registration_state.users.keys()) >= 4:
-                await message.reply(get_language(chat_id)['game_start'], parse_mode='Markdown')
+            if len(registration_state.users.keys()) >= 1:
+                await message.reply(f"*{get_language(chat_id)['game_start']}*", parse_mode='Markdown')
                 await start_loop(chat_id)
             else:
-                await message.reply(get_language(chat_id)['no_players'], parse_mode='Markdown')
+                await message.reply(f"{get_language(chat_id)['no_players']}", parse_mode='Markdown')
                 await delete_reg(chat_id, bot)
         except KeyError:
             print(f"Registration {chat_id} not found")

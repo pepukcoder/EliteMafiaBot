@@ -16,7 +16,7 @@ async def assign(chat_id):
     state = State()
     def assign_roles(player_count):
         match player_count:
-            case 4:
+            case 1:
                 return assign_roles_scenario_4()
             case 5:
                 return assign_roles_scenario_5()

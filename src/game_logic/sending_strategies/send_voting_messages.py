@@ -8,7 +8,7 @@ class SendVotingMessages(Strategy):
     def get_voting(role: Role, chat_id: int):
         return role.get_voting_kb(chat_id)
 
-    def get_text(self, role: Role):
+    def get_text(self, role: Role, chat_id: int):
         pass
 
     def get_markup(self, role: Role, chat_id: int):

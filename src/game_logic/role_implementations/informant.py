@@ -1,5 +1,6 @@
 from aiogram import Bot, types
 
+from src.settings import get_language
 from src.state import Role, State
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from src.state.enums import Roles, InteractionTypes
@@ -8,8 +9,8 @@ from src.game_logic.role_implementations.roles_unifier import get_all_users_kb, 
 
 
 class Informant(Role):
-    def get_interactive_message(self) -> str:
-        return "Выбери, кого ты будешь проверять"
+    def get_interactive_message(self, chat_id: int) -> str:
+        return get_language(int(chat_id))['choose_check']
     def get_interactive_kb(self, chat_id: int) -> InlineKeyboardMarkup:
         return get_all_users_kb(chat_id, InteractionTypes.podsos, except_of_roles=[Roles.INFORMANT])
 
@@ -22,5 +23,5 @@ class Informant(Role):
     def get_voting_kb(self, chat_id: int) -> InlineKeyboardMarkup:
         return get_all_users_voting_kb(chat_id)
 
-    def get_interaction_message(self) -> str:
-        return "ушёл копать инфу на коммисара..."
+    def get_interaction_message(self, chat_id: int) -> str:
+        return get_language(int(chat_id))['infa_com']

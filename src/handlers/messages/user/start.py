@@ -3,6 +3,7 @@ from aiogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.utils.deep_linking import decode_payload
 
 from src.misc import TgKeys
+from src.settings import get_language
 from src.state import State, UserInfo
 
 bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
@@ -14,12 +15,14 @@ def register_start_handler(dp: Dispatcher):
     async def handler(message: Message):
         args = message.get_args()
         payload = decode_payload(args)
-        print(args)
-        join_button = InlineKeyboardButton(text='Присоединиться', url="https://t.me/elite_mafia_bot?start=" + args)
-        inline = InlineKeyboardMarkup().add(join_button)
+
 
         if payload:
             chat_id = int(payload.split(',', 1)[0])
+            print(args)
+            join_button = InlineKeyboardButton(text=get_language(chat_id)['join'],
+                                               url="https://t.me/elite_mafia_bot?start=" + args)
+            inline = InlineKeyboardMarkup().add(join_button)
             message_id = int(payload.split(',', 1)[-1].replace(" ", ""))
             user_id = message.from_user.id
             first_name = message.from_user.first_name
@@ -43,14 +46,15 @@ def register_start_handler(dp: Dispatcher):
                 print(registration_state)
                 try:
                     await bot.edit_message_text(chat_id=chat_id, message_id=message_id,
-                                                text=("Набор в игру начат!\n*Всего игроков: " + str(
+                                                text=(f"{get_language(chat_id)['game']}\n*{get_language(chat_id)['all']} " + str(
                                                     len(registration_state.users.keys())) + '*\n' +
                                                       ', '.join(links)), parse_mode='Markdown', reply_markup=inline,
                                                 disable_web_page_preview=True)
-                    await message.answer(f"Ты зарегестрировался в игре.")
+                    await message.answer(f"{get_language(chat_id)['game_joined']}")
                 except:
-                    await message.answer('ДА ТЫ УЖЕ В ИГРЕ, ДОЛБОЁБ!')
+                    await message.answer(f"{get_language(chat_id)['alr_in_game']}")
             except KeyError:
                 print(f"Registration {chat_id} not found")
         else:
-            await message.answer(f"Зарегестрируйтесь через чат")
+            chat_id = message.from_user.id
+            await message.answer(f"{get_language(chat_id)['reg_thr_chat']}")
