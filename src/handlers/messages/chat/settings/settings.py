@@ -29,8 +29,13 @@ def register_settings_handlers(dp: Dispatcher):
     # mafia_quantity change
     @dp.callback_query_handler(lambda c: c.data == 'mafia_quantity')
     async def handle_button_click(callback_query: types.CallbackQuery):
-        one_per_3 = InlineKeyboardButton(text="1/3", callback_data="change_1_3")
-        one_per_4 = InlineKeyboardButton(text="1/4", callback_data="change_1_4")
+        print(get_mafia_by_chat_id(callback_query.message.chat.id))
+        if get_mafia_by_chat_id(callback_query.message.chat.id) == "1to3":
+            one_per_3 = InlineKeyboardButton(text="◾️ 1/3", callback_data="change_1_3")
+            one_per_4 = InlineKeyboardButton(text="▫️ 1/4", callback_data="change_1_4")
+        else:
+            one_per_3 = InlineKeyboardButton(text="▫️ 1/3", callback_data="change_1_3")
+            one_per_4 = InlineKeyboardButton(text="◾️ 1/4", callback_data="change_1_4")
         inline = InlineKeyboardMarkup(row_width=1).add(one_per_3, one_per_4)
         message = callback_query.message
         await message.edit_reply_markup(inline)
@@ -44,7 +49,7 @@ def register_settings_handlers(dp: Dispatcher):
 
         # Send a response message
         set_settings(chat_id, get_language_by_chat_id(chat_id).value, '1to3')
-        await message.answer(text=get_language(chat_id)['maf_changed'])
+        await message.answer(text=f"{get_language(chat_id)['maf_changed']}")
 
     @dp.callback_query_handler(lambda c: c.data == 'change_1_4')
     async def handle_button_click(callback_query: types.CallbackQuery):
