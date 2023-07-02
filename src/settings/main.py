@@ -85,15 +85,15 @@ def set_mafia_by_chat_id(chat_id: int, maf: str):
     try:
         mafia = config.get(str(chat_id), 'mafia')
         if maf == mafia:
-            return Mafia(mafia)
+            return mafia
         else:
             set_mafia_to_config(chat_id, maf)
-            return Mafia(mafia)
+            return mafia
     except:
         set_mafia_to_config(chat_id, maf)
         config.read(initfile)
         mafia = config.get(str(chat_id), 'mafia')
-        return Mafia(mafia)
+        return mafia
 
 def get_mafia_by_chat_id(chat_id: int):
     config = configparser.ConfigParser()
@@ -104,7 +104,7 @@ def get_mafia_by_chat_id(chat_id: int):
     config.read(initfile)
 
     mafia = config.get(str(chat_id), 'mafia')
-    return Mafia(mafia)
+    return mafia
 
 def get_config():
     # Create a ConfigParser object

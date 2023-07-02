@@ -43,7 +43,7 @@ def register_settings_handlers(dp: Dispatcher):
         chat_id = message.chat.id
 
         # Send a response message
-        set_settings(chat_id, str(get_language_by_chat_id(chat_id)), '1to3')
+        set_settings(chat_id, get_language_by_chat_id(chat_id).value, '1to3')
         await message.answer(text=get_language(chat_id)['maf_changed'])
 
     @dp.callback_query_handler(lambda c: c.data == 'change_1_4')
@@ -54,7 +54,7 @@ def register_settings_handlers(dp: Dispatcher):
         chat_id = message.chat.id
 
         # Send a response message
-        set_settings(chat_id, str(get_language_by_chat_id(chat_id)), '1to4')
+        set_settings(chat_id, get_language_by_chat_id(chat_id).value, '1to4')
         await message.answer(text=get_language(chat_id)['maf_changed'])
 
     # lang change
