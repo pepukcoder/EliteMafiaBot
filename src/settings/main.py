@@ -20,7 +20,7 @@ def set_language_to_config(chat_id: int, language: str):
     config.set(str(chat_id), 'language', language)
 
     # Write the updated configuration to the config.ini file
-    with open(initfile, 'w') as configfile:
+    with open(initfile, 'w', encoding="utf8") as configfile:
         config.write(configfile)
 
 def set_language_by_chat_id(chat_id: int, lang: str):
@@ -69,7 +69,7 @@ def get_config():
     return api_key
 
 def load_phrases(file_path):
-    with open(file_path, 'r') as file:
+    with open(file_path, 'r', encoding="utf8") as file:
         return json.load(file)
 
 def get_settings(chat_id: int):
