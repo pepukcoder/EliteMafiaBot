@@ -80,6 +80,13 @@
     "already_voted": "You have already voted",
     "game_cancel": "Game canceled",
     "game_not_exist": "The game does not exist, damn it",
+
+    "h_don": "don",
+    "h_gdon": "gandon",
+    "h_tag": "tag",
+    "h_true": "#truth",
+    "h_false": "#lie",
+
     "test": "Test message",
     "lang": "Language"
 }
