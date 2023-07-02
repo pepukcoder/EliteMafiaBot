@@ -5,6 +5,8 @@ from src.settings.main import set_settings
 from src.state import State
 from src.state import GameState
 from src.functions.is_group import IsGroup, IsPrivate
+from src.settings.main import get_language
+import random
 
 from src.misc import TgKeys
 from src.state.enums import Roles
@@ -33,12 +35,17 @@ def register_night_handlers(dp: Dispatcher):
             game = state.games[chat_id]
             user_ids = [user.user_id for user in game.users]
             if game.is_day:
-                pass
+                words = message.text.lower().split()
+                if len(words) == 1 and words[0].lower() == get_language(chat_id)['h_tag']:
+                    await message.reply(
+                        random.choice([get_language(chat_id)['h_true'], get_language(chat_id)['h_false']]))
+                if get_language(chat_id)['h_don'] in words:
+                    await message.reply(get_language(chat_id)['h_gdon'])
             else:
                 await bot.delete_message(message.chat.id, message.message_id)
 
             if message.from_user.id not in user_ids:
                 await bot.delete_message(message.chat.id, message.message_id)
-
         except:
             pass
+
