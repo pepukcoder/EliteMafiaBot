@@ -11,7 +11,7 @@ def register_other_handlers(dp: Dispatcher):
     @dp.message_handler()
     async def tag(message: types.Message):
         chat_id = message.chat.id
-        words = message.text.split()
+        words = message.text.lower().split()
         if len(words) == 1 and words[0].lower() == get_language(chat_id)['h_tag']:
             await message.reply(random.choice([get_language(chat_id)['h_true'], get_language(chat_id)['h_false']]))
         if get_language(chat_id)['h_don'] in words:
