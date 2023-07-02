@@ -11,6 +11,10 @@ class BotSettingsBuilder:
         self.settings.language = language
         return self
 
+    def setMafia(self, quantity):
+        self.settings.mafia = quantity
+        return self
+
     def setApiKey(self, api_key):
         self.settings.api_key = api_key
         return self

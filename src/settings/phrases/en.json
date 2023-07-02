@@ -88,5 +88,7 @@
     "h_false": "#lie",
 
     "test": "Test message",
-    "lang": "Language"
+    "lang": "Language",
+    "maf": "Mafia",
+    "maf_changed": "Mafia quantity changed!"
 }
