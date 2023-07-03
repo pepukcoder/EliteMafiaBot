@@ -30,7 +30,7 @@ async def assign(chat_id):
             case 9:
                 return assign_roles_scenario_9()
             case 10:
-                return assign_roles_scenario_9()
+                return assign_roles_scenario_10()
             case other:
                 return assign_roles_scenario_4()
                 # REWORK OTHER
