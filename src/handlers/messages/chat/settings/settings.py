@@ -1,7 +1,9 @@
 from aiogram import types
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram import Dispatcher
-from src.settings.main import get_language, set_settings, get_mafia_by_chat_id, get_language_by_chat_id
+from src.settings.main import get_language, set_settings
+from src.settings.managers.lang_chat_config_manager import LangChatConfigManager
+from src.settings.managers.mafia_chat_config_manager import MafiaChatConfigManager
 
 
 def register_settings_handlers(dp: Dispatcher):
@@ -29,8 +31,8 @@ def register_settings_handlers(dp: Dispatcher):
     # mafia_quantity change
     @dp.callback_query_handler(lambda c: c.data == 'mafia_quantity')
     async def handle_button_click(callback_query: types.CallbackQuery):
-        print(get_mafia_by_chat_id(callback_query.message.chat.id))
-        if get_mafia_by_chat_id(callback_query.message.chat.id) == "1to3":
+        print(MafiaChatConfigManager.get_mafia_from_config(callback_query.message.chat.id))
+        if MafiaChatConfigManager.get_mafia_from_config(callback_query.message.chat.id) == "1to3":
             one_per_3 = InlineKeyboardButton(text="✅ 1/3", callback_data="change_1_3")
             one_per_4 = InlineKeyboardButton(text="1/4", callback_data="change_1_4")
         else:
@@ -48,7 +50,7 @@ def register_settings_handlers(dp: Dispatcher):
         chat_id = message.chat.id
 
         # Send a response message
-        set_settings(chat_id, get_language_by_chat_id(chat_id).value, '1to3')
+        set_settings(chat_id, LangChatConfigManager.get_language_from_config(chat_id).value, '1to3')
         await message.answer(text=f"{get_language(chat_id)['maf_changed']}")
 
     @dp.callback_query_handler(lambda c: c.data == 'change_1_4')
@@ -59,7 +61,7 @@ def register_settings_handlers(dp: Dispatcher):
         chat_id = message.chat.id
 
         # Send a response message
-        set_settings(chat_id, get_language_by_chat_id(chat_id).value, '1to4')
+        set_settings(chat_id, LangChatConfigManager.get_language_from_config(chat_id).value, '1to4')
         await message.answer(text=get_language(chat_id)['maf_changed'])
 
     # lang change
@@ -79,7 +81,7 @@ def register_settings_handlers(dp: Dispatcher):
         chat_id = message.chat.id
 
         # Send a response message
-        set_settings(chat_id, 'ru', str(get_mafia_by_chat_id(chat_id)))
+        set_settings(chat_id, 'ru', str(MafiaChatConfigManager.get_mafia_from_config(chat_id)))
         await message.answer(text=get_language(chat_id)['lang_changed'])
 
     @dp.callback_query_handler(lambda c: c.data == 'change_ru_mod')
@@ -90,7 +92,7 @@ def register_settings_handlers(dp: Dispatcher):
         chat_id = message.chat.id
 
         # Send a response message
-        set_settings(chat_id, 'ru_mod', str(get_mafia_by_chat_id(chat_id)))
+        set_settings(chat_id, 'ru_mod', str(MafiaChatConfigManager.get_mafia_from_config(chat_id)))
         await message.answer(text=get_language(chat_id)['lang_changed'])
 
     @dp.callback_query_handler(lambda c: c.data == 'change_ua')
@@ -101,7 +103,7 @@ def register_settings_handlers(dp: Dispatcher):
         chat_id = message.chat.id
 
         # Send a response message
-        set_settings(chat_id, 'uk', str(get_mafia_by_chat_id(chat_id)))
+        set_settings(chat_id, 'uk', str(MafiaChatConfigManager.get_mafia_from_config(chat_id)))
         await message.answer(text=get_language(chat_id)['lang_changed'])
 
     @dp.callback_query_handler(lambda c: c.data == 'change_en')
@@ -112,5 +114,5 @@ def register_settings_handlers(dp: Dispatcher):
         chat_id = message.chat.id
 
         # Send a response message
-        set_settings(chat_id, 'en', str(get_mafia_by_chat_id(chat_id)))
+        set_settings(chat_id, 'en', str(MafiaChatConfigManager.get_mafia_from_config(chat_id)))
         await message.answer(text=get_language(chat_id)['lang_changed'])

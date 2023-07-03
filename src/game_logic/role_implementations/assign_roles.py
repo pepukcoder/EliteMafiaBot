@@ -1,11 +1,11 @@
 import random
 import enum
 
+from src.settings.managers.mafia_chat_config_manager import MafiaChatConfigManager
 from src.state.enums import Roles
 from src.game_logic.role_implementations import Don, Mafia, Liar, Informant, Doctor, Detective, Whore, Omega, Lawyer, Alfa, Townie
 from src.state import UserState
 from src.state import State
-from src.settings.main import get_mafia_by_chat_id
 
 state = State()
 
@@ -58,7 +58,7 @@ async def assign(chat_id):
         player_roles = [Townie()]
         player_roles.append(Don())
         bad_role = []
-        mafia = get_mafia_by_chat_id(chat_id)
+        mafia = MafiaChatConfigManager.get_mafia_from_config(chat_id)
         if mafia == '1to3':
             bad_role = random.choice([role for role in BAD_ROLES if int(role) != Roles.DON.value])
         elif mafia == '1to4':
@@ -75,7 +75,7 @@ async def assign(chat_id):
         player_roles = [Townie()]
         player_roles.append(Don())
         bad_role = []
-        mafia = get_mafia_by_chat_id(chat_id)
+        mafia = MafiaChatConfigManager.get_mafia_from_config(chat_id)
         if mafia == '1to3':
             bad_role = random.choice([role for role in BAD_ROLES if int(role) != Roles.DON.value])
         elif mafia == '1to4':
@@ -94,7 +94,7 @@ async def assign(chat_id):
         player_roles.append(Don())
         player_roles.append(Mafia())
         bad_role = []
-        mafia = get_mafia_by_chat_id(chat_id)
+        mafia = MafiaChatConfigManager.get_mafia_from_config(chat_id)
         if mafia == '1to3':
             if random.random() < 0.5:
                 bad_role = random.choice(
@@ -117,7 +117,7 @@ async def assign(chat_id):
         player_roles.append(Don())
         player_roles.append(Mafia())
         bad_role = []
-        mafia = get_mafia_by_chat_id(chat_id)
+        mafia = MafiaChatConfigManager.get_mafia_from_config(chat_id)
         if mafia == '1to3':
             bad_role = random.choice([role for role in BAD_ROLES if int(role) != Roles.DON.value])
         elif mafia == '1to4':
@@ -140,7 +140,7 @@ async def assign(chat_id):
         player_roles.append(Don())
         player_roles.append(Mafia())
         bad_role = []
-        mafia = get_mafia_by_chat_id(chat_id)
+        mafia = MafiaChatConfigManager.get_mafia_from_config(chat_id)
         if mafia == '1to3':
             player_roles.append(Mafia())
             bad_role = random.choice([role for role in BAD_ROLES if int(role) != Roles.MAFIA.value and int(role) != Roles.DON.value])
@@ -167,7 +167,7 @@ async def assign(chat_id):
 
         # REWORK NEEDED
         bad_role = []
-        mafia = get_mafia_by_chat_id(chat_id)
+        mafia = MafiaChatConfigManager.get_mafia_from_config(chat_id)
         if mafia == '1to3':
             bad_count = (count // 3) - 1
             bad_role = random.sample([role for role in BAD_ROLES if int(role) != Roles.DON.value], bad_count)

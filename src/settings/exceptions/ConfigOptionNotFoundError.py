@@ -1,0 +1,2 @@
+class ConfigOptionNotFoundError(Exception):
+    pass

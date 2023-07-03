@@ -1,1 +1,1 @@
-from .language import Language, get_language_from_code
+from .language import Language
