@@ -35,7 +35,7 @@ class ConfigManager:
             config.write(configfile)
 
     @classmethod
-    def set_mafia_to_config(cls, chat_id: int, quantity: str):
+    def set_mafia_to_config(cls, chat_id: int, quantity: str) -> None:
         config = cls.__get_config_by_chat_id(chat_id)
         config.set(str(chat_id), 'mafia', str(quantity))
 
