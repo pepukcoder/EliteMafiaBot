@@ -30,8 +30,8 @@ class Doctor(Role):
         except KeyError:
             print(f"Game {chat_id} not found. doctor.py")
 
-    def __str__(self) -> str:
-        return "👨🏼‍⚕️Доктор"
+    def get_str(self, chat_id: int) -> str:
+        return get_language(chat_id)['doctor']
 
     def __int__(self) -> int:
         return Roles.DOCTOR.value

@@ -20,8 +20,8 @@ class Detective(Role):
                                                callback_data=f"detectiveskip_{chat_id}"))
         return inline_markup
 
-    def __str__(self) -> str:
-        return "🕵️Коммисарио Припиздуччи"
+    def get_str(self, chat_id: int) -> str:
+        return get_language(chat_id)['detective']
 
     def __int__(self) -> int:
         return Roles.DETECTIVE.value
@@ -52,7 +52,7 @@ class DetectiveLogic:
         return get_all_users_kb(chat_id, InteractionTypes.check, except_of_roles=[Roles.DETECTIVE])
 
     @staticmethod
-    def get_check_message(chat_id:int) -> str:
+    def get_check_message(chat_id: int) -> str:
         return get_language(chat_id)['choose_check']
 
     @staticmethod
@@ -63,5 +63,5 @@ class DetectiveLogic:
         return get_all_users_voting_kb(chat_id)
 
     @staticmethod
-    def get_kill_message(chat_id:int) -> str:
+    def get_kill_message(chat_id: int) -> str:
         return get_language(chat_id)['choose_kill']

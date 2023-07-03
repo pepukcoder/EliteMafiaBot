@@ -34,7 +34,6 @@
     "detective_checked": "You were investigated by the detective",
     "fucked_up_omega": "You got fucked up, got fucked and got fucked up again, now you are",
     "omega_popusk": "Omega was successfully fucked, now you are",
-    "townie": "\uD83D\uDC68\uD83C\uDFFCTownie",
     "interactive_alfa": "Choose who you will fuck tonight with",
     "interaction_alfa": "unzips a steroid dick...",
     "detective_action_choose": "Choose an action",
@@ -90,5 +89,17 @@
     "test": "Test message",
     "lang": "Language",
     "maf": "Mafia",
-    "maf_changed": "Mafia quantity changed!"
+    "maf_changed": "Mafia quantity changed!",
+
+    "townie": "\uD83D\uDC68\uD83C\uDFFCTownie",
+    "alfa": "\uD83E\uDDD4\uD83C\uDFFB\u200D♂\uFE0FAlfa",
+    "detective": "\uD83D\uDD75\uFE0FDetective",
+    "doctor": "\uD83D\uDC68\uD83C\uDFFC\u200D⚕\uFE0FDoctor",
+    "don": "\uD83E\uDD35\uD83C\uDFFBDon",
+    "informant": "\uD83E\uDDB8\uD83C\uDFFBInformant",
+    "lawyer": "\uD83D\uDC68\u200D⚖\uFE0FLawyer",
+    "liar": "\uD83D\uDC68\uD83C\uDFFE\u200D\uD83E\uDDB1Liar",
+    "mafia": "\uD83E\uDD35\uD83C\uDFFBMafia",
+    "omega": "\uD83D\uDC66Omega",
+    "whore": "\uD83D\uDC83\uD83C\uDFFCWhore"
 }

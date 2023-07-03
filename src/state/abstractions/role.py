@@ -6,11 +6,11 @@ from aiogram.types import InlineKeyboardMarkup
 
 class Role(ABC):
     @abstractmethod
-    def __str__(self) -> str:
+    def __int__(self) -> int:  # enum enums/roles.py
         pass
 
     @abstractmethod
-    def __int__(self) -> int:  # enum enums/roles.py
+    def get_str(self, chat_id: int) -> str:
         pass
 
     @abstractmethod

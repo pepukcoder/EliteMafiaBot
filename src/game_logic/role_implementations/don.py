@@ -24,8 +24,8 @@ class Don(Role):
     def get_interactive_kb(self, chat_id: int) -> InlineKeyboardMarkup:
         return get_all_users_kb(chat_id, InteractionTypes.don_vote_kill, except_of_roles=[Roles.DON])
 
-    def __str__(self) -> str:
-        return "🤵🏻Дон"
+    def get_str(self, chat_id: int) -> str:
+        return get_language(chat_id)['don']
 
     def __int__(self) -> int:
         return Roles.DON.value

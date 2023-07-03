@@ -11,6 +11,7 @@ from src.state.enums import Roles
 
 bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
 
+
 def register_interaction_handler(dp: Dispatcher):
     @dp.callback_query_handler(regexp="^(-?\d+)_(\d+)_(\-?\d+)$")
     async def interaction_handler(call: types.CallbackQuery):
@@ -36,7 +37,7 @@ def register_interaction_handler(dp: Dispatcher):
             return
         else:
             await bot.send_message(chat_id=int(chat_id),
-                                   text=f"{str(get_role_by_user_id(chat_id=int(chat_id), user_id=int(user_id)))} {get_role_by_user_id(chat_id=int(chat_id), user_id=int(user_id)).get_interaction_message(chat_id)}")
+                                   text=f"{get_role_by_user_id(chat_id=int(chat_id), user_id=int(user_id)).get_str(chat_id)} {get_role_by_user_id(chat_id=int(chat_id), user_id=int(user_id)).get_interaction_message(chat_id)}")
 
         # await bot.send_message(chat_id=int(chat_id),
         #                        text=f"{str(get_role_by_user_id(chat_id=int(chat_id), user_id=int(user_id)))} "
@@ -55,5 +56,5 @@ def register_interaction_handler(dp: Dispatcher):
                                                                                       day))
         await call.message.answer(get_language(int(chat_id))['skipped'])
         await bot.send_message(chat_id=int(chat_id),
-                               text=f"{str(get_role_by_user_id(chat_id=int(chat_id), user_id=user_id))} {get_language(int(chat_id))['kukold_huy']}")
+                               text=f"{get_role_by_user_id(chat_id=int(chat_id), user_id=user_id).get_str(chat_id)} {get_language(int(chat_id))['kukold_huy']}")
         await call.message.delete()

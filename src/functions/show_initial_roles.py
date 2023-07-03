@@ -15,15 +15,15 @@ async def show_initial(chat_id, bot, winner: bool):
         winners = f"{get_language(chat_id)['players_win']}\n"
         if winner:
             for idx, x in enumerate(bad):
-                winners = winners + str(idx + 1) + '. ' + str(x.link) + " — " + str(x.role) + "\n"
+                winners = winners + str(idx + 1) + '. ' + str(x.link) + " — " + x.role.get_str(chat_id) + "\n"
         else:
             for idx, x in enumerate(good):
-                winners = winners + str(idx + 1) + '. ' + str(x.link) + " — " + str(x.role) + "\n"
+                winners = winners + str(idx + 1) + '. ' + str(x.link) + " — " + x.role.get_str(chat_id) + "\n"
 
         message = f"{get_language(chat_id)['initial_roles']}\n"
 
         for idx, x in enumerate(initial_users):
-            message = message + str(idx + 1) + '. ' + str(x.link) + " — " + str(x.role) + "\n"
+            message = message + str(idx + 1) + '. ' + str(x.link) + " — " + x.role.get_str(chat_id) + "\n"
 
         result = winners + "\n" + message
 

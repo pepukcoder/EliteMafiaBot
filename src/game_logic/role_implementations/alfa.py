@@ -16,8 +16,8 @@ class Alfa(Role):
     def get_interactive_kb(self, chat_id: int) -> InlineKeyboardMarkup:
         return get_all_users_kb(chat_id, InteractionTypes.fuck_alfa, except_of_roles=[Roles.ALFA])
 
-    def __str__(self) -> str:
-        return "🧔🏻‍♂️Альфач"
+    def get_str(self, chat_id: int) -> str:
+        return get_language(chat_id)['alfa']
 
     def __int__(self) -> int:
         return Roles.ALFA.value

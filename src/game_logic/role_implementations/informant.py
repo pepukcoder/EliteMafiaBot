@@ -14,8 +14,8 @@ class Informant(Role):
     def get_interactive_kb(self, chat_id: int) -> InlineKeyboardMarkup:
         return get_all_users_kb(chat_id, InteractionTypes.podsos, except_of_roles=[Roles.INFORMANT])
 
-    def __str__(self) -> str:
-        return "🦸🏻Подсосыш"
+    def get_str(self, chat_id: int) -> str:
+        return get_language(chat_id)['informant']
 
     def __int__(self) -> int:
         return Roles.INFORMANT.value

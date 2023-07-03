@@ -30,10 +30,10 @@ async def check_switch_back(chat_id: int):
             townie = get_role_by_user_id(chat_id, interaction.interaction_object)
             change_user_role(chat_id, interaction.interaction_subject, townie)
             await bot.send_message(chat_id=interaction.interaction_subject,
-                                   text=f"{get_language(chat_id)['fucked_up_omega']} - {str(get_role_by_user_id(chat_id, interaction.interaction_subject))}")
+                                   text=f"{get_language(chat_id)['fucked_up_omega']} - {get_role_by_user_id(chat_id, interaction.interaction_subject).get_str(chat_id)}")
             change_user_role(chat_id, interaction.interaction_object, snatched_role)
             await bot.send_message(chat_id=interaction.interaction_object,
-                                   text=f"{get_language(chat_id)['omega_popusk']} {str(get_role_by_user_id(chat_id, interaction.interaction_object))}")
+                                   text=f"{get_language(chat_id)['omega_popusk']} {get_role_by_user_id(chat_id, interaction.interaction_object).get_str(chat_id)}")
 
         else:
             return
@@ -139,7 +139,7 @@ async def activate_interactions(chat_id: int) -> None:
             detective = get_user_id_by_role(chat_id, Roles.DETECTIVE)
             print(detective)
             await bot.send_message(chat_id=detective,
-                                   text=f"{get_name_by_user_id(chat_id, detective_check_user_id)} - {str(get_role_by_user_id(chat_id=chat_id, user_id=detective_check_user_id))}")
+                                   text=f"{get_name_by_user_id(chat_id, detective_check_user_id)} - {get_role_by_user_id(chat_id, detective_check_user_id).get_str(chat_id)}")
             await bot.send_message(chat_id=detective_check_user_id, text=get_language(chat_id)['detective_checked'])
             pass
     except:

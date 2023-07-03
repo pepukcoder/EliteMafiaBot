@@ -9,7 +9,6 @@ def get_role_by_user_id(chat_id: int, user_id: int):
     for user in game.users:
         if user.user_id == user_id:
             return user.role
-            print(user.role)
 
 def get_user_id_by_role(chat_id: int, role: int):
     state = State()

@@ -9,7 +9,7 @@ class SendVotingChat(Strategy):
         pass
 
     def send_voting_chat(chat_id: int, user_id: int, user_firstname: str):
-        return send_voting(chat_id=chat_id, user_id=user_id, user_firstname=user_firstname)
+        return send_voting(chat_id=chat_id, user_id=user_id)
 
     def get_text(self, role: Role, chat_id: int):
         pass

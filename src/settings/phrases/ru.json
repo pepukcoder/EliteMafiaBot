@@ -34,7 +34,6 @@
     "detective_checked": "Тебя чекал коммисар",
     "fucked_up_omega": "Тебя раскрыли, теперь ты",
     "omega_popusk": "Омега был успешно раскрыт, теперь ты снова",
-    "townie": "\uD83D\uDC68\uD83C\uDFFCМирный житель",
     "interactive_alfa": "Выберите, к кому вы будете заходить этой ночью",
     "interaction_alfa": "уже выходит в клуб...",
     "detective_action_choose": "Выбери действие",
@@ -90,5 +89,17 @@
     "test": "Тестовое сообщение",
     "lang": "Язык",
     "maf": "Мафия",
-    "maf_changed": "Количество мафии изменено!"
+    "maf_changed": "Количество мафии изменено!",
+
+    "townie": "\uD83D\uDC68\uD83C\uDFFCМирный житель",
+    "alfa": "\uD83E\uDDD4\uD83C\uDFFB\u200D♂\uFE0FАльфа",
+    "detective": "\uD83D\uDD75\uFE0FКоммисар",
+    "doctor": "\uD83D\uDC68\uD83C\uDFFC\u200D⚕\uFE0FДоктор",
+    "don": "\uD83E\uDD35\uD83C\uDFFBДон",
+    "informant": "\uD83E\uDDB8\uD83C\uDFFBОсведомитель",
+    "lawyer": "\uD83D\uDC68\u200D⚖\uFE0FАдвокат",
+    "liar": "\uD83D\uDC68\uD83C\uDFFE\u200D\uD83E\uDDB1Пиздабол",
+    "mafia": "\uD83E\uDD35\uD83C\uDFFBМафия",
+    "omega": "\uD83D\uDC66Омега",
+    "whore": "\uD83D\uDC83\uD83C\uDFFCШлюха"
 }

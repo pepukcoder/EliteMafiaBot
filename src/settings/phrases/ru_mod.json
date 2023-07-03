@@ -36,7 +36,6 @@
     "detective_checked": "В твоём очке был коммисар",
     "fucked_up_omega": "Тебя обоссали, отпиздили, и попустили, теперь ты",
     "omega_popusk": "Омегу успешно обоссали, теперь ты снова",
-    "townie": "\uD83D\uDC68\uD83C\uDFFCМирный житель",
     "interactive_alfa": "Выбери, кто подарит тебе сегодня новый диагноз",
     "interaction_alfa": "уже расчехляет залупу...",
     "detective_action_choose": "Выбери хуйню",
@@ -92,5 +91,17 @@
     "test": "Тестовая хуйня",
     "lang": "Язык_mod",
     "maf": "МафиоZники",
-    "maf_changed": "Регруппировка мафиоZы прошла по плану!"
+    "maf_changed": "Регруппировка мафиоZы прошла по плану!",
+
+    "townie": "\uD83D\uDC68\uD83C\uDFFCМирный чмоня",
+    "alfa": "\uD83E\uDDD4\uD83C\uDFFB\u200D♂\uFE0FАльфач",
+    "detective": "\uD83D\uDD75\uFE0FКоммисарио Припиздуччи",
+    "doctor": "\uD83D\uDC68\uD83C\uDFFC\u200D⚕\uFE0FДок",
+    "don": "\uD83E\uDD35\uD83C\uDFFBГандон",
+    "informant": "\uD83E\uDDB8\uD83C\uDFFBПодсосыш",
+    "lawyer": "\uD83D\uDC68\u200D⚖\uFE0FАдвокат",
+    "liar": "\uD83D\uDC68\uD83C\uDFFE\u200D\uD83E\uDDB1Пиздабол",
+    "mafia": "\uD83E\uDD35\uD83C\uDFFBМафиоZник",
+    "omega": "\uD83D\uDC66Омежка",
+    "whore": "\uD83D\uDC83\uD83C\uDFFCШлюха"
 }

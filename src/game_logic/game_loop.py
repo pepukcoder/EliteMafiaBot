@@ -51,6 +51,7 @@ async def start_loop(chat_id):
         await show_alive(chat_id, bot)
         # empty array and delete reg message
         # send interaction keyboard. Note: This must be called INSIDE the game loop
+        await increment_day(chat_id)
         sending_context.strategy = SendInteractiveMessagesStrategy()
         await sending_context.send(chat_id, bot)
 
@@ -63,7 +64,6 @@ async def start_loop(chat_id):
 
         # set day
         await Delete.delete_all_interaction_keyboards(chat_id, bot)
-        await increment_day(chat_id)
         await show_alive(chat_id, bot)
 
         # win check

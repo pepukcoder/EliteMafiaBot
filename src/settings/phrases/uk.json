@@ -34,7 +34,6 @@
     "detective_checked": "Тебе перевіряв комісар",
     "fucked_up_omega": "Тебе обосрали, підкурили, і дали підрізати, тепер ти",
     "omega_popusk": "Омега був успішно опущений, тепер ти знову",
-    "townie": "\uD83D\uDC68\uD83C\uDFFCМирний житель",
     "interactive_alfa": "Оберіть, кого ви будете єбати цієї ночі",
     "interaction_alfa": "розчехляє стероїдну залупу...",
     "detective_action_choose": "Оберіть дію",
@@ -90,5 +89,17 @@
     "test": "Тестове повiдомлення",
     "lang": "Мова",
     "maf": "Мафія",
-    "maf_changed": "Кількість мафії змінено!"
+    "maf_changed": "Кількість мафії змінено!",
+
+    "townie": "\uD83D\uDC68\uD83C\uDFFCМирний житель",
+    "alfa": "\uD83E\uDDD4\uD83C\uDFFB\u200D♂\uFE0FАльфач",
+    "detective": "\uD83D\uDD75\uFE0FКомісар",
+    "doctor": "\uD83D\uDC68\uD83C\uDFFC\u200D⚕\uFE0FЛікар",
+    "don": "\uD83E\uDD35\uD83C\uDFFBДон",
+    "informant": "\uD83E\uDDB8\uD83C\uDFFBIнформатор",
+    "lawyer": "\uD83D\uDC68\u200D⚖\uFE0FАдвокат",
+    "liar": "\uD83D\uDC68\uD83C\uDFFE\u200D\uD83E\uDDB1Брехун",
+    "mafia": "\uD83E\uDD35\uD83C\uDFFBМафія",
+    "omega": "\uD83D\uDC66Омега",
+    "whore": "\uD83D\uDC83\uD83C\uDFFCПроститутка"
 }

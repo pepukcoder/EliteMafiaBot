@@ -18,8 +18,8 @@ class Liar(Role):
     def get_interactive_kb(self, chat_id: int) -> InlineKeyboardMarkup:
         return get_all_users_kb(chat_id, InteractionTypes.lie, except_of_roles=[Roles.LIAR])
 
-    def __str__(self) -> str:
-        return "👨🏾‍🦱Пиздабол"
+    def get_str(self, chat_id: int) -> str:
+        return get_language(chat_id)['liar']
 
     def __int__(self) -> int:
         return Roles.LIAR.value
