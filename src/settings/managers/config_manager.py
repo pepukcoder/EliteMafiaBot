@@ -4,7 +4,7 @@ import os
 
 class ConfigManager:
     @classmethod
-    def __get_init_file(cls) -> str:
+    def get_init_file(cls) -> str:
         settings_folder = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         init_file = os.path.join(settings_folder, 'config/chats.ini')
 
@@ -15,7 +15,7 @@ class ConfigManager:
         config = ConfigParser()
 
         # Read the existing config.ini file
-        init_file = cls.__get_init_file()
+        init_file = cls.get_init_file()
         config.read(init_file)
 
         # Set the section for the specific chat_id
@@ -30,7 +30,7 @@ class ConfigManager:
         config.set(str(chat_id), 'language', language)
 
         # Write the updated configuration to the config.ini file
-        init_file = cls.__get_init_file()
+        init_file = cls.get_init_file()
         with open(init_file, 'w', encoding="utf8") as configfile:
             config.write(configfile)
 
@@ -40,6 +40,6 @@ class ConfigManager:
         config.set(str(chat_id), 'mafia', str(quantity))
 
         # Write the updated configuration to the config.ini file
-        init_file = cls.__get_init_file()
+        init_file = cls.get_init_file()
         with open(init_file, 'w', encoding="utf8") as configfile:
             config.write(configfile)
